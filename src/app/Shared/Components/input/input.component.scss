@@ -1,0 +1,76 @@
+::placeholder {
+  color: var(--main-gray);
+  padding-bottom:5px;
+}
+label {
+  color: var(--primary);
+  font-weight: 400;
+  font-size: 18px;
+}
+.inputContainer {
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  background-color: var(--main-white);
+  width: 100%;
+  position: relative;
+  input {
+    @apply py-3 pr-2;
+    border: none;
+    background-color: transparent;
+    width: 87%;
+    color: var(--main-black);
+    &:read-only {
+      opacity: 0.6;
+    }
+    &:focus
+    {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.unit {
+  background-color: #ffffff;
+  color: var(--main-gray);
+  text-align: center;
+  border-radius: 25px;
+  position: absolute;
+  left: 3px;
+  top: 11px;
+  display: flex;
+  width: 59px;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-dropdown {
+  @apply pr-1 py-0 rounded-lg;
+  margin-left: 2rem;
+  background: var(--main-white);
+  span
+  {
+    @apply py-1 px-0
+  }
+}
+:host ::ng-deep .p-dropdown-trigger-icon {
+  display: block !important;
+}
+::ng-deep   .p-inputwrapper-focus
+{
+  box-shadow: none !important;
+}
+
+@media (min-width:1480px) and (max-width: 1542px) {
+  ::placeholder {
+    font-size: 14px;
+  }
+}

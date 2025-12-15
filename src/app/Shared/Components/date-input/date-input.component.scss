@@ -1,0 +1,62 @@
+.labelText {
+  color: var(--primary);
+  font-weight: 400;
+  font-size: 18px;
+}
+.inputContainer {
+  @apply py-3 pr-2;
+  width: 100%;
+  position: relative;
+  background-color: var(--main-white);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  .icon {
+    position: absolute;
+    cursor: pointer;
+    left: 15px;
+    top: 15px;
+  }
+  .placeholder
+  {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    color: var(--main-gray);
+  }
+}
+:host ::ng-deep .p-inputtext {
+  color: var(--main-black);
+  background-color: transparent;
+  width: 100%;
+}
+:host ::ng-deep .p-highlight {
+  background-color: var(--secondary);
+  color:var(--main-white);
+}
+:host ::ng-deep .p-focus {
+  display: flex;
+}
+::ng-deep .p-calendar-clear-icon {
+  margin-right: 1rem;
+}
+:host ::ng-deep .ng-trigger-overlayAnimation {
+  top: 0;
+  margin-top: 3rem;
+}
+:host ::ng-deep .p-calendar {
+  background-color: var(--main-white);
+  input {
+    &:focus {
+      border: none;
+      box-shadow: none !important;
+    }
+  }
+}
+
+
+@media (min-width:1480px) and (max-width: 1542px) {
+  .placeholder
+  {
+  font-size: 14px;
+  }
+}

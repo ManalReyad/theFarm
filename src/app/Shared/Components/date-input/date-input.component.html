@@ -1,0 +1,27 @@
+<div class="">
+  <label class="labelText" *ngIf="!hideLabel">{{ labelText }}</label>
+  <span class="text-red-500" *ngIf="!control.value && !hideLabel &&isRequired">*</span>
+
+  <div class="inputContainer mt-2" (click)="openCalendar()">
+    <p-floatLabel>
+      <p-calendar
+        #calendar
+        [selectionMode]="isRange ? 'range' : 'single'"
+        [formControl]="control"
+        [inputId]="id"
+        [name]="id"
+        (onSelect)="onChange($event)"
+        appendTo="body"
+        [readonlyInput]="true"
+      ></p-calendar>
+      <span *ngIf="!control.value" class="placeholder">{{ placeholder }}</span>
+    </p-floatLabel>
+    <label class="icon" [for]="id">
+      <img src="../../../../assets/images/calendar.svg" alt="calendar icon" />
+    </label>
+  </div>
+
+  <small class="text-red-500" *ngIf="errMsg || controlValidation">
+    {{ errMsg || "هذا الحقل مطلوب " }}
+  </small>
+</div>

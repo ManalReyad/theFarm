@@ -1,0 +1,17 @@
+button {
+  @apply py-2 px-4;
+  background-color: var(--warning);
+  color: var(--main-white);
+  border: none;
+  border-radius: 8px;
+}
+.outlineBtn {
+  background-color: var(--main-white);
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+p {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-gray);
+}

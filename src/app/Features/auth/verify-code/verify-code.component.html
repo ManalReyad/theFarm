@@ -1,0 +1,70 @@
+<div class="grid grid-cols-12 white min-h-screen">
+  <!-- <div class="flex flex-col col-span-1"></div> -->
+  <div class="col-span-8 p-8 pt-12 white">
+    <div class="flex flex-col gap-12">
+      <div class="flex flex-col justify-start items-center -mr-36">
+        <img src="../../../../assets/images/loginLogo.svg" alt="login Logo" />
+
+        <div class="flex flex-col mt-8 -mr-36">
+          <h1>كود التحقق</h1>
+          <div class="flex gap-2">
+            <p>قم بإدخال الكود المُرسل إلى</p>
+            <span class="email">{{ otpData?.email }}</span>
+          </div>
+        </div>
+
+        <div class="countDown -mr-36">
+          <label>الكود ينتهى في</label>
+          <span>{{time}}</span>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="otpForm" class="flex flex-col items-center mt-16 mr-28">
+      <ng-otp-input
+        #ngOtpInput
+        [formCtrl]="otpControl"
+        (onInputChange)="otpChanged($event)"
+        [config]="{
+          length: 4,
+          inputStyles:{border:errMsg?'1px solid var(--error)':'1px solid var(--gray)',
+            color:errMsg?'var(--error)':'var(--main-black)'
+          },
+          containerStyles: {
+            direction: 'ltr',
+           
+          }
+        }"
+      ></ng-otp-input>
+      <small>
+        <img
+          *ngIf="errMsg"
+          src="../../../../assets/images/errorIcon.svg"
+          alt="error icon"
+        />
+        <p>{{ errMsg }}</p>
+      </small>
+      <div class="flex justify-center w-3/4">
+        <!-- [disabled]="otpForm.get('otpControl')?.value?.length < 4" -->
+        <button
+          class="verifyBtn mt-8 w-3/4 ml-1"
+          (click)="verify()"
+          [disabled]="loading"
+        >
+          تحقق من الكود
+          <i class="pi pi-spin pi-spinner mr-1" style="font-size: 1.2rem" *ngIf="loading"></i>
+        </button>
+      </div>
+
+      <div class="text-center mt-5">
+        <a class="flex gap-1">
+          <span style="color: var(--main-gray)">لم تتسلم كود؟</span>
+          <span style="color: var(--secondary)" class="cursor-pointer" (click)="resendCode()"
+            >إعادة إرساله</span
+          >
+        </a>
+      </div>
+    </form>
+  </div>
+  <div class="left col-span-4 min-h-screen"></div>
+</div>

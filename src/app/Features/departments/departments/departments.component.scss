@@ -1,0 +1,29 @@
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+}
+button {
+  background-color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--main-white);
+  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
+.exitBtn {
+  background-color: var(--main-white);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
+}

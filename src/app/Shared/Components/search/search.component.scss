@@ -1,0 +1,27 @@
+div {
+  background-color: var(--main-white);
+  border-radius: 8px;
+  input {
+    border: none;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  span {
+    cursor: pointer;
+    label {
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+::placeholder {
+  color: var(--main-gray);
+  padding-bottom: 5px;
+}

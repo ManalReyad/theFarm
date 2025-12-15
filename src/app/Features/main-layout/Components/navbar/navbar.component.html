@@ -1,0 +1,44 @@
+<div class="navContainer flex justify-between items-center navContainer mr-8 ml-8 mt-10">
+  <div class="right flex items-center gap-3">
+    <button class="flex items-center" (click)="toggleSideNav()">
+      <i class="pi pi-bars" style="font-size: 1.3rem;color: var(--primary)"></i>
+    </button>
+    <div class="title">منصة تسجيل الموظفين</div>
+  </div>
+
+  <div class="left flex gap-4" (click)="userInfo.toggle($event)">
+      <div class="notification"><i class="fa-solid fa-bell fa-xl"></i></div>
+      <div class="profile flex items-center gap-4">
+        <img src="../../../../../assets/images/profile.svg" alt="profile">
+        <span class="userName">آدم يوسف</span>
+        <img src="../../../../../assets/images/arrow down.svg" alt="icon">
+      </div>
+
+  </div>
+</div>
+
+
+<p-overlayPanel #userInfo>
+  <div class="userInfoContainer">
+    <div class="flex gap-4 pl-4 pr-4">
+      <img
+        class="profileImage mb-3"
+        src="../../../../assets/images/Profile Picture.svg"
+        alt=""
+      />
+      <div class="userInfo mb-3">
+        <div class="name">آدم يوسف</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="options">
+    <div class="flex gap-4 mb-3 cursor-pointer">
+      <label class="labelText cursor-pointer">الملف الشخصي</label>
+    </div>
+    <div class="flex gap-4 cursor-pointer" (click)="logout()">
+      <label class="labelText cursor-pointer">تسجيل خروج</label>
+    </div>
+    <div></div>
+  </div>
+</p-overlayPanel>

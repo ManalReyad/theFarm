@@ -1,0 +1,85 @@
+.resendMsg {
+  color: #682032;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration-line: underline;
+}
+
+:host ::ng-deep .otp-input {
+  margin-left: 8px;
+  margin-right: unset !important;
+  border-radius: 8px !important;
+  width: 142px !important;
+  height: 48px !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  input {
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+div {
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary);
+    display: block;
+  }
+
+  p {
+    color: var(--main-gray);
+    font-size: 18px;
+    display: block;
+  }
+
+  .email {
+    color: var(--secondary);
+  }
+}
+.verifyBtn {
+  @apply py-2 px-5;
+  border-radius: 8px;
+  background-color: var(--primary);
+  color: var(--main-white);
+  align-self: stretch;
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+}
+.left {
+  background-image: url("../../../../assets/images/login.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.white {
+  background-color: var(--main-white);
+}
+small {
+  @apply flex justify-start  items-center gap-2 mt-6;
+  p {
+    color: var(--error);
+    font-size: 14px;
+  }
+}
+
+.countDown {
+  @apply px-3 py-2 flex gap-2 mt-8 -mr-36;
+  width: fit-content;
+  border-radius: 8px;
+  background-color: var(--secondary-light);
+}
+div {
+  label {
+    font-size: 17px;
+    color: var(--main-gray);
+    white-space: nowrap;
+  }
+
+  span {
+    color: var(--secondary);
+    font-size: 17px;
+  }
+}

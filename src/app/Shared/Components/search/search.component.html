@@ -1,0 +1,23 @@
+<div class="flex py-1 px-3">
+  <img src="../../../../assets/images/search.svg" alt="search icon" />
+  <input
+    (keyup)="getSearchValue($event)"
+    [placeholder]="placeholder"
+    class="py-1 mr-1"
+    [value]="resetSearch?'':searchValue"
+  />
+
+  <span
+    class="flex justify-between gap-1 items-center cursor-pointer px-1 w-auto"
+    [style.visibility]="filterBtn ? 'visible' : 'hidden'"
+    
+  >
+    <span class="w-fit flex gap-1" (click)="onFilter()">
+      <img src="../../../../assets/images/filter.svg" alt="filter icon" />
+      <label class="cursor-pointer">تصفية</label>
+    </span>
+  </span>
+
+  
+  
+</div>

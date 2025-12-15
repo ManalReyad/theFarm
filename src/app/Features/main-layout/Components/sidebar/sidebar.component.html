@@ -1,0 +1,21 @@
+<div class="col-span-12">
+  <p-sidebar
+    [showCloseIcon]="false"
+    [styleClass]="'lg:w-1/6'"
+    [(visible)]="sidebarVisible"
+    position="right"
+    (onHide)="onCloseSidebar()"
+    [modal]="false"
+  >
+    <div class="logoImg mb-4 -mt-5">
+      <img
+        src="../../../../../assets/images/logo.svg"
+        class="mx-auto"
+        alt="logo"
+      />
+    </div>
+    <div class="mt-8">
+      <p-panelMenu [model]="sideRoutes"></p-panelMenu>
+    </div>
+  </p-sidebar>
+</div>

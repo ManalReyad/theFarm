@@ -1,0 +1,308 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="card mb-8">
+    <h1>ملف الموظف</h1>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="رقم الملف"
+          formControlName="fileId"
+          inputType="number"
+          placeholder="أدخل رقم الملف"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-dropdown
+          labelText="النوع"
+          formControlName="employeeTypeId"
+          [options]="employmentTypesOptions"
+          placeholder="اختر النوع"
+        >
+        </app-dropdown>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-dropdown
+          labelText="الوضع الراهن"
+          formControlName="currentStatusId"
+          [options]="currentStatusOptions"
+          placeholder="اختر الوضع الراهن"
+        >
+        </app-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-8">
+    <h1>اسم الموظف</h1>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="الاسم الأول"
+          formControlName="firstName"
+          placeholder="أدخل الاسم الأول"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="الاسم الثاني"
+          formControlName="secondName"
+          placeholder="أدخل الاسم الثاني"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="الاسم الثالث "
+          formControlName="thirdName"
+          placeholder="أدخل الاسم الثالث"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="الاسم الرابع "
+          formControlName="forthName"
+          placeholder="أدخل الاسم الرابع"
+        >
+        </app-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-8">
+    <h1>بيانات الموظف</h1>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-dropdown
+          labelText="الجنس"
+          formControlName="genderId"
+          [options]="genderOptions"
+          placeholder="اختر الجنس"
+        >
+        </app-dropdown>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-date-input
+          labelText="تاريخ الميلاد"
+          formControlName="birthDate"
+          placeholder="اختر تاريخ الميلاد"
+          id="birthDate"
+        >
+        </app-date-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="مكان الميلاد "
+          [isRequired]="false"
+          formControlName="birthPlace"
+          placeholder="أدخل مكان الميلاد"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-dropdown
+          labelText="الجنسية"
+          formControlName="nationalityId"
+          [options]="nationalityOptions"
+          placeholder="اختر الجنسية"
+        >
+        </app-dropdown>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-dropdown
+          labelText="الحالة الاجتماعية"
+          formControlName="maritalStatusId"
+          [options]="maritalStatusOptions"
+          placeholder="اختر الحالة الاجتماعية"
+        >
+        </app-dropdown>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-dropdown
+          labelText="الديانة"
+          formControlName="religionId"
+          [options]="religionOptions"
+          placeholder="اختر الديانة"
+        >
+        </app-dropdown>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="الهاتف"
+          formControlName="phone"
+          placeholder="أدخل رقم الهاتف"
+          inputType="number"
+          [maxLength]="10"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="الجوال"
+          formControlName="mobile"
+          placeholder="أدخل رقم الجوال"
+          inputType="number"
+          [maxLength]="10"
+        >
+        </app-input>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="صندوق البريد"
+          [isRequired]="false"
+          formControlName="zipcode"
+          placeholder="أدخل صندوق البريد"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-9 xl:col-span-8 lg:col-span-9 md:col-span-12 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="العنوان الوطني "
+          [isRequired]="false"
+          formControlName="nationalAddress"
+          placeholder="أدخل العنوان الوطني"
+        >
+        </app-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-8">
+    <h1>بطاقة الأحوال</h1>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="رقم الحفيظة"
+          formControlName="recordId"
+          placeholder="أدخل رقم الحفيظة"
+          inputType="number"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="رقم البطاقة"
+          formControlName="nationalId"
+          placeholder="أدخل رقم البطاقة"
+          inputType="number"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-date-input
+          labelText="تاريخ الإصدار "
+          formControlName="releaseDate"
+          placeholder="اختر تاريخ الإصدار"
+          id="releaseDate"
+        >
+        </app-date-input>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-input
+          labelText="مكان الإصدار "
+          formControlName="releasePlace"
+          placeholder="اختر مكان الإصدار"
+        >
+        </app-input>
+      </div>
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-date-input
+          labelText="تاريخ الالتحاق بالدولة"
+          formControlName="countryJoiningDate"
+          placeholder="اختر تاريخ الالتحاق بالدولة"
+          id="countryJoiningDate"
+        >
+        </app-date-input>
+      </div>
+      <div
+      class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+    >
+      <app-date-input
+        labelText="تاريخ الالتحاق بالبلدية"
+        formControlName="municipalityJoiningDate"
+        placeholder="اختر تاريخ الالتحاق بالبلدية"
+        id="municipalityJoiningDate"
+      >
+      </app-date-input>
+    </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4">
+      <div
+        class="flex flex-col 2xl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-6 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <app-date-input
+          labelText="تاريخ إنهاء الخدمة"
+          formControlName="retirementDate"
+          placeholder="اختر تاريخ إنهاء الخدمة"
+          id="retirementDate"
+          [isRequired]="false"
+        >
+        </app-date-input>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<div>
+  
+</div>

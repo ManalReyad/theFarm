@@ -1,0 +1,120 @@
+.listContainer {
+  background-color: var(--main-white);
+  border-radius: 8px;
+
+}
+.index
+{
+  display: block;
+  width: fit-content;
+}
+:host ::ng-deep .custom-style .p-datatable{
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+}
+:host ::ng-deep .p-datatable {
+  background-color: transparent;
+  td {
+    @apply py-4 px-2;
+    color: var(--main-gray);
+  }
+  tr:not(:last-child) {
+    border-bottom: 1px solid rgba(112, 112, 112, 0.18);
+  }
+  thead tr:first-child {
+    border-bottom: 2px solid var(--secondary);
+  }
+}
+:host ::ng-deep th {
+  @apply py-3 px-3  text-center;
+  font-weight: 600;
+  background-color: unset;
+  color: var(--main-gray);
+}
+:host ::ng-deep td {
+  text-align: center;
+  color: var(--main-gray);
+}
+
+
+.pagination {
+  @apply flex items-center md:justify-between  justify-center flex-wrap mt-4;
+  .nestedDiv {
+    @apply 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-0 mt-3;
+    .spanText {
+      @apply mx-1 text-gray-500 text-base;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-paginator {
+    background-color: var(--background);
+    padding-right: 0;
+    margin-right: -5px;
+  }
+  .p-paginator-element {
+    @apply rounded-lg;
+    background: var(--main-white);
+  }
+  .p-paginator-last,
+  .p-paginator-next,
+  .p-paginator-first,
+  .p-paginator-prev {
+    @apply rotate-180 p-0  mx-1 rounded-lg;
+    color: var(--secondary);
+    background: var(--main-white);
+    min-width: 2rem;
+    height: 2rem;
+  }
+  .p-highlight {
+    @apply text-white;
+    background: var(--secondary);
+  }
+  .p-link {
+    @apply w-2;
+    min-width: 2rem;
+    height: 2rem;
+  }
+  .p-dropdown {
+    @apply pr-1 py-0 rounded-lg;
+    background: var(--main-white);
+    span
+    {
+      @apply py-1 px-1
+    }
+  }
+  .p-dropdown-trigger-icon {
+    display: block !important;
+    color: var(--primary);
+  }
+  .p-dropdown-label {
+    @apply text-gray-500;
+  }
+  .p-element.p-dropdown-item {
+    @apply px-2 py-0;
+  }
+  .p-paginator-element {
+    @apply mx-1;
+  }
+}
+
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background-color: var(--primary);
+}
+
+::ng-deep .p-paginator-last,
+::ng-deep .p-paginator-first {
+  display: none;
+}
+.noDataSection {
+  @apply flex items-center justify-center flex-col;
+  height: 70vh;
+  button {
+    @apply  flex items-center  px-7 py-3 font-semibold mt-4;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: var(--main-white);
+    cursor: pointer;
+  }
+}

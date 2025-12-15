@@ -1,0 +1,34 @@
+<div>
+<label *ngIf="showLabel">{{ labelText }}</label>
+<span class="text-red-500" *ngIf="(whiteSpaceError || !control.value)&&isRequired">*</span>
+<br />
+<div class="inputContainer mt-2">
+  <input
+    [formControl]="control"
+    [type]="inputType"
+    [value]="value"
+    (keypress)="restrictLength($event)"
+    (keydown)="restrictNagtive($event)"
+    (focus)="onFocus()"
+    (change)="onChange($event)"
+    (blur)="onKeyup()"
+    [readonly]="disabled"
+    [placeholder]="placeholder"
+  />
+  <span class="unit" *ngIf="unit"> {{unit}} </span>
+  <span class="unit" *ngIf="selectUnit"> 
+    <p-dropdown
+    [options]="options"
+    optionLabel="name"
+    optionValue="id"
+    [(ngModel)]="unitValue"
+    (onChange)="changeUnit($event)"
+  ></p-dropdown>
+  </span>
+</div>
+
+<small class="text-red-500" *ngIf="errMsg || controlValidation">
+  {{ errMsg || "هذا الحقل مطلوب " }}
+</small>
+</div>
+

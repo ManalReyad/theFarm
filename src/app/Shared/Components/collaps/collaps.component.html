@@ -1,0 +1,45 @@
+<input
+  [id]="collapseId"
+  type="checkbox"
+  [checked]="isToggled"
+  (change)="toggel()"
+/>
+
+<div class="flex justify-between items-center">
+  <label
+    class="flex justify-center items-center gap-2 py-6 cursor-pointer"
+    [ngClass]="isToggled ? 'toggeled' : 'notToggeled'"
+    [for]="collapseId"
+  >
+    <img
+      *ngIf="icon && !isToggled"
+      [src]="'../../../../assets/images/' + icon"
+      alt="icon"
+    />
+    <img
+      *ngIf="activeIcon && isToggled"
+      [src]="'../../../../assets/images/' + activeIcon"
+      alt="active icon"
+    />
+    <span>{{ title }}</span>
+  </label>
+  <label [for]="collapseId">
+    <img
+      *ngIf="!isToggled"
+      class="cursor-pointer"
+      src="../../../../assets/images/gray arrow down.svg"
+      alt="arrow down"
+    />
+    <img
+      *ngIf="isToggled"
+      class="cursor-pointer"
+      src="../../../../assets/images/arrow - up.svg"
+      alt="arrow up"
+    />
+  </label>
+</div>
+<hr class="-mx-6 py-3" *ngIf="isToggled" />
+
+<ng-content *ngIf="isToggled"></ng-content>
+
+<hr class="-mx-6 py-3 mt-8" *ngIf="isToggled"/>

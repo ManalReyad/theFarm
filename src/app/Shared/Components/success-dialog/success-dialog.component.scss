@@ -1,0 +1,13 @@
+button {
+  @apply py-2 px-3;
+  background-color: var(--success);
+  color: var(--main-white);
+  border:none;
+  border-radius: 8px;
+ 
+}
+p {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-gray);
+}

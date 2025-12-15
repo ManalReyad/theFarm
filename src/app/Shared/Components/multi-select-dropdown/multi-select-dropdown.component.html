@@ -1,0 +1,27 @@
+<div class="">
+    <label>{{ labelText }}</label>
+    <span class="text-red-500" *ngIf="!control.value&&isRequired">*</span>
+    <br />
+  
+    <div class="dropdownContainer mt-2">
+      <p-multiSelect
+      appendTo="body"
+        [formControl]="control"
+        [options]="options"
+        optionLabel="name"
+        optionValue="id"
+        [disabled]="disabled"
+        (onChange)="onChange($event)"
+        (onFilter)="onSearch($event)"
+        [filter]="false"
+        filterBy="name"
+        [showClear]="false"
+        [placeholder]="placeholder"
+        #multiSelect
+    ></p-multiSelect>
+      <img class="cursor-pointer" (click)="open()" src="../../../../assets/images/arrow down.svg" alt="arrow down">
+    </div>
+    <small class="text-red-500" *ngIf="errMsg || controlValidation">
+      {{ errMsg || "هذا الحقل مطلوب " }}
+    </small>
+  </div>

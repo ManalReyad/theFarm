@@ -1,0 +1,12 @@
+<div class="my-2 mb-6">
+  <p class="header flex items-center">
+    <button (click)="onRouteToMain()">
+      {{ mainTitle}}
+    </button>
+
+     <button class="flex items-center" *ngFor="let page of pages" (click)="applyRoute(page)">
+        <img src="../../../../assets/images/arrow  left.svg" alt="arrow" class="mt-1"/>
+        {{ page.name }}
+      </button>
+  </p>
+</div>

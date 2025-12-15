@@ -1,0 +1,61 @@
+<div class="grid grid-cols-12 items-center white min-h-screen">
+  <div class="flex flex-col col-span-1"></div>
+  <div class="col-span-7 p-8 pt-12 white">
+    <div class="flex flex-col gap-12">
+      <div class="flex">
+        <img src="../../../../assets/images/loginLogo.svg" alt="login Logo" />
+      </div>
+      <div class="flex flex-col">
+        <h1>مرحبًا بك في منصة تسجيل الموظفين</h1>
+        <p>برجاء إدخال البريد الإلكتروني وكلمة المرور</p>
+      </div>
+    </div>
+
+    
+    <form [formGroup]="form" autocomplete="off">
+      <div class="grid grid-cols-12 mb-2">
+        <div
+          class="flex flex-col 2xl:col-span-8 xl:col-span-8 lg:col-span-8 md:col-span-8 col-span-12 2xl:mt-7 md:mt-2"
+        >
+          <app-input
+            labelText=" البريد الإلكتروني"
+            formControlName="email"
+            inputType="email"
+            placeholder="أدخل البريد الإلكتروني"
+            [errMsg]="saveClicked&&form.get('email')?.errors?.['email']?' يجب ادخال البريد الالكتروني بشكل صحيح':''"
+          >
+          </app-input>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-12 mb-2">
+        <div
+          class="flex flex-col 2xl:col-span-8 xl:col-span-7 lg:col-span-8 md:col-span-8 col-span-12 2xl:mt-7 md:mt-2"
+        >
+          <app-password-input
+            labelText="كلمة المرور"
+            formControlName="password"
+            placeholder="أدخل كلمة المرور"
+          >
+          </app-password-input>
+          <a (click)="goToForgorPassword()">هل نسيت كلمة المرور؟ </a>
+
+          <small *ngIf="errorMsg">{{errorMsg}}</small>
+
+        </div>
+      </div>
+    </form>
+
+    <div class="grid grid-cols-12 mb-2">
+      <div
+        class="flex flex-col 2xl:col-span-8 xl:col-span-8 lg:col-span-8 md:col-span-8 col-span-12 2xl:mt-7 md:mt-2"
+      >
+        <button (click)="login()" [disabled]="form.invalid">
+          تسجيل الدخول
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="left col-span-4 min-h-screen">
+  </div>
+</div>

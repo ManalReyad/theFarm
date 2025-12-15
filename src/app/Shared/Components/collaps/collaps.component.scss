@@ -1,0 +1,13 @@
+input {
+  display: none;
+}
+.notToggeled,
+.toggeled {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-gray);
+  cursor: pointer;
+}
+.toggeled {
+  color: var(--secondary);
+}
