@@ -1,4 +1,6 @@
 export interface PageResult {
-    items?:any[];
-    totalCount?: number ;
-   }
+  items?: any[];
+  records?: number;
+  pageSize?: number;
+  pageIndex?: number;
+}

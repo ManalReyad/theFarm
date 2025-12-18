@@ -23,9 +23,12 @@ button {
   }
 }
 .left {
-  background-image: url("../../../../assets/images/login.svg");
+  background-image: url("../../../../assets/images/farm.webp");
   background-size: cover;
   background-repeat: no-repeat;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+
 }
 .white {
   background-color: var(--main-white);

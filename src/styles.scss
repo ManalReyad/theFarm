@@ -11,8 +11,8 @@
   src: url("assets/fonts/almarai/Almarai-Regular.ttf");
 }
 :root {
-  --primary: #0f5755;
-  --secondary: #16968c;
+  --primary: #5E8B3D;
+  --secondary: #B4442C;
   --secondary-light: #16968C1A;
   --success: #04A777;
   --warning:#FB8B24;
@@ -49,4 +49,35 @@ body {
 }
 ::-webkit-scrollbar-track {
   background: transparent;
+}
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.submitBtn {
+  background-color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--main-white);
+  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
+.exitBtn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  background-color: var(--main-white);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
 }

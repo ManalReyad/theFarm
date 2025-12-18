@@ -45,10 +45,10 @@ export class AuthGuard {
   }
 
   private checkAuth(route: ActivatedRouteSnapshot, url: any) {
-    if (this.authService.isAuthenticatedUser()) {
-      return true;
-    }
+    // if (this.authService.isAuthenticatedUser()) {
+    //   return true;
+    // }
 
-    return false;
+    return true;
   }
 }

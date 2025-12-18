@@ -12,17 +12,17 @@ export class MenuService {
   initializeMenus() {
     this.menus = [
       {
-        label: 'الموظفين',
+        label: 'المزرعة',
         visible:true,
-        icon: PrimeIcons.USERS,
+        icon: PrimeIcons.BUILDING_COLUMNS,
         iconStyle:{fontSize:'1.5rem'},
-        routerLink: ['employees'],
+        routerLink: ['farm'],
       },
 
       {
-        label: 'جهات العمل',
+        label: 'العنابر',
         visible:true,
-        icon: PrimeIcons.BUILDING_COLUMNS,
+        icon: PrimeIcons.SHOP,
         iconStyle:{fontSize:'1.5rem'},
         routerLink: ['/departments'],
       },

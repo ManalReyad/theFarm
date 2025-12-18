@@ -5,7 +5,7 @@ import { MainLayoutComponent } from './Components/main-layout/main-layout.compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'employees',
+    redirectTo: 'farm',
     pathMatch: 'full',
   },
 
@@ -14,10 +14,10 @@ const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       {
-        path: 'employees',
+        path: 'farm',
         loadChildren: () =>
-          import('../employees/employees.module').then(
-            (m) => m.EmployeesModule
+          import('../farm/farm.module').then(
+            (m) => m.FarmModule
           ),
       },
       {

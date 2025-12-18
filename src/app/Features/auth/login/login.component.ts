@@ -27,23 +27,24 @@ export class LoginComponent implements OnInit {
     this.saveClicked = true;
     this.errorMsg=''
     if (this.form.valid) {
-      this.authServices.login(this.form.value).subscribe((response: any) => {
-        if (response.isSuccess) {
-          this.saveClicked = false;
-          localStorage.setItem('otp', JSON.stringify(response.data));
-          this.router.navigate(['auth/verify']);
-        }else
-        {
-          this.errorMsg='البريد الإلكتروني أو كلمة المرور غير صحيحة'
+      this.router.navigate(['/farm']);
+    //   this.authServices.login(this.form.value).subscribe((response: any) => {
+    //     if (response.isSuccess) {
+    //       this.saveClicked = false;
+    //       localStorage.setItem('otp', JSON.stringify(response.data));
+    //       this.router.navigate(['auth/verify']);
+    //     }else
+    //     {
+    //       this.errorMsg='البريد الإلكتروني أو كلمة المرور غير صحيحة'
           
-        }
-      },
-      (error:any)=>
-      {
-        console.log(error);
+    //     }
+    //   },
+    //   (error:any)=>
+    //   {
+    //     console.log(error);
         
-      }
-    );
+    //   }
+    // );
     }
   }
 

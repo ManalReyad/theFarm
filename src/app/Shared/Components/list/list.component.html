@@ -82,10 +82,10 @@
               <span *ngIf="!col.isOrder && !col.toolTip">
                 {{ entity[col.field] }}</span
               >
-              <span *ngIf="!col.isOrder && entity[col.field].length<40&&entity[col.toolTip]">
+              <span *ngIf="!col.isOrder && entity[col.field]?.length<40&&entity[col.toolTip]">
                 {{ entity[col.field] }}</span
               >
-              <span *ngIf="entity[col.field].length>40&&entity[col.toolTip]" [pTooltip]="entity[col.toolTip]">
+              <span *ngIf="entity[col.field]?.length>40&&entity[col.toolTip]" [pTooltip]="entity[col.toolTip]">
                 {{ entity[col.field] }}</span
               >
             </span>
@@ -134,7 +134,7 @@
     (onPageChange)="onPageChange($event)"
     [first]="first"
     [rows]="rows"
-    [totalRecords]="pageResult.totalCount"
+    [totalRecords]="pageResult?.records"
     [showCurrentPageReport]="false"
     [pageLinkSize]="3"
   ></p-paginator>
