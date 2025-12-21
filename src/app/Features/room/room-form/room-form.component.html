@@ -1,0 +1,70 @@
+<h1>تسجيل بيانات موظف</h1>
+<app-bread-crumb
+  [pages]="pages"
+></app-bread-crumb>
+
+<form [formGroup]="form" class="card">
+  <div class="grid grid-cols-12 gap-3">
+    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+      <app-input
+        labelText="اسم العنبر"
+        placeholder="أدخل اسم العنبر"
+        formControlName="name"
+      ></app-input>
+    </div>
+    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="المزرعة"
+        formControlName="farmID"
+        [options]="farmOptions"
+        placeholder="اختر المزرعة"
+      >
+      </app-dropdown>
+    </div>
+    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="نوع العنبر"
+        formControlName="roomTypeID"
+        [options]="roomTypeOptions"
+        placeholder="اختر نوع العنبر"
+      >
+      </app-dropdown>
+    </div>
+    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+      <app-input
+        labelText="عدد الفراخ"
+        placeholder="أدخل عدد الفراخ"
+        formControlName="chickenCount"
+        inputType="number"
+      ></app-input>
+    </div>
+  </div>
+  <div class="grid grid-cols-12 gap-3 mt-4">
+    <div
+      class="col-span-12 flex flex-col mt-4"
+    >
+      <label>الوصف</label>
+      <textarea
+        placeholder="وصف العنبر"
+        cols="12"
+        rows="4"
+        formControlName="description"
+        [required]="false"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-4 mt-5">
+    <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
+      {{ editMode ? "حفظ" : "إضافة" }}
+    </button>
+    <button class="exitBtn" (click)="backToList()">إلغاء</button>
+  </div>
+</form>
+
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض العنابر"
+></app-success-dialog>

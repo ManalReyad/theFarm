@@ -1,0 +1,16 @@
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+}
+label {
+  color: var(--primary);
+  font-weight: 400;
+  font-size: 18px;
+}
+
+textarea {
+  @apply py-3 pr-2;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+}

@@ -10,7 +10,7 @@ export class BreadCrumbComponent {
   @Output() onClick = new EventEmitter<any>();
   @Output() mainTitleClicked = new EventEmitter<any>();
 
-  @Input() mainTitle: string="الموظفين";
+  @Input() mainTitle: string="الرئيسية";
   @Input() pages!: any[];
   constructor(private router: Router) {}
   ngOnInit() {}

@@ -31,18 +31,3 @@ h1 {
   @apply mr-1;
 }
 
-.btn {
-  @apply py-2 px-5;
-  border-radius: 8px;
-  background-color: var(--primary);
-  color: var(--main-white);
-  &:disabled {
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
-}
-.outlineBtn {
-  background-color: var(--main-white);
-  color: var(--primary);
-  border: 1px solid var(--primary);
-}

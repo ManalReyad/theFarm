@@ -21,10 +21,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'departments',
+        path: 'room',
         loadChildren: () =>
-          import('../departments/departments.module').then(
-            (m) => m.DepartmentsModule
+          import('../room/room.module').then(
+            (m) => m.RoomModule
           ),
       },
     ],

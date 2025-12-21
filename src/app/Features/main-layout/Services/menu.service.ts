@@ -1,39 +1,52 @@
 import { Injectable } from '@angular/core';
-import { MenuItem ,PrimeIcons} from 'primeng/api';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuService {
-  menus: MenuItem[]=[];
-  constructor() { }
-
+  menus: MenuItem[] = [];
+  constructor() {}
 
   initializeMenus() {
     this.menus = [
       {
+        label: 'الرئيسية',
+        visible: true,
+        icon: PrimeIcons.HOME,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['farm'],
+      },
+      {
         label: 'المزرعة',
-        visible:true,
+        visible: true,
         icon: PrimeIcons.BUILDING_COLUMNS,
-        iconStyle:{fontSize:'1.5rem'},
+        iconStyle: { fontSize: '1.5rem' },
         routerLink: ['farm'],
       },
 
       {
         label: 'العنابر',
-        visible:true,
+        visible: true,
         icon: PrimeIcons.SHOP,
-        iconStyle:{fontSize:'1.5rem'},
-        routerLink: ['/departments'],
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['/room'],
       },
-    ]
+      {
+        label: 'الأصول',
+        visible: true,
+        icon: PrimeIcons.SITEMAP,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['assets'],
+      },
+    ];
   }
   getFirstVisibleRoute(): string {
     let menu = this.getFirstVisibleMenu(this.menus);
 
     if (menu != undefined && menu != null) {
       return menu.routerLink[0];
-    } 
+    }
     return '/dashboard';
   }
 

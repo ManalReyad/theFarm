@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-4">
+    <div class="flex justify-between items-center">
+      <h1> العنابر </h1>
+  
+      <div class="flex gap-3" *ngIf="pageResult.items?.length!>0">
+        <button class="submitBtn" (click)="addNew()">إضافة عنبر</button>
+      </div>
+    </div>
+  
+    <app-list
+      [listColumns]="columns"
+      [pageResult]="pageResult"
+      (pageChange)="onPageChanged($event)"
+      (edit)="edit($event)"
+      (delete)="delete($event)"
+      (add)="addNew()"
+      [searchMode]="searchMode"
+      (back)="resetSearch()"
+      noDataImg="nodepartments.svg"
+      noDataMessage="يبدو أنك لم تقم بإضافة أي عنبر بعد، ستظهر العنابر المضافة هنا... يمكنك البدء بإضافة أول عنبر "
+      addButtonText="إضافة عنبر"
+      nosearchBtnText="العودة إلى العنابر"
+    ></app-list>
+  </div>
+
+    <app-confirmation-delete-dialog
+    message="هل أنت متأكد أنك تريد حذف العنبر؟ سيتم حذفه نهائيًا من قائمة العنابر"
+    [visible]="showConfirmDeleteDialog"
+    (onSubmitEvent)="submitDelete()"
+    (exit)="close()"
+  ></app-confirmation-delete-dialog>

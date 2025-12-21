@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class FarmService {
-  baseUrl = environment.baseUrl + 'Farm';
+export class RoomService {
+ baseUrl = environment.baseUrl + 'Room';
   constructor(private http: HttpClient) {}
 
   getAll(
