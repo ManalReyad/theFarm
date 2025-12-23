@@ -40,7 +40,10 @@
   color: var(--main-gray);
 }
 
-
+ ::ng-deep .menu 
+{
+  margin-top: -8px !important;
+}
 .pagination {
   @apply flex items-center md:justify-between  justify-center flex-wrap mt-4;
   .nestedDiv {

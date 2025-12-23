@@ -24,6 +24,7 @@ import { MultiSelectDropdownComponent } from './Components/multi-select-dropdown
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PasswordInputComponent } from './Components/password-input/password-input.component';
 import { NoDataComponent } from './Components/no-data/no-data.component';
+import { OverlayPanelModule } from "primeng/overlaypanel";
 
 @NgModule({
   declarations: [
@@ -71,9 +72,9 @@ import { NoDataComponent } from './Components/no-data/no-data.component';
     DropdownModule,
     CalendarModule,
     DialogModule,
-    MultiSelectModule
-    
-  ],
+    MultiSelectModule,
+    OverlayPanelModule
+],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

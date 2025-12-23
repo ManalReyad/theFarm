@@ -12,6 +12,7 @@ export class ListComponent implements OnInit {
   @Input() listColumns!: ListColumn[];
   @Input() pageResult!: PageResult;
   @Input() withAction: boolean = true;
+  @Input() withCustomAction: boolean = false;
   @Input() hasEdit: boolean = true;
   @Input() hasDelete: boolean = true;
   @Input() hasPagination: boolean = true;

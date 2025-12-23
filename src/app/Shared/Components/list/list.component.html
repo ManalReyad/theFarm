@@ -7,7 +7,7 @@
   <p-table
     [value]="pageResult?.items || []"
     [lazy]="true"
-    [tableStyle]="{ 'min-width': '50rem'}"
+    [tableStyle]="{ 'min-width': '50rem' }"
     [class]="hasBorder ? 'custom-style' : ''"
   >
     <ng-template pTemplate="header">
@@ -82,10 +82,19 @@
               <span *ngIf="!col.isOrder && !col.toolTip">
                 {{ entity[col.field] }}</span
               >
-              <span *ngIf="!col.isOrder && entity[col.field]?.length<40&&entity[col.toolTip]">
+              <span
+                *ngIf="
+                  !col.isOrder &&
+                  entity[col.field]?.length < 40 &&
+                  entity[col.toolTip]
+                "
+              >
                 {{ entity[col.field] }}</span
               >
-              <span *ngIf="entity[col.field]?.length>40&&entity[col.toolTip]" [pTooltip]="entity[col.toolTip]">
+              <span
+                *ngIf="entity[col.field]?.length > 40 && entity[col.toolTip]"
+                [pTooltip]="entity[col.toolTip]"
+              >
                 {{ entity[col.field] }}</span
               >
             </span>
@@ -125,6 +134,45 @@
             />
           </span>
         </td>
+        <td *ngIf="withCustomAction" class="flex justify-center items-center gap-3">
+          <button class="cursor-pointer" (click)="actionMenu.toggle($event)">
+            <i class="pi pi-ellipsis-v"></i>
+          </button>
+          <p-overlayPanel styleClass="px-4 menu" #actionMenu>
+            <div class="flex flex-col gap-3">
+              <button
+                class="flex items-center gap-2 cursor-pointer"
+                (click)="onEdit(entity, i);actionMenu.hide()"
+              >
+                <img
+                  class="w-4"
+                  src="../../../../assets/images/edit.svg"
+                  alt="edit icon"
+                />
+                <label class="cursor-pointer">تعديل</label>
+              </button>
+              <button
+              class="flex items-center gap-2 cursor-pointer"
+              (click)="actionMenu.hide()"
+            >
+            <i class="pi pi-bullseye"></i>
+              <label class="cursor-pointer">الأصول</label>
+            </button>
+              <button
+                class="flex items-center gap-2 cursor-pointer"
+                (click)="onDelete(entity, i);actionMenu.hide()"
+              >
+                <img
+                  class="w-4"
+                  src="../../../../assets/images/delete.svg"
+                  alt="delete icon"
+                />
+                <label class="cursor-pointer">حذف</label>
+              </button>
+
+            </div>
+          </p-overlayPanel>
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -157,7 +205,8 @@
   *ngIf="
     pageResult?.items &&
     pageResult?.items?.length == 0 &&
-    !searchMode &&!filterMode&&
+    !searchMode &&
+    !filterMode &&
     !displayEmptyList
   "
 >
@@ -171,7 +220,11 @@
 </div>
 <div
   class="noDataSection"
-  *ngIf="pageResult?.items && pageResult?.items?.length == 0 && (searchMode||filterMode)"
+  *ngIf="
+    pageResult?.items &&
+    pageResult?.items?.length == 0 &&
+    (searchMode || filterMode)
+  "
 >
   <img src="../../../../assets/images/noSearchData.svg" alt="" />
   <p class="text-xl text-gray-500 mt-3">
