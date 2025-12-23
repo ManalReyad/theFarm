@@ -16,16 +16,17 @@ const routes: Routes = [
       {
         path: 'farm',
         loadChildren: () =>
-          import('../farm/farm.module').then(
-            (m) => m.FarmModule
-          ),
+          import('../farm/farm.module').then((m) => m.FarmModule),
       },
       {
         path: 'room',
         loadChildren: () =>
-          import('../room/room.module').then(
-            (m) => m.RoomModule
-          ),
+          import('../room/room.module').then((m) => m.RoomModule),
+      },
+      {
+        path: 'assets',
+        loadChildren: () =>
+          import('../assets/assets.module').then((m) => m.AssetsModule),
       },
     ],
   },

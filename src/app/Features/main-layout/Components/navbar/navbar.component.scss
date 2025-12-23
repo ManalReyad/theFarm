@@ -20,12 +20,11 @@
   }
 
   .title {
-    font-size: 20px;
+    @apply xl:text-[20px] lg:text-[18px] md:text-[16px] text-[14px];
     font-weight: 700;
     color: var(--main-black);
   }
 }
-
 
 .options {
   display: flex;
@@ -44,4 +43,9 @@
 
 ::ng-deep .p-overlaypanel {
   margin-top: 20px !important;
+}
+@media (max-width: 1024px) {
+  .responsive-class {
+    display: none;
+  }
 }

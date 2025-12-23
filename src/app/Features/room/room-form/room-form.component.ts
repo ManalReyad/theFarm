@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../room.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarmService } from '../../farm/farm.service';
+import { RoomType } from '../enums/room-type';
 
 @Component({
   selector: 'app-room-form',
@@ -10,11 +11,17 @@ import { FarmService } from '../../farm/farm.service';
   styleUrls: ['./room-form.component.scss'],
 })
 export class RoomFormComponent implements OnInit {
-  pages: any = [{name:'العنابر',route:'/room'},{ name: 'تسجيل بيانات العنبر' }];
+  pages: any = [
+    { name: 'العنابر', route: '/room' },
+    { name: 'تسجيل بيانات العنبر' },
+  ];
   form!: FormGroup;
   editMode: boolean = false;
   farmOptions: { id: number; name: string }[] = [];
-  roomTypeOptions: { id: number; name: string }[] = [];
+  roomTypeOptions: { id: number; name: string }[] = [
+    { id: RoomType.ForEgg, name: 'بيض' },
+    { id: RoomType.ForChicken, name: 'فراخ' },
+  ];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
 
@@ -29,7 +36,10 @@ export class RoomFormComponent implements OnInit {
     if (roomId) {
       this.getById(roomId);
       this.editMode = true;
-      this.pages = [{name:'العنابر',route:'/room'},{ name: 'تعديل بيانات العنبر' }];
+      this.pages = [
+        { name: 'العنابر', route: '/room' },
+        { name: 'تعديل بيانات العنبر' },
+      ];
     }
     this.getDropdowns();
     this.createForm();
@@ -44,10 +54,10 @@ export class RoomFormComponent implements OnInit {
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
-      name: new FormControl(null,Validators.required),
+      name: new FormControl(null, Validators.required),
       description: new FormControl(),
-      farmID: new FormControl(null,Validators.required),
-      chickenCount: new FormControl(null,Validators.required),
+      farmID: new FormControl(null, Validators.required),
+      chickenCount: new FormControl(null, Validators.required),
       roomTypeID: new FormControl(),
     });
   }
@@ -58,28 +68,21 @@ export class RoomFormComponent implements OnInit {
       }
     });
   }
-  save()
-  {
-     if (this.editMode) {
-      this.roomService
-        .update(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg =
-              'تم تعديل بيانات العنبر بنجاح، يمكنك المتابعة';
-            this.showSuccessDialog = true;
-          }
-        });
+  save() {
+    if (this.editMode) {
+      this.roomService.update(this.form.value).subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تم تعديل بيانات العنبر بنجاح، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+        }
+      });
     } else {
-      this.roomService
-        .create(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg =
-              'تمت إضافة العنبر بنجاح ، يمكنك المتابعة';
-            this.showSuccessDialog = true;
-          }
-        });
+      this.roomService.create(this.form.value).subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تمت إضافة العنبر بنجاح ، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+        }
+      });
     }
   }
   backToList() {

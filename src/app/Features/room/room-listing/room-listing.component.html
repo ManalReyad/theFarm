@@ -29,3 +29,10 @@
     (onSubmitEvent)="submitDelete()"
     (exit)="close()"
   ></app-confirmation-delete-dialog>
+
+  <app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض العنابر"
+></app-success-dialog>

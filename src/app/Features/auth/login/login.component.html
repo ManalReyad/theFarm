@@ -1,7 +1,7 @@
 <div class="grid grid-cols-12 items-center white min-h-screen">
-  <div class="flex flex-col col-span-1"></div>
-  <div class="col-span-6  white">
-    <div class="flex flex-col gap-8">
+  <div class="flex flex-col col-span-1 responsive-class"></div>
+  <div class="xl:col-span-6 col-span-12 white right">
+    <div class="flex flex-col lg:gap-8 gap-0">
       <div class="flex">
         <img src="../../../../assets/images/logo.png" width="300" height="300" alt="login Logo" />
       </div>
@@ -13,7 +13,7 @@
 
     
     <form [formGroup]="form" autocomplete="off">
-      <div class="grid grid-cols-12 mb-2">
+      <div class="grid grid-cols-12 mb-2 ">
         <div
           class="flex flex-col 2xl:col-span-8 xl:col-span-8 lg:col-span-8 md:col-span-8 col-span-12 2xl:mt-7 md:mt-2"
         >
@@ -56,6 +56,6 @@
       </div>
     </div>
   </div>
-  <div class="left col-span-5 h-full">
+  <div class="left responsive-class col-span-5 h-full">
   </div>
 </div>

@@ -1,7 +1,8 @@
 .listContainer {
   background-color: var(--main-white);
   border-radius: 8px;
-
+  -webkit-overflow-scrolling: touch !important;
+  overflow-x: auto !important;
 }
 .index
 {
@@ -11,9 +12,12 @@
 :host ::ng-deep .custom-style .p-datatable{
   border: 1px solid var(--gray);
   border-radius: 10px;
+
 }
 :host ::ng-deep .p-datatable {
   background-color: transparent;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
   td {
     @apply py-4 px-2;
     color: var(--main-gray);

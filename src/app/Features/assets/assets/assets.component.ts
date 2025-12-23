@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { FilterDataParams } from 'src/app/Shared/Models/filterDataParam';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { DepartmentsService } from '../departments.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AssetService } from '../asset.service';
 
 @Component({
-  selector: 'app-departments',
-  templateUrl: './departments.component.html',
-  styleUrls: ['./departments.component.scss'],
+  selector: 'app-assets',
+  templateUrl: './assets.component.html',
+  styleUrls: ['./assets.component.scss'],
 })
-export class DepartmentsComponent {
+export class AssetsComponent {
   columns: ListColumn[] = [];
   pageResult!: PageResult;
-  filteredDate = new FilterDataParams();
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
@@ -23,9 +21,10 @@ export class DepartmentsComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  maxResultCount: number = 10;
+  pageSize: number = 10;
+  pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private departmentService: DepartmentsService) {}
+  constructor(private assetService: AssetService) {}
   ngOnInit(): void {
     this.createForm();
     this.intializeListCoulmns();
@@ -45,12 +44,24 @@ export class DepartmentsComponent {
         hide: false,
         header: 'الاسم',
       }),
+      new ListColumn({
+        field: 'count',
+        hide: false,
+        header: 'العدد',
+      }),
+      new ListColumn({
+        field: 'description',
+        hide: false,
+        header: 'الوصف',
+      }),
     ];
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
       name: new FormControl(null, Validators.required),
+      description: new FormControl(''),
+      count: new FormControl(''),
     });
   }
   addNew() {
@@ -59,10 +70,10 @@ export class DepartmentsComponent {
     this.showForm = true;
   }
   getPage() {
-    this.departmentService
-      .getAll(this.filteredDate)
+    this.assetService
+      .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
-        if (response.isSuccess) {
+        if (response.success) {
           this.pageResult = response.data;
         }
       });
@@ -74,53 +85,35 @@ export class DepartmentsComponent {
   }
   save() {
     if (this.editMode) {
-      this.departmentService
-        .update(this.form.value)
-        .subscribe((response: any) => {
-          if (response.isSuccess) {
-            this.successMesg =
-              'تم تعديل بيانات جهة العمل بنجاح، يمكنك المتابعة';
-            this.showForm = false;
-            this.showSuccessDialog = true;
-          }
-        });
+      this.assetService.update(this.form.value).subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تم تعديل بيانات الأصل بنجاح، يمكنك المتابعة';
+          this.showForm = false;
+          this.showSuccessDialog = true;
+        }
+      });
     } else {
-      this.departmentService
-        .create(this.form.value)
-        .subscribe((response: any) => {
-          if (response.isSuccess) {
-            this.successMesg =
-              'تمت إضافة جهة العمل بنجاح إلى قائمة جهات العمل، يمكنك المتابعة';
-            this.showForm = false;
-            this.showSuccessDialog = true;
-          }
-        });
+      this.assetService.create(this.form.value).subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تمت إضافة الأصل بنجاح ، يمكنك المتابعة';
+          this.showForm = false;
+          this.showSuccessDialog = true;
+        }
+      });
     }
   }
   showWarnningMessage() {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.filteredDate.skipCount = event.first;
-    this.filteredDate.maxResultCount = event.rows;
-    this.maxResultCount = event.rows;
-    this.getPage();
-  }
-  search(value: string) {
-    if (value) {
-      this.searchMode = true;
-    } else {
-      this.searchMode = false;
-    }
-    this.filteredDate.searchTerm = value;
+    this.pageNumber = event.first;
+    this.pageSize = event.rows;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
-    this.filteredDate.skipCount = 0;
-    this.filteredDate.searchTerm = '';
     this.searchMode = false;
-    this.filteredDate.maxResultCount = this.maxResultCount;
+    this.pageNumber = 1;
     this.getPage();
   }
   delete(item: any) {
@@ -129,11 +122,11 @@ export class DepartmentsComponent {
   }
 
   submitDelete() {
-    this.departmentService
+    this.assetService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
-        if (response.isSuccess) {
-          this.successMesg = 'تم حذف جهة العمل بنجاح، يمكنك المتابعة';
+        if (response.success) {
+          this.successMesg = 'تم حذف الأصل بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
         }

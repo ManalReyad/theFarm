@@ -15,7 +15,7 @@ export class MenuService {
         visible: true,
         icon: PrimeIcons.HOME,
         iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['farm'],
+        routerLink: ['home'],
       },
       {
         label: 'المزرعة',

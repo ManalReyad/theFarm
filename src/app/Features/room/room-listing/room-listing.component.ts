@@ -94,7 +94,7 @@ export class RoomListingComponent {
     this.router.navigate(['/room/create']);
   }
   edit(data: any) {
-    this.router.navigate(['/room/update/' + data.id]);
+    this.router.navigate(['/room/update/' + data.item.id]);
   }
   close() {
     this.showForm = false;

@@ -1,14 +1,14 @@
 div {
   h1 {
-    font-size: 24px;
+    @apply xl:text-[24px] lg:text-[20px] text-[16px];
     font-weight: 600;
     color: var(--primary);
     display: block;
   }
 
   p {
+    @apply xl:text-[18px] lg:text-[16px] text-[14px];
     color: var(--main-gray);
-    font-size: 18px;
     display: block;
   }
 }
@@ -28,7 +28,15 @@ button {
   background-repeat: no-repeat;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
-
+}
+.right {
+  @apply lg:mx-0 mx-10;
+  form {
+    @apply lg:mt-0 mt-6;
+  }
+  a {
+    @apply xl:text-[18px] lg:text-[16px] text-[14px];
+  }
 }
 .white {
   background-color: var(--main-white);
@@ -42,8 +50,12 @@ a {
   text-align: end;
 }
 
-small
-{
+small {
   color: var(--error);
   font-size: 14px;
+}
+@media (max-width: 1024px) {
+  .responsive-class {
+    display: none;
+  }
 }

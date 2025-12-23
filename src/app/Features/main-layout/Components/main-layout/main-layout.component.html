@@ -1,20 +1,25 @@
-<div  class="grid grid-cols-12 gap-0">
-    <div class="lg:col-span-2 col-span-9">
-     <app-sidebar  [sidebarVisible]="visiable"  ></app-sidebar>
+<div class="grid grid-cols-12 gap-0">
+  <div class="lg:col-span-2 col-span-9">
+    <app-sidebar
+      [sidebarVisible]="visiable"
+      (sideNavClosed)="visiable = !visiable"
+    ></app-sidebar>
+  </div>
+
+  <div
+    class="grid grid-cols-12 gap-0"
+    [ngClass]="visiable ? 'lg:col-span-10 col-span-12' : 'col-span-12'"
+  >
+    <div class="col-span-12">
+      <app-navbar (showSideNav)="show()"></app-navbar>
     </div>
-     
-     <div class="grid grid-cols-12 gap-0" [ngClass]="visiable?'lg:col-span-10 col-span-12' :'col-span-12'">
-         <div class="col-span-12">
-             <app-navbar (showSideNav)="show()"></app-navbar>
-         </div>
-        <div class="col-span-12 p-7">
-         <ng-container >
-             <router-outlet></router-outlet>
-             </ng-container>
-        </div>
-     </div>
-   
+    <div class="col-span-12 p-7">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
 
-
-<app-failed-dialog [visible]="showFaildDialog" [message]="faildMessage"></app-failed-dialog>
+<app-failed-dialog
+  [visible]="showFaildDialog"
+  [message]="faildMessage"
+></app-failed-dialog>

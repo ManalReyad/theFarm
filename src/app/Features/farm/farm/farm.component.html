@@ -59,7 +59,7 @@
     <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
       {{ editMode ? "حفظ" : "إضافة" }}
     </button>
-    <button class="exitBtn" (click)="showWarnningMessage()">إلغاء</button>
+    <button class="exitBtn" (click)="showForm=false">إلغاء</button>
   </div>
 </p-dialog>
 
