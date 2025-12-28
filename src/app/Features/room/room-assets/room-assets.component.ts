@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FilterDataParams } from 'src/app/Shared/Models/filterDataParam';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { FarmService } from '../farm.service';
+import { RoomService } from '../room.service';
+import { AssetService } from '../../assets/asset.service';
+import { RoomAssetService } from './room-asset.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-farm',
-  templateUrl: './farm.component.html',
-  styleUrls: ['./farm.component.scss']
+  selector: 'app-room-assets',
+  templateUrl: './room-assets.component.html',
+  styleUrl: './room-assets.component.scss',
 })
-export class FarmComponent {
+export class RoomAssetsComponent {
   columns: ListColumn[] = [];
-  pageResult: PageResult = { items: [] };;
+  pageResult: PageResult = { items: [] };
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
@@ -23,10 +25,19 @@ export class FarmComponent {
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
   pageSize: number = 10;
-  pageNumber:number=1
+  pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private farmService: FarmService) {}
+  roomOptions: any[] = [];
+  assetsOptions: any[] = [];
+  roomID: any;
+  constructor(
+    private roomAssetService: RoomAssetService,
+    private roomService: RoomService,
+    private assetService: AssetService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   ngOnInit(): void {
+    this.getDropdowns();
     this.createForm();
     this.intializeListCoulmns();
     this.getPage();
@@ -41,35 +52,55 @@ export class FarmComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'name',
+        field: 'assetName',
         hide: false,
-        header: 'الاسم',
+        header: 'اسم العنبر',
       }),
       new ListColumn({
-        field: 'description',
+        field: '',
         hide: false,
-        header: 'الوصف',
+        header: 'الأصل',
+      }),
+      new ListColumn({
+        field: 'assetCount',
+        hide: false,
+        header: 'عدد الأصل',
       }),
     ];
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
-      name: new FormControl(null, Validators.required),
-      description: new FormControl(''),
+      roomID: new FormControl(
+        this.roomID ? +this.roomID : null,
+        Validators.required
+      ),
+      assetID: new FormControl(null, Validators.required),
+      assetCount: new FormControl(null, Validators.required),
+    });
+  }
+  getDropdowns() {
+    this.roomService.getList().subscribe((result: any) => {
+      this.roomOptions = result.data;
+      this.roomID = this.activatedRoute.snapshot.params['id'];
+      this.createForm();
+    });
+    this.assetService.getList().subscribe((result: any) => {
+      this.assetsOptions = result.data;
     });
   }
   addNew() {
     this.editMode = false;
     this.form.reset();
     this.showForm = true;
+    this.createForm();    
   }
   getPage() {
-    this.farmService
-      .getAll(this.pageNumber,this.pageSize)
+    this.roomAssetService
+      .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
         if (response.success) {
-          this.pageResult = response.data;
+          this.pageResult = { items: response.data };
         }
       });
   }
@@ -80,23 +111,21 @@ export class FarmComponent {
   }
   save() {
     if (this.editMode) {
-      this.farmService
+      this.roomAssetService
         .update(this.form.value)
         .subscribe((response: any) => {
           if (response.success) {
-            this.successMesg =
-              'تم تعديل بيانات المزرعة بنجاح، يمكنك المتابعة';
+            this.successMesg = 'تم تعديل بيانات الأصل بنجاح، يمكنك المتابعة';
             this.showForm = false;
             this.showSuccessDialog = true;
           }
         });
     } else {
-      this.farmService
+      this.roomAssetService
         .create(this.form.value)
         .subscribe((response: any) => {
           if (response.success) {
-            this.successMesg =
-              'تمت إضافة المزرعة بنجاح ، يمكنك المتابعة';
+            this.successMesg = 'تمت إضافة الأصل بنجاح ، يمكنك المتابعة';
             this.showForm = false;
             this.showSuccessDialog = true;
           }
@@ -114,7 +143,7 @@ export class FarmComponent {
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber=1
+    this.pageNumber = 1;
     this.getPage();
   }
   delete(item: any) {
@@ -123,11 +152,11 @@ export class FarmComponent {
   }
 
   submitDelete() {
-    this.farmService
+    this.roomAssetService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
         if (response.success) {
-          this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';
+          this.successMesg = 'تم حذف الأصل بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
         }

@@ -1,4 +1,4 @@
 export enum RoomType{
-    ForEgg,
-    ForChicken
+    ForEgg=1,
+    ForChicken=2
 }

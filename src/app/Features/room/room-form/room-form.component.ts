@@ -59,6 +59,7 @@ export class RoomFormComponent implements OnInit {
       farmID: new FormControl(null, Validators.required),
       chickenCount: new FormControl(null, Validators.required),
       roomTypeID: new FormControl(),
+      chickenAge:new FormControl()
     });
   }
   getById(id: any) {

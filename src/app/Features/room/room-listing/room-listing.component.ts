@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RoomListingComponent {
   columns: ListColumn[] = [];
-  pageResult!: PageResult;
+  pageResult: PageResult = { items: [] };;
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
@@ -108,5 +108,8 @@ export class RoomListingComponent {
   }
   back() {
     this.showWarnningDialog = false;
+  }
+  goToRoomAssets(data: any) {
+    this.router.navigate(['room/room-assets/' + data.id]);
   }
 }

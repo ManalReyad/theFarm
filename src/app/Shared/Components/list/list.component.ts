@@ -10,7 +10,7 @@ import { Dropdown } from '../../Models/dropdown';
 })
 export class ListComponent implements OnInit {
   @Input() listColumns!: ListColumn[];
-  @Input() pageResult!: PageResult;
+  @Input() pageResult: PageResult = { items: [] };;
   @Input() withAction: boolean = true;
   @Input() withCustomAction: boolean = false;
   @Input() hasEdit: boolean = true;
@@ -30,6 +30,7 @@ export class ListComponent implements OnInit {
   @Output() delete = new EventEmitter();
   @Output() add = new EventEmitter();
   @Output() back = new EventEmitter();
+  @Output() assetClicked = new EventEmitter();
   first: number = 0;
   last!: number;
   rows: number = 10;
@@ -69,5 +70,8 @@ export class ListComponent implements OnInit {
   }
   onBack() {
     this.back.emit();
+  }
+  onAssetClicked(data: any) {
+    this.assetClicked.emit(data);
   }
 }

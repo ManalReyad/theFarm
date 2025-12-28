@@ -11,7 +11,7 @@ import { AssetService } from '../asset.service';
 })
 export class AssetsComponent {
   columns: ListColumn[] = [];
-  pageResult!: PageResult;
+  pageResult: PageResult = { items: [] };;
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
