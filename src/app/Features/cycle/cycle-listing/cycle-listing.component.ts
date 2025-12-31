@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { RoomService } from '../room.service';
-import { Router } from '@angular/router';
+import { CycleService } from '../cycle.service';
 
 @Component({
-  selector: 'app-room-listing',
-  templateUrl: './room-listing.component.html',
-  styleUrls: ['./room-listing.component.scss'],
+  selector: 'app-cycle-listing',
+  templateUrl: './cycle-listing.component.html',
+  styleUrl: './cycle-listing.component.scss'
 })
-export class RoomListingComponent {
+export class CycleListingComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };;
   selectedDepartment: any;
@@ -23,7 +23,7 @@ export class RoomListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private roomService: RoomService, private router: Router) {}
+  constructor(private cycleService: CycleService, private router: Router) {}
   ngOnInit(): void {
     this.intializeListCoulmns();
     this.getPage();
@@ -43,19 +43,31 @@ export class RoomListingComponent {
         header: 'الاسم',
       }),
       new ListColumn({
+        field: 'farmName',
+        hide: false,
+        header: 'المزرعة',
+      }),
+      new ListColumn({
+        field: 'startDate',
+        hide: false,
+        header: 'تاريخ البداية',
+        isDate:true
+      }),
+      new ListColumn({
+        field: 'endDate',
+        hide: false,
+        header: 'تاريخ النهاية',
+        isDate:true
+      }),
+      new ListColumn({
         field: 'description',
         hide: false,
         header: 'الوصف',
       }),
-      new ListColumn({
-        field: 'chickenCount',
-        hide: false,
-        header: 'عدد الفراخ',
-      }),
     ];
   }
   getPage() {
-    this.roomService
+    this.cycleService
       .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
         if (response.success) {
@@ -80,21 +92,21 @@ export class RoomListingComponent {
   }
 
   submitDelete() {
-    this.roomService
+    this.cycleService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
         if (response.success) {
-          this.successMesg = 'تم حذف العنبر بنجاح، يمكنك المتابعة';
+          this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
         }
       });
   }
   addNew() {
-    this.router.navigate(['/room/create']);
+    this.router.navigate(['/cycle/create']);
   }
   edit(data: any) {
-    this.router.navigate(['/room/update/' + data.item.id]);
+    this.router.navigate(['/cycle/update/' + data.item.id]);
   }
   close() {
     this.showForm = false;
@@ -108,8 +120,5 @@ export class RoomListingComponent {
   }
   back() {
     this.showWarnningDialog = false;
-  }
-  goToRoomAssets(data: any) {
-    this.router.navigate(['room/room-assets/' + data.id]);
   }
 }

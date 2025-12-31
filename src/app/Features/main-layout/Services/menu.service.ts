@@ -39,6 +39,13 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['assets'],
       },
+      {
+        label: 'الدورات',
+        visible: true,
+        icon: PrimeIcons.SYNC,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['cycle'],
+      },
     ];
   }
   getFirstVisibleRoute(): string {

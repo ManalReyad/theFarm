@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../assets/assets.module').then((m) => m.AssetsModule),
       },
+      {
+        path: 'cycle',
+        loadChildren: () =>
+          import('../cycle/cycle.module').then((m) => m.CycleModule),
+      },
     ],
   },
 ];
