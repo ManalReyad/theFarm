@@ -36,7 +36,16 @@ const routes: Routes = [
       {
         path: 'daily-registration',
         loadChildren: () =>
-          import('../daily-registration/daily-registration.module').then((m) => m.DailyRegistrationModule),
+          import('../daily-registration/daily-registration.module').then(
+            (m) => m.DailyRegistrationModule
+          ),
+      },
+      {
+        path: 'warehouse',
+        loadChildren: () =>
+          import('../warehouse/warehouse.module').then(
+            (m) => m.WarehouseModule
+          ),
       },
     ],
   },

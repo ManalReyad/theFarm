@@ -53,6 +53,29 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['daily-registration'],
       },
+      {
+        label: 'المخزن',
+        visible: true,
+        icon: PrimeIcons.WAREHOUSE,
+        iconStyle: { fontSize: '1.5rem' },
+        //routerLink: ['daily-registration'],
+        items:[
+          {
+            label: 'الصادرة',
+            visible: true,
+           // icon: PrimeIcons.FILE_EDIT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['outgoing'],
+          },
+          {
+            label: 'الواردة',
+            visible: true,
+           // icon: PrimeIcons.FILE_EDIT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['incoming'],
+          },
+        ]
+      },
     ];
   }
   getFirstVisibleRoute(): string {
