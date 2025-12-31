@@ -46,6 +46,13 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['cycle'],
       },
+      {
+        label: 'التسجيل اليومي',
+        visible: true,
+        icon: PrimeIcons.FILE_EDIT,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['daily-registration'],
+      },
     ];
   }
   getFirstVisibleRoute(): string {

@@ -1,0 +1,84 @@
+<h1>تسجيل بيانات الدورة</h1>
+<app-bread-crumb [pages]="pages"></app-bread-crumb>
+
+<form [formGroup]="form" class="card">
+  <div class="grid grid-cols-12 gap-3">
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="الدورة"
+        formControlName="cycleID"
+        [options]="cycleOptions"
+        placeholder="اختر الدورة"
+      >
+      </app-dropdown>
+    </div>
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="العنبر"
+        formControlName="roomID"
+        [options]="roomOptions"
+        placeholder="اختر العنبر"
+      >
+      </app-dropdown>
+    </div>
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+      <app-input
+        labelText="كمية التغذية المستخدمة"
+        formControlName="feedUsage"
+        placeholder="حدد كمية التغذية المستخدمة"
+        inputType="number"
+        unit="كيلو"
+      >
+      </app-input>
+    </div>
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-input
+        labelText="سعر التغذية"
+        formControlName="feedPrice"
+        placeholder="حدد سعر التغذية المستخدمة"
+        inputType="number"
+        unit="EGP"
+      >
+      </app-input>
+    </div>
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-input
+          labelText="الفراخ الميتة"
+          formControlName="deadChicken"
+          placeholder="حدد الفراخ الميتة"
+          inputType="number"
+        >
+        </app-input>
+      </div>
+      <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+          <app-input
+          labelText="الفراخ المتبقية"
+          formControlName="medicinePrice"
+          placeholder="حدد الفراخ المتبقية"
+          inputType="number"
+        >
+        </app-input>
+      </div>
+      <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-date-input
+        labelText="تاريخ التسجيل"
+        formControlName="date"
+        placeholder="حدد تاريخ التسجيل"
+      >
+      </app-date-input>
+    </div>
+  </div>
+  <div class="flex justify-end gap-4 mt-5">
+    <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
+      {{ editMode ? "حفظ" : "إضافة" }}
+    </button>
+    <button class="exitBtn" (click)="backToList()">إلغاء</button>
+  </div>
+</form>
+
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض الدورات"
+></app-success-dialog>

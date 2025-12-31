@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../cycle/cycle.module').then((m) => m.CycleModule),
       },
+      {
+        path: 'daily-registration',
+        loadChildren: () =>
+          import('../daily-registration/daily-registration.module').then((m) => m.DailyRegistrationModule),
+      },
     ],
   },
 ];
