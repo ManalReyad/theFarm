@@ -24,7 +24,12 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.menuService.initializeMenus();
     this.sideRoutes = this.menuService.menus;
-     this.sideRoutes.forEach((item:MenuItem)=>item.command=()=>this.onSelectItem())
+    this.sideRoutes.forEach(item => {
+      item.command = () => this.onSelectItem(item);
+      item.items?.forEach(child => {
+        child.command = () => this.onSelectItem(child);
+      });
+    });
     this.onResize();
   }
 
@@ -39,8 +44,8 @@ export class SidebarComponent implements OnInit {
       this.inResponsiveMode = false;
     }
   }
-  onSelectItem() {
-    if (this.inResponsiveMode) {
+  onSelectItem(data:any) {
+    if (this.inResponsiveMode&&!data.items) {
       this.sideNavClosed.emit();
 
     }

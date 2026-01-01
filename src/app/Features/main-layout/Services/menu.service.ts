@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 })
 export class MenuService {
   menus: MenuItem[] = [];
-  constructor() {}
+  constructor(private router:Router) {}
 
   initializeMenus() {
     this.menus = [
@@ -58,25 +59,38 @@ export class MenuService {
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
-        //routerLink: ['daily-registration'],
-        items:[
-          {
-            label: 'الصادرة',
-            visible: true,
-           // icon: PrimeIcons.FILE_EDIT,
-            iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['outgoing'],
-          },
-          {
-            label: 'الواردة',
-            visible: true,
-           // icon: PrimeIcons.FILE_EDIT,
-            iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['incoming'],
-          },
-        ]
-      },
+        routerLink: ['warehouse'],
+      }
+      // {
+      //   label: 'المخزن',
+      //   visible: true,
+      //   icon: PrimeIcons.WAREHOUSE,
+      //   iconStyle: { fontSize: '1.5rem' },
+      //   //routerLink: ['daily-registration'],
+      //   expanded: this.shouldExpand(['warehouse/outgoing','warehouse/incoming']),
+      //   items:[
+      //     {
+      //       label: 'الصادرة',
+      //       visible: true,
+      //       icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+      //       iconStyle: { fontSize: '1.5rem' },
+      //       routerLink: ['warehouse/outgoing'],
+      //     },
+      //     {
+      //       label: 'الواردة',
+      //       visible: true,
+      //       icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+      //       iconStyle: { fontSize: '1.5rem' },
+      //       routerLink: ['warehouse/incoming'],
+      //     },
+      //   ]
+      // },
     ];
+  }
+
+  private shouldExpand(possibleRoutes: string[]): boolean {
+    const current = this.router.url;
+    return possibleRoutes.some((r) => current.includes(r));
   }
   getFirstVisibleRoute(): string {
     let menu = this.getFirstVisibleMenu(this.menus);

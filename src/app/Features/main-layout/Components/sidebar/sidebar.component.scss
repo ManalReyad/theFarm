@@ -36,8 +36,11 @@
     color: var(--secondary);
     padding: 0.5rem;
     .p-menuitem-text {
-        color: var(--secondary);
-      }
+      color: var(--secondary);
+    }
+    .p-menuitem-icon {
+      color: var(--secondary);
+    }
   }
   .p-panelmenu-header-content,
   .p-panelmenu-content {
@@ -51,6 +54,39 @@
     line-height: 30px;
     color: var(--main-white);
   }
+  .p-submenu-list {
+    @apply mx-3;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+  .p-panelmenu-content {
+    background-color: transparent;
+  }
+  .p-submenu-icon {
+    transform: rotate(89deg);
+  }
+  .p-menuitem-content {
+    background-color: transparent;
+    @apply rounded-none;
+    padding: 0;
+  }
+  .p-menuitem-link {
+    padding: 8px;
+    &:hover {
+      border-radius: 8px !important;
+      background-color: var(--active-sidebar-item);
+      color: var(--secondary) !important;
+      font-size: 20px;
+      .p-menuitem-text {
+        color: var(--secondary);
+      }
+      .p-menuitem-icon {
+        color: var(--secondary);
+      }
+    }
+  }
 }
 
 :host
@@ -58,9 +94,13 @@
   .p-panelmenu
   .p-panelmenu-header
   .p-panelmenu-header-content
-  .p-panelmenu-header-action {
+  .p-panelmenu-header-action,
+.p-menuitem-link {
   padding: 0.5rem;
   margin-top: 20px;
 }
-
-
+:host ::ng-deep .p-highlight{
+  .p-submenu-icon {
+    transform: rotate(180deg);
+  }
+}

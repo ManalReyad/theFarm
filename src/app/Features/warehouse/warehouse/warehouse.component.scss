@@ -1,0 +1,15 @@
+.tabs {
+  @apply w-full flex justify-start items-center gap-5 mb-6 mr-2;
+  .tab {
+    padding: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--main-gray);
+    border-bottom: 3px solid var(--main-gray);
+    cursor: pointer;
+  }
+  .activeTab {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+  }
+}
