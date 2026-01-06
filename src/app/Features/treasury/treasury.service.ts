@@ -24,6 +24,6 @@ export class TreasuryService {
     return this.http.post(this.baseUrl + `AddMoney`, body);
   }
   deductMony(body: any) {
-    return this.http.post(this.baseUrl + `DeductMony`, body);
+    return this.http.post(this.baseUrl + `DeductMoney`, body);
   }
 }

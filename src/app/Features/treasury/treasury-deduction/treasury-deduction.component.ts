@@ -59,7 +59,7 @@ export class TreasuryDeductionComponent {
     });
   }
   deductMony() {
-    this.treasuryService.addMony(this.form.value).subscribe((response: any) => {
+    this.treasuryService.deductMony(this.form.value).subscribe((response: any) => {
       if (response.success) {
         this.successMesg = 'تمت الخصم  بنجاح ، يمكنك المتابعة';
         this.showSuccessDialog = true;
