@@ -61,14 +61,14 @@ export class TreasuryComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'name',
+        field: 'farmName',
         hide: false,
-        header: 'الاسم',
+        header: 'المزرعة',
       }),
       new ListColumn({
-        field: 'description',
+        field: 'value',
         hide: false,
-        header: 'الوصف',
+        header: 'القيمة',
       }),
     ];
   }
@@ -95,13 +95,13 @@ export class TreasuryComponent {
     this.router.navigate(['treasury/deduction'])
   }
   getPage() {
-    // this.treasuryService
-    //   .getAll(this.pageNumber, this.pageSize)
-    //   .subscribe((response: any) => {
-    //     if (response.success) {
-    //       this.pageResult = response.data;
-    //     }
-    //   });
+    this.treasuryService
+      .getAll(this.pageNumber, this.pageSize)
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.pageResult = response.data;
+        }
+      });
   }
   save() {
     this.treasuryService

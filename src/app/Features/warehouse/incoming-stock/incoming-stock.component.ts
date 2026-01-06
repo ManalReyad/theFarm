@@ -43,12 +43,14 @@ export class IncomingStockComponent {
     this.getDropdowns();
     this.createForm();
   }
-  getDropdowns() {
-    this.roomService.getList().subscribe((response: any) => {
+  getRooms(id: any) {
+    this.roomService.getList(id).subscribe((response: any) => {
       if (response.success) {
         this.roomOptions = response.data;
       }
     });
+  }
+  getDropdowns() {
     this.farmService.getList().subscribe((response: any) => {
       if (response.success) {
         this.farmOptions = response.data;

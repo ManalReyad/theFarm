@@ -9,6 +9,8 @@
         formControlName="farmID"
         [options]="farmOptions"
         placeholder="اختر المزرعة"
+        (change)="getRooms($event)"
+
       >
       </app-dropdown>
     </div>
@@ -18,6 +20,8 @@
         formControlName="roomID"
         [options]="roomOptions"
         placeholder="اختر العنبر"
+        emptyMessage="إختر مزرعة أولاً"
+
       >
       </app-dropdown>
     </div>
@@ -54,4 +58,6 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="showSuccessDialog = false"
   [message]="successMesg"
+  btnText="الرجوع لقائمة المخزن"
+  (onSubmitEvent)="backToList()"
 ></app-success-dialog>

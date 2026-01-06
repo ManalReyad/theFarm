@@ -47,8 +47,8 @@ export class TreasuryDeductionComponent {
       farmID: new FormControl(null, Validators.required),
       paidTypeID: new FormControl(null, Validators.required),
       value: new FormControl(null, Validators.required),
-      employeeID: new FormControl(null, Validators.required),
-      merchantID: new FormControl(null, Validators.required),
+      employeeID: new FormControl(null),
+      merchantID: new FormControl(null),
     });
   }
   getDropdowns() {

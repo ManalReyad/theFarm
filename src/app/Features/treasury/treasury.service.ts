@@ -3,21 +3,27 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TreasuryService {
   baseUrl = environment.baseUrl + 'Treasury/';
   constructor(private http: HttpClient) {}
-  addMony(body: any) {
-    return this.http.post(this.baseUrl + `AddMony`, body);
-  }
-  deductMony(body: any) {
-    return this.http.post(this.baseUrl + `DeductMony`, body);
-  }
+
   getAll(
     pageIndex: number,
     pageSize: number,
     isAscending: boolean = true,
     orderBy: string = ''
-  ) {}
+  ) {
+    return this.http.get(
+      this.baseUrl +
+        `Get?OrderBy=${orderBy}&IsAscending=${isAscending}&PageIndex=${pageIndex}&PageSize=${pageSize}`
+    );
+  }
+  addMony(body: any) {
+    return this.http.post(this.baseUrl + `AddMoney`, body);
+  }
+  deductMony(body: any) {
+    return this.http.post(this.baseUrl + `DeductMony`, body);
+  }
 }

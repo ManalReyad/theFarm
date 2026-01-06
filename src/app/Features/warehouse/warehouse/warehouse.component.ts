@@ -44,14 +44,19 @@ export class WarehouseComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'name',
+        field: 'farmName',
         hide: false,
-        header: 'الاسم',
+        header: 'المزرعة',
       }),
       new ListColumn({
-        field: 'description',
+        field: 'inventoryTypeName',
         hide: false,
-        header: 'الوصف',
+        header: 'نوع المخزون',
+      }),
+      new ListColumn({
+        field: 'quantity',
+        hide: false,
+        header: 'الكمية',
       }),
     ];
   }
@@ -69,13 +74,13 @@ export class WarehouseComponent {
     this.router.navigate(['warehouse/incoming']);
   }
   getPage() {
-    // this.warehouseService
-    //   .getAll(this.pageNumber,this.pageSize)
-    //   .subscribe((response: any) => {
-    //     if (response.success) {
-    //       this.pageResult = response.data;
-    //     }
-    //   });
+    this.warehouseService
+      .getAll(this.pageNumber,this.pageSize)
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.pageResult = response.data;
+        }
+      });
   }
   onPageChanged(event: any) {
     this.pageNumber = event.first;
