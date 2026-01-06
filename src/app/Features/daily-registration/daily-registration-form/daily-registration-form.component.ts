@@ -47,11 +47,7 @@ export class DailyRegistrationFormComponent {
     
   }
   getDropdowns() {
-    this.cycleService.getList().subscribe((response: any) => {
-      if (response.success) {
-        this.cycleOptions = response.data;
-      }
-    });
+
     this.farmService.getList().subscribe((response: any) => {
       this.farmOptions = response.data;
     });
@@ -60,6 +56,11 @@ export class DailyRegistrationFormComponent {
     this.roomService.getList(id).subscribe((response: any) => {
       if (response.success) {
         this.roomOptions = response.data;
+      }
+    });
+    this.cycleService.getList(id).subscribe((response: any) => {
+      if (response.success) {
+        this.cycleOptions = response.data;
       }
     });
   }

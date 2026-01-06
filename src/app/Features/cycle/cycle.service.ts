@@ -32,7 +32,7 @@ export class CycleService {
   delete(id: number) {
     return this.http.delete(this.baseUrl + `?id=${id}`);
   }
-  getList() {
-    return this.http.get(this.baseUrl + `/GetList`);
+  getList(farmId:any='') {
+    return this.http.get(this.baseUrl + `/GetList?farmID=${farmId}`);
   }
 }
