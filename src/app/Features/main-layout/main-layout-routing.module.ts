@@ -47,6 +47,13 @@ const routes: Routes = [
             (m) => m.WarehouseModule
           ),
       },
+      {
+        path: 'treasury',
+        loadChildren: () =>
+          import('../treasury/treasury.module').then(
+            (m) => m.TreasuryModule
+          ),
+      },
     ],
   },
 ];

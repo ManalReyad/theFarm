@@ -1,0 +1,154 @@
+<div class="flex flex-col gap-4">
+  <div class="flex justify-between items-center">
+    <h1>الخزنة</h1>
+
+    <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
+      <button class="submitBtn" (click)="add()">إضافة</button>
+      <button class="submitBtn" (click)="deduct()">خصم</button>
+    </div>
+  </div>
+
+  <app-list
+    [listColumns]="columns"
+    [pageResult]="pageResult"
+    (pageChange)="onPageChanged($event)"
+    (secondBtnEvent)="deduct()"
+    (add)="add()"
+    [hasSecondBtn]="true"
+    [searchMode]="searchMode"
+    [withAction]="false"
+    (back)="resetSearch()"
+    noDataImg="nodepartments.svg"
+    secondButtonText="خصم"
+    noDataMessage="يبدو أنك لم تقم بإضافة بيانات بعد، ستظهر البيانات المضافة هنا... يمكنك البدء  "
+    addButtonText="إضافة"
+    nosearchBtnText="العودة إلى الخزنة"
+  ></app-list>
+</div>
+
+<p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="showAddMonyForm"
+  [closable]="false"
+  [style]="{ width: '25vw' }"
+  [breakpoints]="{ '960px': '80vw' }"
+>
+  <div class="title">إضافة مال إلى الخزنة</div>
+  <form [formGroup]="addMonyform">
+    <div class="grid grid-cols-12 mt-5">
+      <div class="col-span-12">
+        <app-dropdown
+          labelText="المزرعة"
+          formControlName="farmID"
+          [options]="farmOptions"
+          placeholder="اختر المزرعة"
+        >
+        </app-dropdown>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <app-dropdown
+          labelText="نوع الدفع"
+          formControlName="paidTypeID"
+          [options]="paidTypeOptions"
+          placeholder="اختر نوع الدفع"
+        >
+        </app-dropdown>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <app-input
+          labelText="القيمة"
+          formControlName="value"
+          placeholder="حدد القيمة "
+          inputType="number"
+          unit="EGP"
+        >
+        </app-input>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-center gap-3 mt-5">
+    <button class="submitBtn" (click)="save()" [disabled]="addMonyform.invalid">
+      إضافة
+    </button>
+    <button class="exitBtn" (click)="showAddMonyForm = false">إلغاء</button>
+  </div>
+</p-dialog>
+<!-- <p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="showDeductMonyForm"
+  [closable]="false"
+  [style]="{ width: '25vw' }"
+  [breakpoints]="{ '960px': '80vw' }"
+>
+  <div class="title">خصم مال من الخزنة</div>
+  <form [formGroup]="deductMonyform">
+    <div class="grid grid-cols-12 mt-5">
+      <div class="col-span-12">
+        <app-dropdown
+          labelText="المزرعة"
+          formControlName="farmID"
+          [options]="farmOptions"
+          placeholder="اختر المزرعة"
+        >
+        </app-dropdown>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <app-dropdown
+          labelText="نوع الدفع"
+          formControlName="paidTypeID"
+          [options]="paidTypeOptions"
+          placeholder="اختر نوع الدفع"
+        >
+        </app-dropdown>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <app-dropdown
+          labelText="العامل"
+          formControlName="employeeID"
+          [options]="paidTypeOptions"
+          placeholder="اختر العامل"
+        >
+        </app-dropdown>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <app-dropdown
+          labelText="التاجر"
+          formControlName="merchantID"
+          [options]="paidTypeOptions"
+          placeholder="اختر التاجر"
+        >
+        </app-dropdown>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <app-input
+          labelText="القيمة"
+          formControlName="value"
+          placeholder="حدد القيمة "
+          inputType="number"
+          unit="EGP"
+        >
+        </app-input>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-center gap-3 mt-5">
+    <button
+      class="submitBtn"
+      (click)="save()"
+      [disabled]="deductMonyform.invalid"
+    >
+      خصم
+    </button>
+    <button class="exitBtn" (click)="showDeductMonyForm = false">إلغاء</button>
+  </div>
+</p-dialog> -->
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض الخزنة"
+></app-success-dialog>

@@ -11,13 +11,13 @@ export class MenuService {
 
   initializeMenus() {
     this.menus = [
-      {
-        label: 'الرئيسية',
-        visible: true,
-        icon: PrimeIcons.HOME,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['home'],
-      },
+      // {
+      //   label: 'الرئيسية',
+      //   visible: true,
+      //   icon: PrimeIcons.HOME,
+      //   iconStyle: { fontSize: '1.5rem' },
+      //   routerLink: ['home'],
+      // },
       {
         label: 'المزرعة',
         visible: true,
@@ -60,7 +60,16 @@ export class MenuService {
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['warehouse'],
-      }
+      },
+      {
+        label: 'الخزنة',
+        visible: true,
+        icon: PrimeIcons.MONEY_BILL,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['treasury'],
+      },
+
+
       // {
       //   label: 'المخزن',
       //   visible: true,

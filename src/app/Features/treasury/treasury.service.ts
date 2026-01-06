@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class WarehouseService {
-  baseUrl = environment.baseUrl + 'Warehouse/';
+export class TreasuryService {
+  baseUrl = environment.baseUrl + 'Treasury/';
   constructor(private http: HttpClient) {}
-  createIncomingStock(body: any) {
-    return this.http.post(this.baseUrl + `IncomingStock`, body);
+  addMony(body: any) {
+    return this.http.post(this.baseUrl + `AddMony`, body);
   }
-  createOutgoingStock(body: any) {
-    return this.http.post(this.baseUrl + `OutgoingStock`, body);
+  deductMony(body: any) {
+    return this.http.post(this.baseUrl + `DeductMony`, body);
   }
   getAll(
     pageIndex: number,

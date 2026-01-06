@@ -1,0 +1,67 @@
+<h1> خصم المال من الخزنة </h1>
+<app-bread-crumb [pages]="pages"></app-bread-crumb>
+
+<form [formGroup]="form" class="card">
+  <div class="grid grid-cols-12 gap-3">
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-dropdown
+        labelText="المزرعة"
+        formControlName="farmID"
+        [options]="farmOptions"
+        placeholder="اختر المزرعة"
+      >
+      </app-dropdown>
+    </div>
+
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-dropdown
+        labelText="نوع الدفع"
+        formControlName="paidTypeID"
+        [options]="paidTypeOptions"
+        placeholder="اختر نوع الدفع"
+      >
+      </app-dropdown>
+    </div>
+
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-dropdown
+        labelText="العامل"
+        formControlName="employeeID"
+        [options]="paidTypeOptions"
+        placeholder="اختر العامل"
+      >
+      </app-dropdown>
+    </div>
+
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-dropdown
+        labelText="التاجر"
+        formControlName="merchantID"
+        [options]="paidTypeOptions"
+        placeholder="اختر التاجر"
+      >
+      </app-dropdown>
+    </div>
+
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-input
+        labelText="القيمة"
+        formControlName="value"
+        placeholder="حدد القيمة "
+        inputType="number"
+        unit="EGP"
+      >
+      </app-input>
+    </div>
+  </div>
+  <div class="flex justify-end gap-3 mt-5">
+    <button
+      class="submitBtn"
+      (click)="deductMony()"
+      [disabled]="form.invalid"
+    >
+      خصم
+    </button>
+    <button class="exitBtn" (click)="back()">إلغاء</button>
+  </div>
+</form>

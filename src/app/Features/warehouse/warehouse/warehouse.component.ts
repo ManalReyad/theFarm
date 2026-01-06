@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FarmService } from '../../farm/farm.service';
-import { RoomService } from '../../room/room.service';
 import { WarehouseService } from '../warehouse.service';
+import { ListColumn } from 'src/app/Shared/Models/list-columns';
+import { PageResult } from 'src/app/Shared/Models/page-result';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-warehouse',
@@ -10,66 +11,75 @@ import { WarehouseService } from '../warehouse.service';
   styleUrl: './warehouse.component.scss',
 })
 export class WarehouseComponent {
-  pages = [{ name: 'المخزن' }, { name: 'الموارد الواردة' }];
-  form!: FormGroup;
-  editMode: boolean = false;
-  roomOptions: { id: number; name: string }[] = [];
-  farmOptions: { id: number; name: string }[] = [];
-  successMesg: string = '';
+  columns: ListColumn[] = [];
+  pageResult: PageResult = { items: [] };
+  selectedDepartment: any;
+  showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
-  activeTab: 'outgoing' | 'incoming' = 'outgoing';
+  showForm: boolean = false;
+  editMode: boolean = false;
+  form!: FormGroup;
+  successMesg: string = '';
+  showWarnningDialog: boolean = false;
+  searchMode: boolean = false;
+  pageSize: number = 10;
+  pageNumber: number = 1;
+  searchReset: boolean = false;
   constructor(
-    private farmService: FarmService,
-    private roomService: RoomService,
-    private warehouseService: WarehouseService
+    private warehouseService: WarehouseService,
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.getDropdowns();
     this.createForm();
+    this.intializeListCoulmns();
+    this.getPage();
   }
-  getDropdowns() {
-    this.roomService.getList().subscribe((response: any) => {
-      if (response.success) {
-        this.roomOptions = response.data;
-      }
-    });
-    this.farmService.getList().subscribe((response: any) => {
-      if (response.success) {
-        this.farmOptions = response.data;
-      }
-    });
+  intializeListCoulmns() {
+    this.columns = [
+      new ListColumn({
+        field: '',
+        hide: false,
+        header: '#',
+        width: 5,
+        isIndex: true,
+      }),
+      new ListColumn({
+        field: 'name',
+        hide: false,
+        header: 'الاسم',
+      }),
+      new ListColumn({
+        field: 'description',
+        hide: false,
+        header: 'الوصف',
+      }),
+    ];
   }
   createForm() {
     this.form = new FormGroup({
-      id: new FormControl(),
-      quantity: new FormControl(null, Validators.required),
-      inventoryTypeID: new FormControl(null, Validators.required),
-      farmID: new FormControl(null, Validators.required),
-      roomID: new FormControl(null, Validators.required),
+      id: new FormControl(0),
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(''),
     });
   }
-  save() {
-    if (this.activeTab == 'incoming') {
-      this.warehouseService
-        .createIncomingStock(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg = 'تمت الإضافة بنجاح ، يمكنك المتابعة';
-            this.showSuccessDialog = true;
-          }
-        });
-    } else {
-      this.warehouseService
-        .createOutgoingStock(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg = 'تمت الإضافة بنجاح ، يمكنك المتابعة';
-            this.showSuccessDialog = true;
-          }
-        });
-    }
+  outgoing() {
+    this.router.navigate(['warehouse/outgoing']);
   }
-  switchTab(tab: 'outgoing' | 'incoming') {
-    this.activeTab = tab;
+  incoming() {
+    this.router.navigate(['warehouse/incoming']);
+  }
+  getPage() {
+    // this.warehouseService
+    //   .getAll(this.pageNumber,this.pageSize)
+    //   .subscribe((response: any) => {
+    //     if (response.success) {
+    //       this.pageResult = response.data;
+    //     }
+    //   });
+  }
+  onPageChanged(event: any) {
+    this.pageNumber = event.first;
+    this.pageSize = event.rows;
+    this.getPage();
   }
 }

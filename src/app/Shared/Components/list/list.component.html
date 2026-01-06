@@ -216,9 +216,14 @@
     [noDataImg]="noDataImg"
     [noDataMessage]="noDataMessage"
   ></app-no-data>
+<div class="w-full flex justify-center items-center gap-3">
   <button (click)="addNew()">
     <span>{{ addButtonText }} </span>
   </button>
+  <button (click)="secondBtnClick()" *ngIf="hasSecondBtn">
+    <span>{{ secondButtonText }} </span>
+  </button>
+</div>
 </div>
 <div
   class="noDataSection"

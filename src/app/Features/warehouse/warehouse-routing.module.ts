@@ -6,12 +6,12 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 
 const routes: Routes = [
   { path: '', component: WarehouseComponent },
-  // {
-  //   path:'incoming',component:IncomingStockComponent,
-  // },
-  // {
-  //   path:'outgoing',component:OutgoingStockComponent
-  // }
+  {
+    path:'incoming',component:IncomingStockComponent,
+  },
+  {
+    path:'outgoing',component:OutgoingStockComponent
+  }
 ];
 
 @NgModule({

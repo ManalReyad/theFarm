@@ -20,7 +20,6 @@ export class OutgoingStockComponent {
   farmOptions: { id: number; name: string }[] = [];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
-
   constructor(
     private farmService: FarmService,
     private roomService: RoomService,
