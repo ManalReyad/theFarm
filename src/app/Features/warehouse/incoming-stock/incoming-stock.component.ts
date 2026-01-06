@@ -4,6 +4,7 @@ import { RoomService } from '../../room/room.service';
 import { FarmService } from '../../farm/farm.service';
 import { WarehouseService } from '../warehouse.service';
 import { InventoryType } from '../enums/inventory-type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-incoming-stock',
@@ -35,7 +36,8 @@ export class IncomingStockComponent {
   constructor(
     private farmService: FarmService,
     private roomService: RoomService,
-    private warehouseService: WarehouseService
+    private warehouseService: WarehouseService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getDropdowns();
@@ -71,5 +73,8 @@ export class IncomingStockComponent {
           this.showSuccessDialog = true;
         }
       });
+  }
+  backToList() {
+    this.router.navigate(['warehouse']);
   }
 }

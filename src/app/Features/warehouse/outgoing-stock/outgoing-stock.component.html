@@ -22,6 +22,16 @@
       </app-dropdown>
     </div>
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText=" نوع المخزون"
+        formControlName="inventoryTypeID"
+        placeholder="حدد نوع المخزون"
+        [options]="inventoryTypeOptions"
+      >
+      </app-dropdown>
+    </div>
+
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-input
         labelText="الكمية"
         formControlName="quantity"
@@ -36,7 +46,7 @@
     <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
       {{ editMode ? "حفظ" : "إضافة" }}
     </button>
-    <!-- <button class="exitBtn" (click)="backToList()">إلغاء</button> -->
+    <button class="exitBtn" (click)="backToList()">إلغاء</button>
   </div>
 </form>
 

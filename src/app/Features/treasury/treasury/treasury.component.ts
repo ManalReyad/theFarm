@@ -32,18 +32,6 @@ export class TreasuryComponent {
   farmOptions: { id: number; name: string }[] = [];
   paidTypeOptions: { id: number; name: string }[] = [
     {
-      id: PaidType.Advance,
-      name: 'سلفة',
-    },
-    {
-      id: PaidType.Tip,
-      name: 'إكرامية',
-    },
-    {
-      id: PaidType.Puschase,
-      name: 'عملية شراء',
-    },
-    {
       id: PaidType.Deposit,
       name: 'إضافة للعهدة',
     },
@@ -91,15 +79,6 @@ export class TreasuryComponent {
       paidTypeID: new FormControl(null, Validators.required),
       value: new FormControl(null, Validators.required),
     });
-    // this.deductMonyform = new FormGroup({
-    //   id: new FormControl(0),
-    //   farmID: new FormControl(null, Validators.required),
-    //   paidTypeID: new FormControl(null, Validators.required),
-    //   value: new FormControl(null, Validators.required),
-    //   employeeID: new FormControl(null, Validators.required),
-    //   merchantID: new FormControl(null, Validators.required),
-
-    // });
   }
   getDropdowns() {
     this.farmService.getList().subscribe((response: any) => {

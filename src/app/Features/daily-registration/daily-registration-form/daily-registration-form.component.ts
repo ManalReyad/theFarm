@@ -4,11 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CycleService } from '../../cycle/cycle.service';
 import { DailyRegistrationService } from '../daily-registration.service';
 import { RoomService } from '../../room/room.service';
+import { FarmService } from '../../farm/farm.service';
 
 @Component({
   selector: 'app-daily-registration-form',
   templateUrl: './daily-registration-form.component.html',
-  styleUrl: './daily-registration-form.component.scss'
+  styleUrl: './daily-registration-form.component.scss',
 })
 export class DailyRegistrationFormComponent {
   pages: any = [
@@ -21,6 +22,7 @@ export class DailyRegistrationFormComponent {
   cycleOptions: { id: number; name: string }[] = [];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
+  farmOptions: { id: number; name: string }[] = [];
 
   constructor(
     private router: Router,
@@ -28,6 +30,7 @@ export class DailyRegistrationFormComponent {
     private cycleService: CycleService,
     private roomService: RoomService,
     private dailyRegisterService: DailyRegistrationService,
+    private farmService: FarmService
   ) {}
   ngOnInit(): void {
     let cycleId = this.activatedRoute.snapshot.params['id'];
@@ -41,16 +44,22 @@ export class DailyRegistrationFormComponent {
     }
     this.getDropdowns();
     this.createForm();
+    
   }
   getDropdowns() {
-    this.roomService.getList().subscribe((response: any) => {
-      if (response.success) {
-        this.roomOptions = response.data;
-      }
-    });
     this.cycleService.getList().subscribe((response: any) => {
       if (response.success) {
         this.cycleOptions = response.data;
+      }
+    });
+    this.farmService.getList().subscribe((response: any) => {
+      this.farmOptions = response.data;
+    });
+  }
+  getRooms(id: any) {
+    this.roomService.getList(id).subscribe((response: any) => {
+      if (response.success) {
+        this.roomOptions = response.data;
       }
     });
   }
@@ -63,6 +72,7 @@ export class DailyRegistrationFormComponent {
       medicinePrice: new FormControl(null, Validators.required),
       roomID: new FormControl(null, Validators.required),
       cycleID: new FormControl(null, Validators.required),
+      farmID: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
     });
   }
@@ -78,19 +88,25 @@ export class DailyRegistrationFormComponent {
   }
   save() {
     if (this.editMode) {
-      this.dailyRegisterService.update(this.form.value).subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تم تعديل بيانات التسجيل اليومي بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        }
-      });
+      this.dailyRegisterService
+        .update(this.form.value)
+        .subscribe((response: any) => {
+          if (response.success) {
+            this.successMesg =
+              'تم تعديل بيانات التسجيل اليومي بنجاح، يمكنك المتابعة';
+            this.showSuccessDialog = true;
+          }
+        });
     } else {
-      this.dailyRegisterService.create(this.form.value).subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تمت إضافة التسجيل اليومي بنجاح ، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        }
-      });
+      this.dailyRegisterService
+        .create(this.form.value)
+        .subscribe((response: any) => {
+          if (response.success) {
+            this.successMesg =
+              'تمت إضافة التسجيل اليومي بنجاح ، يمكنك المتابعة';
+            this.showSuccessDialog = true;
+          }
+        });
     }
   }
   backToList() {

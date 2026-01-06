@@ -31,14 +31,6 @@ export class TreasuryDeductionComponent {
       id: PaidType.Puschase,
       name: 'عملية شراء',
     },
-    {
-      id: PaidType.Deposit,
-      name: 'إضافة للعهدة',
-    },
-    {
-      id: PaidType.Sale,
-      name: 'عملية بيع',
-    },
   ];
   constructor(
     private farmService: FarmService,
