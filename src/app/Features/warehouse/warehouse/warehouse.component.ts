@@ -73,6 +73,9 @@ export class WarehouseComponent {
   incoming() {
     this.router.navigate(['warehouse/incoming']);
   }
+  goToDetails(data: any) {
+    this.router.navigate(['warehouse/details/' + data.id]);
+  }
   getPage() {
     this.warehouseService
       .getAll(this.pageNumber,this.pageSize)

@@ -37,6 +37,7 @@ body {
 {
   @apply py-5 px-3;
   background-color: var(--main-white);
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -88,4 +89,13 @@ textarea {
 }
 label{
   color: var(--primary);
+}
+@media (max-width:'1024px') {
+  .submitBtn {
+    padding: 4px 12px;
+    font-size: 15px;
+  }
+  h1 {
+    font-size: 16px;
+  }
 }

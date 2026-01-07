@@ -25,4 +25,8 @@ export class WarehouseService {
   createOutgoingStock(body: any) {
     return this.http.post(this.baseUrl + `OutgoingStock`, body);
   }
+  getById(id:number)
+  {
+    return this.http.get(this.baseUrl+`GetByID?id=${id}`)
+  }
 }

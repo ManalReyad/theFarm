@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IncomingStockComponent } from './incoming-stock/incoming-stock.component';
 import { OutgoingStockComponent } from './outgoing-stock/outgoing-stock.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
+import { WarehouseDetailsComponent } from './warehouse-details/warehouse-details.component';
 
 const routes: Routes = [
   { path: '', component: WarehouseComponent },
@@ -11,7 +12,11 @@ const routes: Routes = [
   },
   {
     path:'outgoing',component:OutgoingStockComponent
-  }
+  },
+  {
+    path: 'details/:id',
+    component: WarehouseDetailsComponent,
+  },
 ];
 
 @NgModule({

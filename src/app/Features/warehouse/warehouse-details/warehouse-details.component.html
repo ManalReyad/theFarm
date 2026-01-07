@@ -1,0 +1,25 @@
+<h1>التفاصيل</h1>
+<app-bread-crumb [pages]="pages"></app-bread-crumb>
+
+<div class="card">
+  <div class="flex gap-1 my-2 p-4">
+    <label class="w-[90px]"> المزرعة : </label>
+    <span> {{ data?.farmName }}</span>
+  </div>
+  <div class="flex gap-1 my-2 p-4 mb-4">
+    <label class="w-[90px]"> نوع المخزون : </label>
+    <span> {{data?.inventoryTypeName}} </span>
+  </div>
+  <div class="flex gap-1 my-2 p-4 mb-4">
+    <label class="w-[90px]"> الكمية : </label>
+    <span> {{data?.quantity}} </span>
+  </div>
+
+  <app-list
+    [listColumns]="columns"
+    [pageResult]="pageResult"
+    [withAction]="false"
+    [hasPagination]="false"
+    [hasBorder]="true"
+  ></app-list>
+</div>

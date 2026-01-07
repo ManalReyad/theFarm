@@ -13,16 +13,18 @@
     [pageResult]="pageResult"
     (pageChange)="onPageChanged($event)"
     [searchMode]="searchMode"
-    noDataImg="nodepartments.svg"
     noDataMessage="يبدو أنك لم تقم بإضافة أي موارد صادرة أو ورادة بعد، ستظهر الموارد المضافة هنا... يمكنك البدء "
     addButtonText="إضافة مزرعة"
     nosearchBtnText="العودة إلى المخزن"
-    [withAction]="false"
     secondButtonText="الموارد الواردة"
     addButtonText="الموارد الصادرة"
     (add)="outgoing()"
     (secondBtnEvent)="incoming()"
     [hasSecondBtn]="true"
+    (view)="goToDetails($event)"
+    [hasDelete]="false"
+    [hasEdit]="false"
+    [hasView]="true"
   ></app-list>
 </div>
 
