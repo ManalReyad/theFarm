@@ -26,4 +26,8 @@ export class TreasuryService {
   deductMony(body: any) {
     return this.http.post(this.baseUrl + `DeductMoney`, body);
   }
+  getById(id:number)
+  {
+    return this.http.get(this.baseUrl+`GetByID?id=${id}`)
+  }
 }

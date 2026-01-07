@@ -16,6 +16,7 @@ export class ListComponent implements OnInit {
   @Input() hasSecondBtn: boolean = false;
   @Input() hasEdit: boolean = true;
   @Input() hasDelete: boolean = true;
+  @Input() hasView: boolean = false;
   @Input() hasPagination: boolean = true;
   @Input() hasBorder: boolean = false;
   @Input() searchMode: boolean = false;
@@ -34,6 +35,7 @@ export class ListComponent implements OnInit {
   @Output() back = new EventEmitter();
   @Output() assetClicked = new EventEmitter();
   @Output() secondBtnEvent = new EventEmitter();
+  @Output() view = new EventEmitter();
 
   first: number = 0;
   last!: number;
@@ -68,7 +70,9 @@ export class ListComponent implements OnInit {
   onEdit(currtentItem: any, index: number) {
     this.edit.emit({ item: currtentItem, index: index });
   }
-
+  onView(data: any) {
+    this.view.emit(data);
+  }
   addNew() {
     this.add.emit();
   }

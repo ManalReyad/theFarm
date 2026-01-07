@@ -119,6 +119,9 @@
           </span>
         </td>
         <td *ngIf="withAction" class="flex justify-center items-center gap-3">
+          <span *ngIf="hasView" (click)="onView(entity)">
+           <i class="pi pi-eye cursor-pointer"></i>
+          </span>
           <span *ngIf="hasEdit" (click)="onEdit(entity, i)">
             <img
               class="cursor-pointer"

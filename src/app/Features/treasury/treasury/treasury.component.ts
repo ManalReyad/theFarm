@@ -92,7 +92,10 @@ export class TreasuryComponent {
     this.showAddMonyForm = true;
   }
   deduct() {
-    this.router.navigate(['treasury/deduction'])
+    this.router.navigate(['treasury/deduction']);
+  }
+  goToDetails(data: any) {
+    this.router.navigate(['treasury/details/' + data.id]);
   }
   getPage() {
     this.treasuryService

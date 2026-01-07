@@ -16,13 +16,17 @@
     (add)="add()"
     [hasSecondBtn]="true"
     [searchMode]="searchMode"
-    [withAction]="false"
     (back)="resetSearch()"
+    (view)="goToDetails($event)"
     noDataImg="nodepartments.svg"
     secondButtonText="خصم"
     noDataMessage="يبدو أنك لم تقم بإضافة بيانات بعد، ستظهر البيانات المضافة هنا... يمكنك البدء  "
     addButtonText="إضافة"
     nosearchBtnText="العودة إلى الخزنة"
+    [hasDelete]="false"
+    [hasEdit]="false"
+    [hasView]="true"
+    
   ></app-list>
 </div>
 
@@ -62,7 +66,6 @@
           placeholder="حدد القيمة "
           inputType="number"
           unit="EGP"
-
         >
         </app-input>
       </div>
