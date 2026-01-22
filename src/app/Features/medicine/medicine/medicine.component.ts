@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { CycleService } from '../cycle.service';
+import { MedicineService } from '../medicine.service';
 
 @Component({
-  selector: 'app-cycle-listing',
-  templateUrl: './cycle-listing.component.html',
-  styleUrl: './cycle-listing.component.scss'
+  selector: 'app-medicine',
+  templateUrl: './medicine.component.html',
+  styleUrl: './medicine.component.scss'
 })
-export class CycleListingComponent {
+export class MedicineComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };;
   selectedDepartment: any;
@@ -17,14 +17,16 @@ export class CycleListingComponent {
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
   editMode: boolean = false;
+  form!: FormGroup;
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
   pageSize: number = 10;
-  pageNumber: number = 1;
+  pageNumber:number=1
   searchReset: boolean = false;
-  constructor(private cycleService: CycleService, private router: Router) {}
+  constructor(private medicineService: MedicineService) {}
   ngOnInit(): void {
+    this.createForm();
     this.intializeListCoulmns();
     this.getPage();
   }
@@ -42,43 +44,60 @@ export class CycleListingComponent {
         hide: false,
         header: 'الاسم',
       }),
-      new ListColumn({
-        field: 'roomName',
-        hide: false,
-        header: 'العنبر',
-      }),
-      new ListColumn({
-        field: 'startDate',
-        hide: false,
-        header: 'تاريخ البداية',
-        isDate:true
-      }),
-      new ListColumn({
-        field: 'endDate',
-        hide: false,
-        header: 'تاريخ النهاية',
-        isDate:true
-      }),
-      new ListColumn({
-        field: 'chickenCount',
-        hide: false,
-        header: 'عدد الفراخ',
-      }),
-      new ListColumn({
-        field: 'chickenAge',
-        hide: false,
-        header: 'عمر الفراخ',
-      }),
     ];
   }
+  createForm() {
+    this.form = new FormGroup({
+      id: new FormControl(0),
+      name: new FormControl(null, Validators.required),
+    });
+  }
+  addNew() {
+    this.editMode = false;
+    this.form.reset();
+    this.showForm = true;
+  }
   getPage() {
-    this.cycleService
-      .getAll(this.pageNumber, this.pageSize)
+    this.medicineService
+      .getAll(this.pageNumber,this.pageSize)
       .subscribe((response: any) => {
         if (response.success) {
           this.pageResult = response.data;
         }
       });
+  }
+  edit(object: any) {
+    this.showForm = true;
+    this.editMode = true;
+    this.form.patchValue({ ...object.item });
+  }
+  save() {
+    if (this.editMode) {
+      this.medicineService
+        .update(this.form.value)
+        .subscribe((response: any) => {
+          if (response.success) {
+            this.successMesg =
+              'تم تعديل بيانات الدواء بنجاح، يمكنك المتابعة';
+            this.showForm = false;
+            this.showSuccessDialog = true;
+          }
+        });
+    } else {
+      this.medicineService
+        .create(this.form.value)
+        .subscribe((response: any) => {
+          if (response.success) {
+            this.successMesg =
+              'تمت إضافة الدواء بنجاح ، يمكنك المتابعة';
+            this.showForm = false;
+            this.showSuccessDialog = true;
+          }
+        });
+    }
+  }
+  showWarnningMessage() {
+    this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
     this.pageNumber = event.first;
@@ -88,7 +107,7 @@ export class CycleListingComponent {
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.pageNumber=1
     this.getPage();
   }
   delete(item: any) {
@@ -97,22 +116,17 @@ export class CycleListingComponent {
   }
 
   submitDelete() {
-    this.cycleService
+    this.medicineService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
         if (response.success) {
-          this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
+          this.successMesg = 'تم حذف الدواء بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
         }
       });
   }
-  addNew() {
-    this.router.navigate(['/cycle/create']);
-  }
-  edit(data: any) {
-    this.router.navigate(['/cycle/update/' + data.item.id]);
-  }
+
   close() {
     this.showForm = false;
     this.showConfirmDeleteDialog = false;

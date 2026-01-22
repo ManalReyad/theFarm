@@ -3,51 +3,56 @@
 
 <form [formGroup]="form" class="card">
   <div class="grid grid-cols-12 gap-3">
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-input
         labelText="اسم الدورة"
         placeholder="أدخل اسم الدورة"
         formControlName="name"
       ></app-input>
     </div>
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-dropdown
-        labelText="المزرعة"
-        formControlName="farmID"
-        [options]="farmOptions"
-        placeholder="اختر المزرعة"
+        labelText="العنبر"
+        formControlName="roomId"
+        [options]="roomOptions"
+        placeholder="اختر العنبر"
       >
       </app-dropdown>
     </div>
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-date-input
-        labelText="تاريخ البداية"
+        labelText=" تاريخ بداية الدورة"
         formControlName="startDate"
-        placeholder="حدد تاريخ البداية"
+        placeholder="حدد  تاريخ بداية الدورة "
         id="startDate"
       >
       </app-date-input>
     </div>
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-date-input
-        labelText="تاريخ النهاية"
+        labelText=" تاريخ نهاية الدورة"
         formControlName="endDate"
-        placeholder="حدد تاريخ النهاية"
+        placeholder="حدد تاريخ نهاية الدورة "
         id="endDate"
       >
       </app-date-input>
     </div>
-  </div>
-  <div class="grid grid-cols-12 gap-3 mt-4">
-    <div class="col-span-12 flex flex-col mt-4">
-      <label>الوصف</label>
-      <textarea
-        placeholder="وصف العنبر"
-        cols="12"
-        rows="4"
-        formControlName="description"
-        [required]="false"
-      ></textarea>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
+      <app-input
+        labelText="عدد الفراخ عند البداية"
+        placeholder="أدخل عدد الفراخ عند البداية"
+        formControlName="chickenCount"
+        unit="فرخة"
+      ></app-input>
+    </div>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
+      <app-input
+        labelText="عمر الفراخ عند البداية"
+        placeholder="أدخل عمر الفراخ عند البداية"
+        formControlName="chickenAge"
+        inputType="number"
+        unit="يوم"
+      ></app-input>
     </div>
   </div>
 

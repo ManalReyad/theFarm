@@ -9,6 +9,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { DropdownModule } from "primeng/dropdown";
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,8 +26,9 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     SidebarModule,
     PanelMenuModule,
     SharedModule,
-    OverlayPanelModule
-
-  ]
+    OverlayPanelModule,
+    DropdownModule,
+    FormsModule
+]
 })
 export class MainLayoutModule { }

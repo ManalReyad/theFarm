@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FarmService } from '../../farm/farm.service';
 import { CycleService } from '../cycle.service';
+import { RoomService } from '../../room/room.service';
 
 @Component({
   selector: 'app-cycle-form',
@@ -16,15 +16,15 @@ export class CycleFormComponent {
   ];
   form!: FormGroup;
   editMode: boolean = false;
-  farmOptions: { id: number; name: string }[] = [];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
-
+  roomOptions: { id: number; name: string }[] = [];
+  farmId:any
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cycleService: CycleService,
-    private farmService: FarmService
+    private roomService:RoomService
   ) {}
   ngOnInit(): void {
     let cycleId = this.activatedRoute.snapshot.params['id'];
@@ -36,13 +36,14 @@ export class CycleFormComponent {
         { name: 'تعديل بيانات الدورة' },
       ];
     }
-    this.getDropdowns();
+    this.farmId=localStorage.getItem('farmId')||''
+    this.getRooms();
     this.createForm();
   }
-  getDropdowns() {
-    this.farmService.getList().subscribe((response: any) => {
+  getRooms() {
+    this.roomService.getList(+this.farmId).subscribe((response: any) => {
       if (response.success) {
-        this.farmOptions = response.data;
+        this.roomOptions = response.data;
       }
     });
   }
@@ -50,10 +51,13 @@ export class CycleFormComponent {
     this.form = new FormGroup({
       id: new FormControl(),
       name: new FormControl(null, Validators.required),
-      description: new FormControl(),
-      farmID: new FormControl(null, Validators.required),
+      farmId: new FormControl(),
+      roomId: new FormControl(null, Validators.required),
       startDate: new FormControl(null, Validators.required),
-      endDate: new FormControl(),
+      endDate: new FormControl(null, Validators.required),
+      chickenCount: new FormControl(null, Validators.required),
+      chickenAge: new FormControl(null, Validators.required),
+
     });
   }
   getById(id: any) {
@@ -68,6 +72,7 @@ export class CycleFormComponent {
     });
   }
   save() {
+    this.form.patchValue({ ...this.form.value, farmId: +this.farmId });
     if (this.editMode) {
       this.cycleService.update(this.form.value).subscribe((response: any) => {
         if (response.success) {

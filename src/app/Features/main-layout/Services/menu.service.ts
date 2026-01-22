@@ -19,7 +19,7 @@ export class MenuService {
       //   routerLink: ['home'],
       // },
       {
-        label: 'المزرعة',
+        label: 'المزارع',
         visible: true,
         icon: PrimeIcons.BUILDING_COLUMNS,
         iconStyle: { fontSize: '1.5rem' },
@@ -34,19 +34,20 @@ export class MenuService {
         routerLink: ['/room'],
       },
       {
-        label: 'الأصول',
-        visible: true,
-        icon: PrimeIcons.SITEMAP,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['assets'],
-      },
-      {
         label: 'الدورات',
         visible: true,
         icon: PrimeIcons.SYNC,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['cycle'],
       },
+      {
+        label: 'الأصول',
+        visible: true,
+        icon: PrimeIcons.SITEMAP,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['assets'],
+      },
+     
       {
         label: 'التسجيل اليومي',
         visible: true,
@@ -67,6 +68,13 @@ export class MenuService {
         icon: PrimeIcons.MONEY_BILL,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['treasury'],
+      },
+      {
+        label: 'الأدوية',
+        visible: true,
+        icon: 'fa-solid fa-capsules',
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['medicine'],
       },
 
 

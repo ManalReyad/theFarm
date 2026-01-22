@@ -54,6 +54,13 @@ const routes: Routes = [
             (m) => m.TreasuryModule
           ),
       },
+      {
+        path: 'medicine',
+        loadChildren: () =>
+          import('../medicine/medicine.module').then(
+            (m) => m.MedicineModule
+          ),
+      },
     ],
   },
 ];

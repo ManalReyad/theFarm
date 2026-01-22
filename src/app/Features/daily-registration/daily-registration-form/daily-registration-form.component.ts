@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormArray,
+  FormBuilder,
+} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CycleService } from '../../cycle/cycle.service';
 import { DailyRegistrationService } from '../daily-registration.service';
@@ -23,6 +29,13 @@ export class DailyRegistrationFormComponent {
   successMesg: string = '';
   showSuccessDialog: boolean = false;
   farmOptions: { id: number; name: string }[] = [];
+  selectedFeedItems: any[] = [];
+  selectedMedicineItems: any[] = [];
+  currentFeedItemIndex: number = 0;
+  currentMedicineItemIndex: number = 0;
+  allItemTypes: { id: number; name: string }[] = [];
+  currentFeedItemRowInvalid:boolean=false
+  currentMedicineRowInvalid:boolean=false
 
   constructor(
     private router: Router,
@@ -30,7 +43,8 @@ export class DailyRegistrationFormComponent {
     private cycleService: CycleService,
     private roomService: RoomService,
     private dailyRegisterService: DailyRegistrationService,
-    private farmService: FarmService
+    private farmService: FarmService,
+    private fb: FormBuilder
   ) {}
   ngOnInit(): void {
     let cycleId = this.activatedRoute.snapshot.params['id'];
@@ -44,10 +58,8 @@ export class DailyRegistrationFormComponent {
     }
     this.getDropdowns();
     this.createForm();
-    
   }
   getDropdowns() {
-
     this.farmService.getList().subscribe((response: any) => {
       this.farmOptions = response.data;
     });
@@ -68,13 +80,21 @@ export class DailyRegistrationFormComponent {
     this.form = new FormGroup({
       id: new FormControl(),
       deadChicken: new FormControl(null, Validators.required),
-      feedUsage: new FormControl(null, Validators.required),
-      feedPrice: new FormControl(null, Validators.required),
-      medicinePrice: new FormControl(null, Validators.required),
-      roomID: new FormControl(null, Validators.required),
       cycleID: new FormControl(null, Validators.required),
-      farmID: new FormControl(null, Validators.required),
-      date: new FormControl(new Date(Date.now()), Validators.required),
+      feedItems: this.fb.array([
+        this.fb.group({
+          id: [0],
+          itemTypeId: [],
+          quantity: [],
+        }),
+      ]),
+      medicineItems: this.fb.array([
+        this.fb.group({
+          id: [0],
+          itemTypeId: [],
+          quantity: [],
+        }),
+      ]),
     });
   }
   getById(id: any) {
@@ -86,6 +106,93 @@ export class DailyRegistrationFormComponent {
         });
       }
     });
+  }
+  get feedItems() {
+    return this.form.get('feedItems') as FormArray;
+  }
+  get medicineItems() {
+    return this.form.get('medicineItems') as FormArray;
+  }
+  getAvailableMedicineItems(index: number): any[] {
+    const selectedBeforeCurrent = this.selectedMedicineItems.filter(
+      (_, i) => i !== index
+    );
+    return this.allItemTypes.filter(
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
+    );
+  }
+  getAvailableFeedItems(index: number): any[] {
+    const selectedBeforeCurrent = this.selectedFeedItems.filter(
+      (_, i) => i !== index
+    );
+    return this.allItemTypes.filter(
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
+    );
+  }
+  onSelectionChange(event: any, index: number, type: string): void {
+    const selectedValue = event.value;
+    if (type == 'feed') {
+      this.selectedFeedItems[index] = selectedValue;
+    } else {
+      this.selectedMedicineItems[index] = selectedValue;
+    }
+  }
+
+  addRow(type: string) {
+    if (type == 'feed') {
+      this.feedItems.push(
+        this.fb.group({
+          id: [0],
+          itemTypeId: [],
+          quantity: [],
+        })
+      );
+      this.currentFeedItemIndex++;
+    } else {
+      this.medicineItems.push(
+        this.fb.group({
+          id: [0],
+          itemTypeId: [],
+          quantity: [],
+        })
+      );
+      this.currentMedicineItemIndex++;
+    }
+  }
+  deleteRow(rowId: number, type: string): void {
+    if (type === 'feed') {
+      this.feedItems.removeAt(rowId);
+      this.currentFeedItemIndex--;
+    } else {
+      this.medicineItems.removeAt(rowId);
+      this.currentMedicineItemIndex--;
+    }
+  }
+
+  isCurrentFeedItemRowInvalid(): boolean {
+    const rowForm = this.feedItems.at(this.currentFeedItemIndex);
+    if (rowForm) {
+      const itemTypeId = rowForm.get('itemTypeId')?.value;
+      const quantity = rowForm.get('quantity')?.value;
+      return (this.currentFeedItemRowInvalid =
+        !itemTypeId ||
+        quantity === null ||
+        quantity === undefined);
+    }
+    return false;
+  }
+  isCurrentMedicineItemRowInvalid(): boolean {
+    const rowForm = this.medicineItems.at(this.currentMedicineItemIndex);
+    if (rowForm) {
+      const itemTypeId = rowForm.get('itemTypeId')?.value;
+      const quantity = rowForm.get('quantity')?.value;
+
+      return (this.currentMedicineRowInvalid =
+        !itemTypeId ||
+        quantity === null ||
+        quantity === undefined);
+    }
+    return false;
   }
   save() {
     if (this.editMode) {
@@ -108,6 +215,16 @@ export class DailyRegistrationFormComponent {
             this.showSuccessDialog = true;
           }
         });
+    }
+  }
+  restrictNagtive(event: KeyboardEvent) {
+    if (
+      event.key === '-' ||
+      event.key === '+' ||
+      event.key === 'ArrowUp' ||
+      event.key === 'ArrowDown'
+    ) {
+      event.preventDefault();
     }
   }
   backToList() {

@@ -208,8 +208,8 @@
 <div
   class="noDataSection"
   *ngIf="
-    pageResult?.items &&
-    pageResult?.items?.length! < 1 &&
+    pageResult.items &&
+    pageResult.items.length! < 1 &&
     !searchMode &&
     !filterMode &&
     !displayEmptyList
