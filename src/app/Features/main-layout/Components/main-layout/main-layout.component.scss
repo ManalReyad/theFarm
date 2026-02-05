@@ -8,7 +8,7 @@
   color: var(--primary);
   display: block;
 }
-.dropdownContent{
+.dropdownContent {
   border: 1px solid var(--gray);
   border-radius: 4px;
   background-color: var(--main-white);
@@ -52,7 +52,9 @@
 :host ::ng-deep .p-placeholder {
   color: var(--main-gray) !important;
 }
-
+:host ::ng-deep .custom {
+  width: 100% !important;
+}
 @media (max-width: 768px) {
   .farmName {
     display: none;

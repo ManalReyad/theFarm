@@ -7,7 +7,7 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 })
 export class MenuService {
   menus: MenuItem[] = [];
-  constructor(private router:Router) {}
+  constructor(private router: Router) {}
 
   initializeMenus() {
     this.menus = [
@@ -47,7 +47,7 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['assets'],
       },
-     
+
       {
         label: 'التسجيل اليومي',
         visible: true,
@@ -55,12 +55,40 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['daily-registration'],
       },
+      // {
+      //   label: 'وارد المخزن',
+      //   visible: true,
+      //   icon: PrimeIcons.WAREHOUSE,
+      //   iconStyle: { fontSize: '1.5rem' },
+      //   routerLink: ['warehouse'],
+      // },
+
       {
         label: 'المخزن',
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['warehouse'],
+        //routerLink: ['daily-registration'],
+        expanded: this.shouldExpand([
+          'warehouse/outgoing',
+          'warehouse/incoming',
+        ]),
+        items: [
+          {
+            label: 'توريد الأصناف',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['warehouse/outgoing'],
+          },
+          {
+            label: 'توريد الأدوية',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['warehouse/incoming'],
+          },
+        ],
       },
       {
         label: 'الخزنة',
@@ -76,32 +104,6 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['medicine'],
       },
-
-
-      // {
-      //   label: 'المخزن',
-      //   visible: true,
-      //   icon: PrimeIcons.WAREHOUSE,
-      //   iconStyle: { fontSize: '1.5rem' },
-      //   //routerLink: ['daily-registration'],
-      //   expanded: this.shouldExpand(['warehouse/outgoing','warehouse/incoming']),
-      //   items:[
-      //     {
-      //       label: 'الصادرة',
-      //       visible: true,
-      //       icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-      //       iconStyle: { fontSize: '1.5rem' },
-      //       routerLink: ['warehouse/outgoing'],
-      //     },
-      //     {
-      //       label: 'الواردة',
-      //       visible: true,
-      //       icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-      //       iconStyle: { fontSize: '1.5rem' },
-      //       routerLink: ['warehouse/incoming'],
-      //     },
-      //   ]
-      // },
     ];
   }
 
