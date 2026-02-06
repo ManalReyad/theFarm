@@ -43,9 +43,9 @@ export class CycleListingComponent {
         header: 'الاسم',
       }),
       new ListColumn({
-        field: 'farmName',
+        field: 'roomName',
         hide: false,
-        header: 'المزرعة',
+        header: 'العنبر',
       }),
       new ListColumn({
         field: 'startDate',
@@ -60,9 +60,14 @@ export class CycleListingComponent {
         isDate:true
       }),
       new ListColumn({
-        field: 'description',
+        field: 'chickenCount',
         hide: false,
-        header: 'الوصف',
+        header: 'عدد الفراخ',
+      }),
+      new ListColumn({
+        field: 'chickenAge',
+        hide: false,
+        header: 'عمر الفراخ',
       }),
     ];
   }

@@ -13,6 +13,29 @@
     <div class="col-span-12">
       <app-navbar (showSideNav)="show()"></app-navbar>
     </div>
+    <div class="col-span-12 farm">
+      <h1 class="farmName"> {{projectName}} </h1>
+      <div class="dropdownContent mt-2">
+        <p-dropdown
+          [options]="farmOptions"
+          [(ngModel)]="selectedFarmId"
+          optionLabel="name"
+          optionValue="id"
+          appendTo="body"
+          placeholder="إختر مزرعة"
+          #dropdown
+          (onChange)="onSelectProject($event)"
+          styleClass="custom"
+        />
+
+        <img
+          class="cursor-pointer"
+          (click)="dropdown.show()"
+          src="assets/images/arrow down.svg"
+          alt="arrow down"
+        />
+      </div>
+    </div>
     <div class="col-span-12 p-7">
       <router-outlet></router-outlet>
     </div>

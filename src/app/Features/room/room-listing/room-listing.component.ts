@@ -3,6 +3,9 @@ import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { RoomService } from '../room.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FarmService } from '../../farm/farm.service';
+import { RoomType } from '../enums/room-type';
 
 @Component({
   selector: 'app-room-listing',
@@ -11,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class RoomListingComponent {
   columns: ListColumn[] = [];
-  pageResult: PageResult = { items: [] };;
+  pageResult: PageResult = { items: [] };
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
@@ -23,10 +26,24 @@ export class RoomListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private roomService: RoomService, private router: Router) {}
+  form!: FormGroup;
+  farmOptions: { id: number; name: string }[] = [];
+  roomTypeOptions: { id: number; name: string }[] = [
+    { id: RoomType.ForEgg, name: 'بياض' },
+    { id: RoomType.ForChicken, name: 'تسمين' },
+  ];
+  farmId: any;
+  constructor(
+    private roomService: RoomService,
+    private router: Router,
+    private farmService: FarmService
+  ) {}
   ngOnInit(): void {
+    this.farmId = localStorage.getItem('farmId');
     this.intializeListCoulmns();
     this.getPage();
+    this.getDropdowns();
+    this.createForm();
   }
   intializeListCoulmns() {
     this.columns = [
@@ -43,14 +60,14 @@ export class RoomListingComponent {
         header: 'الاسم',
       }),
       new ListColumn({
-        field: 'description',
+        field: 'roomTypeName',
         hide: false,
-        header: 'الوصف',
+        header: 'نوع العنبر',
       }),
       new ListColumn({
-        field: 'chickenCount',
+        field: 'farmName',
         hide: false,
-        header: 'عدد الفراخ',
+        header: 'المزرعة',
       }),
     ];
   }
@@ -91,10 +108,55 @@ export class RoomListingComponent {
       });
   }
   addNew() {
-    this.router.navigate(['/room/create']);
+    this.editMode = false;
+    this.form.reset();
+    this.showForm = true;
   }
-  edit(data: any) {
-    this.router.navigate(['/room/update/' + data.item.id]);
+  edit(object: any) {
+    this.showForm = true;
+    this.editMode = true;
+    this.form.patchValue({
+      ...object.item,
+      roomTypeID: object.item.roomTypeId,
+      farmID: this.farmId,
+    });
+  }
+  getDropdowns() {
+    this.farmService.getList().subscribe((response: any) => {
+      if (response.success) {
+        this.farmOptions = response.data;
+      }
+    });
+  }
+  createForm() {
+    this.form = new FormGroup({
+      id: new FormControl(),
+      name: new FormControl(null, Validators.required),
+      farmID: new FormControl(this.farmId),
+      roomTypeID: new FormControl(null, Validators.required),
+    });
+  }
+  save() {
+    this.form.patchValue({ ...this.form.value, farmID: +this.farmId });
+
+    if (this.editMode) {
+      this.roomService.update(this.form.value).subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تم تعديل بيانات العنبر بنجاح، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+          this.editMode = false;
+          this.showForm = false;
+        }
+      });
+    } else {
+      this.roomService.create(this.form.value).subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تمت إضافة العنبر بنجاح ، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+          this.showForm = false;
+        }
+      });
+    }
   }
   close() {
     this.showForm = false;

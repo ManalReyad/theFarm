@@ -5,14 +5,14 @@
 
 <form [formGroup]="form" class="card">
   <div class="grid grid-cols-12 gap-3">
-    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-input
         labelText="اسم العنبر"
         placeholder="أدخل اسم العنبر"
         formControlName="name"
       ></app-input>
     </div>
-    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-dropdown
         labelText="المزرعة"
         formControlName="farmID"
@@ -21,7 +21,7 @@
       >
       </app-dropdown>
     </div>
-    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-dropdown
         labelText="نوع العنبر"
         formControlName="roomTypeID"
@@ -29,39 +29,6 @@
         placeholder="اختر نوع العنبر"
       >
       </app-dropdown>
-    </div>
-    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
-      <app-input
-        labelText="عدد الفراخ"
-        placeholder="أدخل عدد الفراخ"
-        formControlName="chickenCount"
-        inputType="number"
-      ></app-input>
-    </div>
-  </div>
-  <div class="grid grid-cols-12 gap-3 mt-4">
-    <div class="2xl:col-span-3 xl:col-span-3 lg:col-span-6 col-span-12">
-      <app-input
-        labelText="عمر الفراخ"
-        placeholder="أدخل عمر الفراخ"
-        formControlName="chickenAge"
-        [isRequired]="false"
-        unit="يوم"
-      ></app-input>
-    </div>
-  </div>
-  <div class="grid grid-cols-12 gap-3 mt-4">
-    <div
-      class="col-span-12 flex flex-col mt-4"
-    >
-      <label>الوصف</label>
-      <textarea
-        placeholder="وصف العنبر"
-        cols="12"
-        rows="4"
-        formControlName="description"
-        [required]="false"
-      ></textarea>
     </div>
   </div>
 

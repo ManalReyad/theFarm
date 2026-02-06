@@ -1,7 +1,7 @@
 .labelText {
+  @apply xl:text-[18px] lg:text-[16px] text-[14px];
   color: var(--primary);
   font-weight: 400;
-  font-size: 18px;
 }
 .inputContainer {
   @apply py-3 pr-2;
@@ -16,8 +16,7 @@
     left: 15px;
     top: 15px;
   }
-  .placeholder
-  {
+  .placeholder {
     position: absolute;
     top: 0.8rem;
     right: 1rem;
@@ -31,7 +30,7 @@
 }
 :host ::ng-deep .p-highlight {
   background-color: var(--secondary);
-  color:var(--main-white);
+  color: var(--main-white);
 }
 :host ::ng-deep .p-focus {
   display: flex;
@@ -53,10 +52,8 @@
   }
 }
 
-
-@media (min-width:1480px) and (max-width: 1542px) {
-  .placeholder
-  {
-  font-size: 14px;
+@media (min-width: 1480px) and (max-width: 1542px) {
+  .placeholder {
+    font-size: 14px;
   }
 }

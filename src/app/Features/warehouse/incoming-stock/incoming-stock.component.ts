@@ -3,39 +3,54 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RoomService } from '../../room/room.service';
 import { FarmService } from '../../farm/farm.service';
 import { WarehouseService } from '../warehouse.service';
+import { InventoryType } from '../enums/inventory-type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-incoming-stock',
   templateUrl: './incoming-stock.component.html',
-  styleUrl: './incoming-stock.component.scss'
+  styleUrl: './incoming-stock.component.scss',
 })
 export class IncomingStockComponent {
-pages = [
-    { name: 'المخزن', },
-    { name: 'الموارد الواردة' },
-  ];
+  pages = [{ name: 'المخزن' }, { name: 'الموارد الواردة' }];
   form!: FormGroup;
   editMode: boolean = false;
   roomOptions: { id: number; name: string }[] = [];
   farmOptions: { id: number; name: string }[] = [];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
-
+  inventoryTypeOptions: { id: number; name: string }[] = [
+    {
+      id: InventoryType.Egg,
+      name: 'بيض',
+    },
+    {
+      id: InventoryType.Egg,
+      name: 'علف',
+    },
+    {
+      id: InventoryType.Egg,
+      name: 'أدوية',
+    },
+  ];
   constructor(
     private farmService: FarmService,
     private roomService: RoomService,
     private warehouseService: WarehouseService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getDropdowns();
     this.createForm();
   }
-  getDropdowns() {
-    this.roomService.getList().subscribe((response: any) => {
+  getRooms(id: any) {
+    this.roomService.getList(id).subscribe((response: any) => {
       if (response.success) {
         this.roomOptions = response.data;
       }
     });
+  }
+  getDropdowns() {
     this.farmService.getList().subscribe((response: any) => {
       if (response.success) {
         this.farmOptions = response.data;
@@ -52,11 +67,16 @@ pages = [
     });
   }
   save() {
-    this.warehouseService.createIncomingStock(this.form.value).subscribe((response: any) => {
-      if (response.success) {
-        this.successMesg = 'تمت الإضافة بنجاح ، يمكنك المتابعة';
-        this.showSuccessDialog = true;
-      }
-    });
+    this.warehouseService
+      .createIncomingStock(this.form.value)
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.successMesg = 'تمت الإضافة بنجاح ، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+        }
+      });
+  }
+  backToList() {
+    this.router.navigate(['warehouse']);
   }
 }

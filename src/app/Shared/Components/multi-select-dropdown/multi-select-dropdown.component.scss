@@ -1,5 +1,5 @@
 label {
-  font-size: 18px;
+  @apply xl:text-[18px] lg:text-[16px] text-[14px];
   color: var(--primary);
 }
 .dropdownContainer {

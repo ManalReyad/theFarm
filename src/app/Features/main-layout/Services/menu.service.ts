@@ -7,19 +7,19 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 })
 export class MenuService {
   menus: MenuItem[] = [];
-  constructor(private router:Router) {}
+  constructor(private router: Router) {}
 
   initializeMenus() {
     this.menus = [
+      // {
+      //   label: 'الرئيسية',
+      //   visible: true,
+      //   icon: PrimeIcons.HOME,
+      //   iconStyle: { fontSize: '1.5rem' },
+      //   routerLink: ['home'],
+      // },
       {
-        label: 'الرئيسية',
-        visible: true,
-        icon: PrimeIcons.HOME,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['home'],
-      },
-      {
-        label: 'المزرعة',
+        label: 'المزارع',
         visible: true,
         icon: PrimeIcons.BUILDING_COLUMNS,
         iconStyle: { fontSize: '1.5rem' },
@@ -34,13 +34,6 @@ export class MenuService {
         routerLink: ['/room'],
       },
       {
-        label: 'الأصول',
-        visible: true,
-        icon: PrimeIcons.SITEMAP,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['assets'],
-      },
-      {
         label: 'الدورات',
         visible: true,
         icon: PrimeIcons.SYNC,
@@ -48,43 +41,69 @@ export class MenuService {
         routerLink: ['cycle'],
       },
       {
+        label: 'الأصول',
+        visible: true,
+        icon: PrimeIcons.SITEMAP,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['assets'],
+      },
+
+      {
         label: 'التسجيل اليومي',
         visible: true,
         icon: PrimeIcons.FILE_EDIT,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['daily-registration'],
       },
+      // {
+      //   label: 'وارد المخزن',
+      //   visible: true,
+      //   icon: PrimeIcons.WAREHOUSE,
+      //   iconStyle: { fontSize: '1.5rem' },
+      //   routerLink: ['warehouse'],
+      // },
+
       {
         label: 'المخزن',
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['warehouse'],
-      }
-      // {
-      //   label: 'المخزن',
-      //   visible: true,
-      //   icon: PrimeIcons.WAREHOUSE,
-      //   iconStyle: { fontSize: '1.5rem' },
-      //   //routerLink: ['daily-registration'],
-      //   expanded: this.shouldExpand(['warehouse/outgoing','warehouse/incoming']),
-      //   items:[
-      //     {
-      //       label: 'الصادرة',
-      //       visible: true,
-      //       icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-      //       iconStyle: { fontSize: '1.5rem' },
-      //       routerLink: ['warehouse/outgoing'],
-      //     },
-      //     {
-      //       label: 'الواردة',
-      //       visible: true,
-      //       icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-      //       iconStyle: { fontSize: '1.5rem' },
-      //       routerLink: ['warehouse/incoming'],
-      //     },
-      //   ]
-      // },
+        //routerLink: ['daily-registration'],
+        expanded: this.shouldExpand([
+          'warehouse/outgoing',
+          'warehouse/incoming',
+        ]),
+        items: [
+          {
+            label: 'توريد الأصناف',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['warehouse/outgoing'],
+          },
+          {
+            label: 'توريد الأدوية',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['warehouse/incoming'],
+          },
+        ],
+      },
+      {
+        label: 'الخزنة',
+        visible: true,
+        icon: PrimeIcons.MONEY_BILL,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['treasury'],
+      },
+      {
+        label: 'الأدوية',
+        visible: true,
+        icon: 'fa-solid fa-capsules',
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['medicine'],
+      },
     ];
   }
 

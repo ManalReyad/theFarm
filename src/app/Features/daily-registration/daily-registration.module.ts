@@ -6,6 +6,7 @@ import { DailyRegistrationListingComponent } from './daily-registration-listing/
 import { DailyRegistrationFormComponent } from './daily-registration-form/daily-registration-form.component';
 import { SharedModule } from 'src/app/Shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from "primeng/table";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     DailyRegistrationRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
 ]
 })
 export class DailyRegistrationModule { }

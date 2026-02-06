@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FarmService } from 'src/app/Features/farm/farm.service';
 import { BaseService } from 'src/app/Shared/Services/base.service';
 
 @Component({
@@ -6,25 +7,56 @@ import { BaseService } from 'src/app/Shared/Services/base.service';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
 })
-export class MainLayoutComponent implements OnInit{
+export class MainLayoutComponent implements OnInit {
   visiable: boolean = true;
-  currentWindowWidth: number=0;
-  faildMessage:string=''
- showFaildDialog:boolean=false
-  constructor(private baseService:BaseService){}
+  currentWindowWidth: number = 0;
+  faildMessage: string = '';
+  showFaildDialog: boolean = false;
+  farmOptions: { id: number; name: string }[] = [];
+  selectedFarmId!:number
+  projectName: string = '';
+  constructor(
+    private baseService: BaseService,
+    private farmService: FarmService
+  ) {}
   ngOnInit() {
     if (this.visiable) {
       this.onResize();
     }
 
-    this.baseService.isFaild.subscribe((data:any) => {
+    this.baseService.isFaild.subscribe((data: any) => {
       this.showFaildDialog = data;
     });
-    this.baseService.faliureMessage.subscribe((data:any) => {
+    this.baseService.faliureMessage.subscribe((data: any) => {
       this.faildMessage = data;
     });
-  }
 
+    this.getFarmDropdowns()
+  }
+  getFarmDropdowns() {
+    this.farmService.getList().subscribe((response: any) => {
+      if (response.success) {
+        this.farmOptions = response.data;
+        if (this.farmOptions.length > 0) {
+          const farmId = Number(
+            localStorage.getItem('farmId')
+          );
+          if (farmId) {
+            let farm = this.farmOptions.find(
+              (farm) => farm.id == farmId
+            );
+              this.selectedFarmId=farmId
+              this.projectName=farm?farm.name:this.farmOptions[0].name
+          } else {
+            this.selectedFarmId=this.farmOptions[0].id
+            localStorage.setItem('farmId',this.farmOptions[0].id.toString())
+            this.projectName=this.farmOptions[0].name
+
+          }
+        }
+      }
+    });
+  }
   @HostListener('window:resize')
   onResize() {
     this.currentWindowWidth = window.innerWidth;
@@ -37,5 +69,13 @@ export class MainLayoutComponent implements OnInit{
   show() {
     this.visiable = !this.visiable;
   }
+  onSelectProject(data:any)
+  {
+    localStorage.setItem('farmId', data.value);
+    let farm = this.farmOptions.find(
+      (farm) => farm.id == data.value
+    );
+    this.projectName=farm?.name||''
+    window.location.reload();
+  }
 }
-

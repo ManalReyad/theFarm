@@ -13,8 +13,10 @@ export class ListComponent implements OnInit {
   @Input() pageResult: PageResult = { items: [] };;
   @Input() withAction: boolean = true;
   @Input() withCustomAction: boolean = false;
+  @Input() hasSecondBtn: boolean = false;
   @Input() hasEdit: boolean = true;
   @Input() hasDelete: boolean = true;
+  @Input() hasView: boolean = false;
   @Input() hasPagination: boolean = true;
   @Input() hasBorder: boolean = false;
   @Input() searchMode: boolean = false;
@@ -22,6 +24,7 @@ export class ListComponent implements OnInit {
   @Input() noDataImg: string = '';
   @Input() noDataMessage: string = '';
   @Input() addButtonText: string = '';
+  @Input() secondButtonText: string = '';
   @Input() nosearchBtnText: string = '';
   @Input() displayEmptyList: boolean = false;
   @Output() onChangeStatus = new EventEmitter();
@@ -31,6 +34,9 @@ export class ListComponent implements OnInit {
   @Output() add = new EventEmitter();
   @Output() back = new EventEmitter();
   @Output() assetClicked = new EventEmitter();
+  @Output() secondBtnEvent = new EventEmitter();
+  @Output() view = new EventEmitter();
+
   first: number = 0;
   last!: number;
   rows: number = 10;
@@ -64,9 +70,14 @@ export class ListComponent implements OnInit {
   onEdit(currtentItem: any, index: number) {
     this.edit.emit({ item: currtentItem, index: index });
   }
-
+  onView(data: any) {
+    this.view.emit(data);
+  }
   addNew() {
     this.add.emit();
+  }
+  secondBtnClick() {
+    this.secondBtnEvent.emit();
   }
   onBack() {
     this.back.emit();

@@ -100,7 +100,7 @@ export class RoomAssetsComponent {
       .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
         if (response.success) {
-          this.pageResult = { items: response.data };
+          this.pageResult = { items: response.data.items };
         }
       });
   }

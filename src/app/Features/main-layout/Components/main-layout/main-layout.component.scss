@@ -1,0 +1,62 @@
+.farm {
+  @apply px-4 py-2 flex justify-between items-center mx-8 mt-2;
+  background-color: #fff;
+  background-color: var(--main-white);
+  border-radius: 8px;
+}
+.farmName {
+  color: var(--primary);
+  display: block;
+}
+.dropdownContent {
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  background-color: var(--main-white);
+  position: relative;
+  width: 250px;
+  img {
+    position: absolute;
+    top: 15px;
+    left: 8px;
+  }
+}
+
+:host ::ng-deep .p-inputwrapper {
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+::ng-deep .p-dropdown-header {
+  .p-dropdown-filter-container {
+    position: relative;
+    input {
+      padding-right: 5px;
+      border: 1px solid var(--gray);
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+:host ::ng-deep .p-icon-wrapper {
+  display: none;
+}
+
+:host ::ng-deep .p-dropdown-label,
+:host ::ng-deep .p-inputtext {
+  color: var(--main-black);
+}
+
+:host ::ng-deep .p-placeholder {
+  color: var(--main-gray) !important;
+}
+:host ::ng-deep .custom {
+  width: 100% !important;
+}
+@media (max-width: 768px) {
+  .farmName {
+    display: none;
+  }
+}

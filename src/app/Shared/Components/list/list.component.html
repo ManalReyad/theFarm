@@ -119,17 +119,20 @@
           </span>
         </td>
         <td *ngIf="withAction" class="flex justify-center items-center gap-3">
+          <span *ngIf="hasView" (click)="onView(entity)">
+           <i class="pi pi-eye cursor-pointer"></i>
+          </span>
           <span *ngIf="hasEdit" (click)="onEdit(entity, i)">
             <img
               class="cursor-pointer"
-              src="../../../../assets/images/edit.svg"
+              src="assets/images/edit.svg"
               alt="edit icon"
             />
           </span>
           <span *ngIf="hasDelete" (click)="onDelete(entity, i)">
             <img
               class="cursor-pointer"
-              src="../../../../assets/images/delete.svg"
+              src="assets/images/delete.svg"
               alt="delete icon"
             />
           </span>
@@ -149,7 +152,7 @@
               >
                 <img
                   class="w-4"
-                  src="../../../../assets/images/edit.svg"
+                  src="assets/images/edit.svg"
                   alt="edit icon"
                 />
                 <label class="cursor-pointer">تعديل</label>
@@ -167,7 +170,7 @@
               >
                 <img
                   class="w-4"
-                  src="../../../../assets/images/delete.svg"
+                  src="assets/images/delete.svg"
                   alt="delete icon"
                 />
                 <label class="cursor-pointer">حذف</label>
@@ -205,8 +208,8 @@
 <div
   class="noDataSection"
   *ngIf="
-    pageResult?.items &&
-    pageResult?.items?.length! < 1 &&
+    pageResult.items &&
+    pageResult.items.length! < 1 &&
     !searchMode &&
     !filterMode &&
     !displayEmptyList
@@ -216,9 +219,14 @@
     [noDataImg]="noDataImg"
     [noDataMessage]="noDataMessage"
   ></app-no-data>
+<div class="w-full flex justify-center items-center gap-3">
   <button (click)="addNew()">
     <span>{{ addButtonText }} </span>
   </button>
+  <button (click)="secondBtnClick()" *ngIf="hasSecondBtn">
+    <span>{{ secondButtonText }} </span>
+  </button>
+</div>
 </div>
 <div
   class="noDataSection"
@@ -228,7 +236,7 @@
     (searchMode || filterMode)
   "
 >
-  <img src="../../../../assets/images/noSearchData.svg" alt="" />
+  <img src="assets/images/noSearchData.svg" alt="" />
   <p class="text-xl text-gray-500 mt-3">
     يبدو أنه لا تتوفر نتائج لبحثك، من فضلك حاول مرة أخرى...
   </p>

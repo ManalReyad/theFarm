@@ -30,7 +30,9 @@ export class DropdownComponent {
   @Input() placeholder: string = '';
   @Input() errMsg: string = '';
   @Input() options: any[] = [];
+  @Input() emptyMessage: string = '';
   @Input() isRequired: boolean = true;
+  @Input() showLabel: boolean = true;
   @Input() disabled: boolean = false;
   @Input() formControl!: FormControl;
   @Input() formControlName!: string;

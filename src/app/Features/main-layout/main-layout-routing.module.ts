@@ -47,6 +47,20 @@ const routes: Routes = [
             (m) => m.WarehouseModule
           ),
       },
+      {
+        path: 'treasury',
+        loadChildren: () =>
+          import('../treasury/treasury.module').then(
+            (m) => m.TreasuryModule
+          ),
+      },
+      {
+        path: 'medicine',
+        loadChildren: () =>
+          import('../medicine/medicine.module').then(
+            (m) => m.MedicineModule
+          ),
+      },
     ],
   },
 ];
