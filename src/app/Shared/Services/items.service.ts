@@ -19,7 +19,7 @@ export class ItemsService {
     return this.http.get(this.baseUrl + `${itemId}`);
   }
   update(body: any) {
-    return this.http.put(this.baseUrl + `/${body.id}`, body);
+    return this.http.put(this.baseUrl + `${body.id}`, body);
   }
   delete(itemId: number) {
     return this.http.delete(this.baseUrl + `${itemId}`);

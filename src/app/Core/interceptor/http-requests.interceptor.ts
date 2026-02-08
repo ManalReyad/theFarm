@@ -28,7 +28,7 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
       });
     }
     return next.handle(authRequest).pipe(
-      tap((response: any) => {        
+      tap((response: any) => {
         if (response?.body?.isSuccess === false) {
           baseService.showFaildMessageDailoge();
           baseService.setFailureMessage(response?.body?.errors[0].message);
@@ -38,14 +38,17 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
       }),
       catchError((error: any) => {
         console.log(error);
-        if (error.status === 400) {          
+        if (error.status === 400) {
           if (error.error.errors) {
             let err: any = Object.entries(error.error.errors);
-  
+
             err.forEach((element: any) => {
               baseService.showFaildMessageDailoge();
               baseService.setFailureMessage(element[0] + ' :' + element[1][0]);
             });
+          } else {
+            baseService.showFaildMessageDailoge();
+            baseService.setFailureMessage(error.error);
           }
         } else {
           // baseService.showFaildMessageDailoge();
@@ -53,7 +56,7 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
           //   'يبدو أنه قد حدث خطأ ما، من فضلك أعد المحاولة مجددًا'
           // );
         }
-  
+
         return throwError(() => error);
       })
     );

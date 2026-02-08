@@ -1,21 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IncomingStockComponent } from './incoming-stock/incoming-stock.component';
-import { OutgoingStockComponent } from './outgoing-stock/outgoing-stock.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
-import { WarehouseDetailsComponent } from './warehouse-details/warehouse-details.component';
+import { EggProductionFormComponent } from './egg-production-form/egg-production-form.component';
+import { EggSalesComponent } from './egg-sales/egg-sales.component';
+import { EggProductionComponent } from './egg-production/egg-production.component';
+import { EggSalesFormComponent } from './egg-sales-form/egg-sales-form.component';
 
 const routes: Routes = [
-  { path: '', component: WarehouseComponent },
+  { path: 'items-medicine', component: WarehouseComponent },
   {
-    path:'incoming',component:IncomingStockComponent,
+    path: 'incoming',
+    component: IncomingStockComponent,
   },
   {
-    path:'outgoing',component:OutgoingStockComponent
+    path: 'egg-sales',
+    component: EggSalesComponent,
   },
   {
-    path: 'details/:id',
-    component: WarehouseDetailsComponent,
+    path: 'egg-sales/add',
+    component: EggSalesFormComponent,
+  },
+  {
+    path: 'egg-production',
+    component: EggProductionComponent,
+  },
+  {
+    path: 'egg-production/add',
+    component: EggProductionFormComponent,
   },
 ];
 

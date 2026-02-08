@@ -67,7 +67,8 @@ export class RawMaterialComponent {
   }
   getPage() {
     this.itemService.getItems().subscribe((response: any) => {
-      this.pageResult.items = response.map((item: any) => item.itemType == 1);
+      this.pageResult.items = response.filter((item: any) => item.itemType == 1);
+      
     });
   }
   edit(object: any) {

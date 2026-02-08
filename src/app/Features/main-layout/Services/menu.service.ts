@@ -43,7 +43,7 @@ export class MenuService {
       {
         label: 'الأصول',
         visible: true,
-        icon: PrimeIcons.SITEMAP,
+        icon: PrimeIcons.BOX,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['assets'],
       },
@@ -75,14 +75,28 @@ export class MenuService {
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
         //routerLink: ['daily-registration'],
-        expanded: this.shouldExpand(['warehouse/incoming', 'warehouse']),
+        expanded: this.shouldExpand(['warehouse/incoming', 'warehouse/items-medicine','warehouse/egg-production','egg-sales']),
         items: [
           {
             label: 'توريد أصناف وأدوية',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['warehouse'],
+            routerLink: ['warehouse/items-medicine'],
+          },
+          {
+            label: 'إنتاج البيض',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['warehouse/egg-production'],
+          },
+          {
+            label: 'مبيعات البيض',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['warehouse/egg-sales'],
           },
         ],
       },
@@ -99,6 +113,20 @@ export class MenuService {
         icon: PrimeIcons.DATABASE,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['raw-material'],
+      },
+      {
+        label: 'الخلطات',
+        visible: true,
+        icon: PrimeIcons.SITEMAP,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['feed-mix'],
+      },
+      {
+        label: 'الموردين',
+        visible: true,
+        icon: PrimeIcons.USERS,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['traders'],
       },
     ];
   }

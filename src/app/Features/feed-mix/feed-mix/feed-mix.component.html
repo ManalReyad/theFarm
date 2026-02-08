@@ -1,0 +1,43 @@
+<div class="flex flex-col gap-4">
+    <div class="flex justify-between items-center">
+      <h1>خلطات العلف</h1>
+  
+      <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
+        <button class="submitBtn" (click)="addNew()">
+          إضافة خلطة علف
+        </button>
+      </div>
+    </div>
+  
+    <app-list
+      [listColumns]="columns"
+      [pageResult]="pageResult"
+      (pageChange)="onPageChanged($event)"
+      (edit)="edit($event)"
+      (delete)="delete($event)"
+      (add)="addNew()"
+      [searchMode]="searchMode"
+      (back)="resetSearch()"
+      noDataImg="nofeedmix.svg"
+      noDataMessage="يبدو أنك لم تقم بإضافة أي خلطة علف بعد، ستظهر الخلطات هنا... يمكنك البدء بإضافة أول خلطة علف"
+      addButtonText="إضافة خلطة علف"
+      nosearchBtnText="العودة إلى خلطات العلف"
+      [withAction]="false"
+      [hasPagination]="false"
+    ></app-list>
+  </div>
+  
+  <!-- <app-confirmation-delete-dialog
+    message="هل أنت متأكد أنك تريد حذف خلطة العلف؟ سيتم حذفها نهائيًا من قائمة خلطات العلف"
+    [visible]="showConfirmDeleteDialog"
+    (onSubmitEvent)="submitDelete()"
+    (exit)="close()"
+  ></app-confirmation-delete-dialog> -->
+  
+  <app-success-dialog
+    [visible]="showSuccessDialog"
+    (onSubmitEvent)="backToList()"
+    [message]="successMesg"
+    btnText="عرض خلطات العلف"
+  ></app-success-dialog>
+  

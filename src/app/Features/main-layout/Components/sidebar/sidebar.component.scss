@@ -35,7 +35,7 @@
     background-color: var(--active-sidebar-item);
     color: var(--secondary);
     padding: 0.5rem ;
-    width: fit-content;
+    width: 100%;
     .p-menuitem-text {
       color: var(--secondary);
     }
@@ -76,7 +76,7 @@
   }
   .p-menuitem-link {
     padding: 8px ;
-    width: fit-content;
+    width: 100%;
     &:hover {
       border-radius: 8px !important;
       background-color: var(--active-sidebar-item);

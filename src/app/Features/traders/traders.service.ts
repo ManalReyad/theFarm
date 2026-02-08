@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class DailyRegistrationService {
-  baseUrl = environment.baseUrl + 'DailyRecords';
+export class TradersService {
+  baseUrl = environment.baseUrl + 'Traders';
   constructor(private http: HttpClient) {}
 
   getAll(
@@ -15,16 +15,23 @@ export class DailyRegistrationService {
     isAscending: boolean = true,
     orderBy: string = ''
   ) {
-    return this.http.get(this.baseUrl);
+    return this.http.get(
+      this.baseUrl 
+    );
   }
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
-
+  update(body: any) {
+    return this.http.put(this.baseUrl+'/'+body.id, body);
+  }
+  getById(id: number) {
+    return this.http.get(this.baseUrl + `/${id}`);
+  }
   delete(id: number) {
     return this.http.delete(this.baseUrl + `/${id}`);
   }
   getList() {
-    return this.http.get(this.baseUrl);
+    return this.http.get(this.baseUrl );
   }
 }

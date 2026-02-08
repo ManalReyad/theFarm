@@ -2,13 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TradersRoutingModule } from './traders-routing.module';
+import { TradersFormComponent } from './traders-form/traders-form.component';
+import { TradersListComponent } from './traders-list/traders-list.component';
+import { SharedModule } from "src/app/Shared/shared.module";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [TradersListComponent,TradersFormComponent],
   imports: [
     CommonModule,
-    TradersRoutingModule
-  ]
+    TradersRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
+]
 })
 export class TradersModule { }

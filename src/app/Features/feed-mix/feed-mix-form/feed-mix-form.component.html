@@ -1,0 +1,93 @@
+<h1>تسجيل خلطة العلف</h1>
+<app-bread-crumb [pages]="pages"></app-bread-crumb>
+
+<form [formGroup]="form" class="card">
+  <div class="grid grid-cols-12 gap-3">
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="نوع الخلطة"
+        formControlName="feedTypeId"
+        [options]="feedTypeOptions"
+        placeholder="اختر نوع الخلطة"
+      ></app-dropdown>
+    </div>
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="المخزن"
+        formControlName="warehouseId"
+        [options]="warehouseOptions"
+        placeholder="اختر المخزن"
+      ></app-dropdown>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-12 gap-3 card mt-4">
+    <div  class="2xl:col-span-6 xl:col-span-6 lg:col-span-12 col-span-12">
+      <p-table [value]="[{}]">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>#</th>
+            <th>الصنف</th>
+            <th>الكمية (كجم)</th>
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-task formArrayName="items">
+          <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <app-dropdown
+                [options]="getAvailableItems(i)"
+                placeholder="اختر الصنف"
+                formControlName="itemId"
+                (change)="onSelectionChange($event, i)"
+                [showLabel]="false"
+                [isRequired]="false"
+              ></app-dropdown>
+            </td>
+            <td>
+              <app-input
+                inputType="number"
+                placeholder="ادخل الكمية"
+                formControlName="quantity"
+                (keydown)="restrictNegative($event)"
+                [showLabel]="false"
+                [isRequired]="false"
+              ></app-input>
+            </td>
+            <td>
+              <button (click)="deleteRow(i)" class="add">
+                <i class="pi pi-minus"></i>
+              </button>
+              <button
+                (click)="addRow()"
+                class="add flex items-center"
+                [disabled]="
+                  isCurrentRowInvalid() ||
+                  itemOptions.length == items?.controls?.length
+                "
+              >
+                <i class="pi pi-plus"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-4 mt-5">
+    <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
+      {{ editMode ? 'حفظ' : 'إضافة' }}
+    </button>
+    <button class="exitBtn" (click)="backToList()">إلغاء</button>
+  </div>
+</form>
+
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض الخلطات"
+></app-success-dialog>

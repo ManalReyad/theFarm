@@ -4,6 +4,7 @@ import { WarehouseService } from '../warehouse.service';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { Router } from '@angular/router';
+import { FarmService } from '../../farm/farm.service';
 
 @Component({
   selector: 'app-warehouse',
@@ -28,7 +29,8 @@ export class WarehouseComponent {
   warehouseData:any[]=[]
   constructor(
     private warehouseService: WarehouseService,
-    private router: Router
+    private router: Router,
+    private farmService:FarmService
   ) {}
   ngOnInit(): void {
     this.intializeListCoulmns();
@@ -42,11 +44,6 @@ export class WarehouseComponent {
         header: '#',
         width: 5,
         isIndex: true,
-      }),
-      new ListColumn({
-        field: 'warehouseName',
-        hide: false,
-        header: 'المخزن',
       }),
       new ListColumn({
         field: 'itemName',
@@ -80,10 +77,30 @@ export class WarehouseComponent {
     this.warehouseService
       .getAll()
       .subscribe((response: any) => {
-        if (response.success) {
-          this.warehouseData = response.data;
-        }
+        this.warehouseData = response;
+        this.getData()
       });
+  }
+  getData() {
+    this.farmService.getList().subscribe((response: any) => {
+        let farms = response?.map((item: any) => {
+          return { name: item.name, id: item.id };
+        });
+        if (farms.length > 0) {
+          const farmId = Number(localStorage.getItem('farmId'));
+          if (farmId) {
+            let farm = farms.find((farm:any) => farm.id == farmId);
+            let wharehouse = this.warehouseData.find((item) => item.farmName == farm.name);
+            if(wharehouse)
+            {
+              this.warehouseService.getWarehouseItem(wharehouse.id).subscribe((data:any)=>{
+                this.pageResult.items=data
+              })
+            }
+
+          } 
+        }
+    });
   }
   onPageChanged(event: any) {
     this.pageNumber = event.first;

@@ -1,9 +1,9 @@
 <div class="flex flex-col gap-4">
   <div class="flex justify-between items-center">
-    <h1>المزارع</h1>
+    <h1>المواد الخام</h1>
 
     <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
-      <button class="submitBtn" (click)="addNew()">إضافة مزرعة</button>
+      <button class="submitBtn" (click)="addNew()">إضافة مادة خام</button>
     </div>
   </div>
 
@@ -17,9 +17,9 @@
     [searchMode]="searchMode"
     (back)="resetSearch()"
     noDataImg="nodepartments.svg"
-    noDataMessage="يبدو أنك لم تقم بإضافة أي مزرعة بعد، ستظهر المادة الخام المضافة هنا... يمكنك البدء بإضافة أول مزرعة "
-    addButtonText="إضافة مزرعة"
-    nosearchBtnText="العودة إلى المادة الخام"
+    noDataMessage="يبدو أنك لم تقم بإضافة أي مادة خام بعد، ستظهر المواد الخام المضافة هنا... يمكنك البدء بإضافة أول مادة خام "
+    addButtonText="إضافة مادة خام"
+    nosearchBtnText="العودة إلى المواد الخام"
     [hasPagination]="false"
   ></app-list>
 </div>
@@ -33,7 +33,7 @@
   [breakpoints]="{ '960px': '80vw' }"
 >
   <div class="title">
-    {{ editMode ? "تعديل المادة الخام" : "إضافة مزرعة" }}
+    {{ editMode ? "تعديل المادة الخام" : "إضافة مادة خام" }}
   </div>
   <form [formGroup]="form">
     <div class="grid grid-cols-12 mt-5">
@@ -45,7 +45,6 @@
         ></app-input>
       </div>
       <div class="col-span-12 flex flex-col mt-4">
-        <label>سعر الوحدة</label>
        <app-input
           labelText="سعر الوحدة"
           placeholder="أدخل سعر الوحدة"
@@ -64,7 +63,7 @@
 </p-dialog>
 
 <app-confirmation-delete-dialog
-  message="هل أنت متأكد أنك تريد حذف المادة الخام؟ سيتم حذفها نهائيًا من قائمة المزارع"
+  message="هل أنت متأكد أنك تريد حذف المادة الخام؟ سيتم حذفها نهائيًا من قائمة المواد الخام"
   [visible]="showConfirmDeleteDialog"
   (onSubmitEvent)="submitDelete()"
   (exit)="close()"
@@ -74,7 +73,7 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض المزارع"
+  btnText="عرض المواد الخام"
 ></app-success-dialog>
 
 <app-confirmation-dialog

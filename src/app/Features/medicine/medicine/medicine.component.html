@@ -20,6 +20,7 @@
     noDataMessage="يبدو أنك لم تقم بإضافة أي دواء بعد، ستظهر الأدوية المضافة هنا... يمكنك البدء بإضافة أول دواء "
     addButtonText="إضافة دواء"
     nosearchBtnText="العودة إلى الأدوية"
+    [hasPagination]="false"
   ></app-list>
 </div>
 
@@ -41,6 +42,13 @@
           labelText="اسم الدواء"
           placeholder="أدخل اسم الدواء"
           formControlName="name"
+        ></app-input>
+      </div>
+      <div class="col-span-12 mt-3">
+        <app-input
+          labelText="السعر"
+          placeholder="أدخل السعر"
+          formControlName="pricePerTon"
         ></app-input>
       </div>
     </div>

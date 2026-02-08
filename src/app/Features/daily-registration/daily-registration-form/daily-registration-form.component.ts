@@ -9,8 +9,6 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { CycleService } from '../../cycle/cycle.service';
 import { DailyRegistrationService } from '../daily-registration.service';
-import { RoomService } from '../../room/room.service';
-import { FarmService } from '../../farm/farm.service';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
@@ -30,8 +28,8 @@ export class DailyRegistrationFormComponent {
   successMesg: string = '';
   showSuccessDialog: boolean = false;
   farmOptions: { id: number; name: string }[] = [];
-  selectedFeedItems: any[] = [];
-  selectedMedicineItems: any[] = [];
+  selectedfeedConsumptions: any[] = [];
+  selectedmedicineConsumptions: any[] = [];
   currentFeedItemIndex: number = 0;
   currentMedicineItemIndex: number = 0;
   allFeedItemTypes: { id: number; name: string }[] = [];
@@ -43,15 +41,14 @@ export class DailyRegistrationFormComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cycleService: CycleService,
-    private roomService: RoomService,
     private dailyRegisterService: DailyRegistrationService,
     private fb: FormBuilder,
-    private lookupService: LookupService,
+    private lookupService: LookupService
   ) {}
   ngOnInit(): void {
-    let cycleId = this.activatedRoute.snapshot.params['id'];
-    if (cycleId) {
-      this.getById(cycleId);
+    let id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
+      this.getById(id);
       this.editMode = true;
       this.pages = [
         { name: 'التسجيلات اليومية', route: '/daily-registration' },
@@ -71,156 +68,153 @@ export class DailyRegistrationFormComponent {
   }
   getDropdowns() {
     this.lookupService.getFeedMixes().subscribe((response: any) => {
-      this.allFeedItemTypes = response.data;
+      this.allFeedItemTypes = response;
     });
     this.lookupService.getMedicines().subscribe((response: any) => {
-      this.allMedicineItemTypes = response.data;
+      this.allMedicineItemTypes = response;
     });
-  }
-  getRooms(id: any) {
-    this.cycleService.getList(id).subscribe((response: any) => {
-      if (response.success) {
-        this.cycleOptions = response.data;
-      }
+    this.cycleService.getList().subscribe((response: any) => {
+      this.cycleOptions = response;
     });
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
-      deadChicken: new FormControl(null, Validators.required),
+      deadCount: new FormControl(null, Validators.required),
       cycleId: new FormControl(null, Validators.required),
-      feedItems: this.fb.array([
+      feedConsumptions: this.fb.array([
         this.fb.group({
-          id: [0],
-          itemTypeId: [],
+          itemId: [],
           quantity: [],
         }),
       ]),
-      medicineItems: this.fb.array([
+      medicineConsumptions: this.fb.array([
         this.fb.group({
-          id: [0],
-          itemTypeId: [],
+          itemId: [],
           quantity: [],
         }),
       ]),
     });
   }
   getById(id: any) {
-    this.dailyRegisterService.getById(id).subscribe((response: any) => {
-      if (response.success) {
-        this.form.patchValue({
-          ...response.data,
-          date: new Date(response.data.date),
-        });
-      }
-    });
+    // this.dailyRegisterService.getById(id).subscribe((response: any) => {
+    //   this.form.patchValue({
+    //     ...response,
+    //     date: new Date(response.date),
+    //   });
+    // });
   }
-  get feedItems() {
-    return this.form.get('feedItems') as FormArray;
+  get feedConsumptions() {
+    return this.form.get('feedConsumptions') as FormArray;
   }
-  get medicineItems() {
-    return this.form.get('medicineItems') as FormArray;
+  get medicineConsumptions() {
+    return this.form.get('medicineConsumptions') as FormArray;
   }
-  getAvailableMedicineItems(index: number): any[] {
-    const selectedBeforeCurrent = this.selectedMedicineItems.filter(
-      (_, i) => i !== index,
+  getAvailablemedicineConsumptions(index: number): any[] {
+    const selectedBeforeCurrent = this.selectedmedicineConsumptions.filter(
+      (_, i) => i !== index
     );
     return this.allMedicineItemTypes.filter(
-      (itemType) => !selectedBeforeCurrent.includes(itemType.id),
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
     );
   }
-  getAvailableFeedItems(index: number): any[] {
-    const selectedBeforeCurrent = this.selectedFeedItems.filter(
-      (_, i) => i !== index,
+  getAvailablefeedConsumptions(index: number): any[] {
+    const selectedBeforeCurrent = this.selectedfeedConsumptions.filter(
+      (_, i) => i !== index
     );
     return this.allFeedItemTypes.filter(
-      (itemType) => !selectedBeforeCurrent.includes(itemType.id),
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
     );
   }
-  onSelectionChange(event: any, index: number, type: string): void {
-    const selectedValue = event.value;
-    if (type == 'feed') {
-      this.selectedFeedItems[index] = selectedValue;
+  onSelectionChange(id: any, index: number, type: string): void {
+    if (type === 'feed') {
+      this.selectedfeedConsumptions[index] = id;
     } else {
-      this.selectedMedicineItems[index] = selectedValue;
+      this.selectedmedicineConsumptions[index] = id;
     }
   }
 
   addRow(type: string) {
-    if (type == 'feed') {
-      this.feedItems.push(
+    if (type === 'feed') {
+      this.feedConsumptions.push(
         this.fb.group({
-          id: [0],
-          itemTypeId: [],
-          quantity: [],
-        }),
+          itemId: [null],
+          quantity: [null],
+        })
       );
-      this.currentFeedItemIndex++;
+      this.selectedfeedConsumptions.push(null);
+      this.currentFeedItemIndex = this.feedConsumptions.length - 1;
     } else {
-      this.medicineItems.push(
+      this.medicineConsumptions.push(
         this.fb.group({
-          id: [0],
-          itemTypeId: [],
-          quantity: [],
-        }),
+          itemId: [null],
+          quantity: [null],
+        })
       );
-      this.currentMedicineItemIndex++;
+      this.selectedmedicineConsumptions.push(null);
+      this.currentMedicineItemIndex = this.medicineConsumptions.length - 1;
     }
   }
-  deleteRow(rowId: number, type: string): void {
+
+  deleteRow(rowIndex: number, type: string) {
     if (type === 'feed') {
-      this.feedItems.removeAt(rowId);
-      this.currentFeedItemIndex--;
+      this.feedConsumptions.removeAt(rowIndex);
+      this.selectedfeedConsumptions.splice(rowIndex, 1);
+      this.currentFeedItemIndex = this.feedConsumptions.length - 1;
     } else {
-      this.medicineItems.removeAt(rowId);
-      this.currentMedicineItemIndex--;
+      this.medicineConsumptions.removeAt(rowIndex);
+      this.selectedmedicineConsumptions.splice(rowIndex, 1);
+      this.currentMedicineItemIndex = this.medicineConsumptions.length - 1;
     }
   }
 
   isCurrentFeedItemRowInvalid(): boolean {
-    const rowForm = this.feedItems.at(this.currentFeedItemIndex);
+    const rowForm = this.feedConsumptions.at(this.currentFeedItemIndex);
     if (rowForm) {
-      const itemTypeId = rowForm.get('itemTypeId')?.value;
+      const itemId = rowForm.get('itemId')?.value;
       const quantity = rowForm.get('quantity')?.value;
       return (this.currentFeedItemRowInvalid =
-        !itemTypeId || quantity === null || quantity === undefined);
+        !itemId || quantity === null || quantity === undefined);
     }
     return false;
   }
   isCurrentMedicineItemRowInvalid(): boolean {
-    const rowForm = this.medicineItems.at(this.currentMedicineItemIndex);
+    const rowForm = this.medicineConsumptions.at(this.currentMedicineItemIndex);
     if (rowForm) {
-      const itemTypeId = rowForm.get('itemTypeId')?.value;
+      const itemId = rowForm.get('itemId')?.value;
       const quantity = rowForm.get('quantity')?.value;
 
       return (this.currentMedicineRowInvalid =
-        !itemTypeId || quantity === null || quantity === undefined);
+        !itemId || quantity === null || quantity === undefined);
     }
     return false;
   }
   save() {
+    const payload = {
+      ...this.form.value,
+      deadCount: Number(this.form.value.deadCount),
+      feedConsumptions: this.form.value.feedConsumptions.map((item: any) => ({
+        ...item,
+        quantity: Number(item.quantity),
+        itemId: Number(item.itemId)
+      })),
+      medicineConsumptions: this.form.value.medicineConsumptions.map((item: any) => ({
+        ...item,
+        quantity: Number(item.quantity),
+        itemId: Number(item.itemId)
+      }))
+    };
+  
     if (this.editMode) {
-      this.dailyRegisterService
-        .update(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg =
-              'تم تعديل بيانات التسجيل اليومي بنجاح، يمكنك المتابعة';
-            this.showSuccessDialog = true;
-          }
-        });
+      // update
     } else {
-      this.dailyRegisterService
-        .create(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg =
-              'تمت إضافة التسجيل اليومي بنجاح ، يمكنك المتابعة';
-            this.showSuccessDialog = true;
-          }
-        });
+      this.dailyRegisterService.create(payload).subscribe(() => {
+        this.successMesg = 'تمت إضافة التسجيل اليومي بنجاح ، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+      });
     }
   }
+  
   restrictNagtive(event: KeyboardEvent) {
     if (
       event.key === '-' ||

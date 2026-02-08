@@ -25,4 +25,10 @@ export class LookupService {
   getMedicines() {
     return this.http.get(this.baseUrl + `medicines`);
   }
+  getActiveCycles(farmId: number) {
+    return this.http.get(this.baseUrl + `active-cycles/${farmId}`);
+  }
+  getFeedTypes() {
+    return this.http.get(`${environment.baseUrl}FeedTypes`);
+  }
 }

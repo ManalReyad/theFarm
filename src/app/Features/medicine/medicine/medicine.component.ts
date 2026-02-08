@@ -67,7 +67,7 @@ export class MedicineComponent {
    }
    getPage() {
      this.itemService.getItems().subscribe((response: any) => {
-       this.pageResult.items = response.map((item: any) => item.itemType == 1);
+       this.pageResult.items = response.filter((item: any) => item.itemType == 2);
      });
    }
    edit(object: any) {

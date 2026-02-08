@@ -10,6 +10,7 @@ import { FarmService } from '../../farm/farm.service';
 import { WarehouseService } from '../warehouse.service';
 import { Router } from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
+import { TradersService } from '../../traders/traders.service';
 
 @Component({
   selector: 'app-incoming-stock',
@@ -17,22 +18,28 @@ import { LookupService } from 'src/app/Shared/Services/lookup.service';
   styleUrl: './incoming-stock.component.scss',
 })
 export class IncomingStockComponent {
-  pages = [{ name: 'المخزن' }];
+  pages = [
+    { name: 'المخزن', route: 'warehouse/items-medicine' },
+    { name: 'توريد أصناف وأدوية' },
+  ];
   form!: FormGroup;
   editMode: boolean = false;
   roomOptions: { id: number; name: string }[] = [];
-  farmOptions: { id: number; name: string }[] = [];
+  traderOptions: { id: number; name: string }[] = [];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
   itemTypes: any[] = [];
   selectedItems: any[] = [];
   currentItemIndex: number = 0;
   currentItemRowInvalid: boolean = false;
+  warehouseOptions: { id: number; name: string }[] = [];
+
   constructor(
     private lookupService: LookupService,
     private fb: FormBuilder,
     private warehouseService: WarehouseService,
     private router: Router,
+    private tradersService: TradersService
   ) {}
   ngOnInit(): void {
     this.getDropdowns();
@@ -43,13 +50,27 @@ export class IncomingStockComponent {
     this.lookupService.getStoreItems().subscribe((response: any) => {
       this.itemTypes = response;
     });
+    this.tradersService.getList().subscribe((response: any) => {
+      this.traderOptions = response?.map((item: any) => {
+        return {
+          id: item.id,
+          name: item.name,
+        };
+      });
+    });
+    this.warehouseService.getAll().subscribe((res: any) => {
+      this.warehouseOptions =
+        res.map((item: any) => {
+          return { name: item.name, id: item.id };
+        }) || [];
+    });
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
       warehouseId: new FormControl(null, Validators.required),
       traderId: new FormControl(null, Validators.required),
-      date: new FormControl(null, Validators.required),
+      date: new FormControl(new Date(Date.now()), Validators.required),
       Items: this.fb.array([
         this.fb.group({
           id: [0],
@@ -65,15 +86,14 @@ export class IncomingStockComponent {
   }
   getAvailableItems(index: number): any[] {
     const selectedBeforeCurrent = this.selectedItems.filter(
-      (_, i) => i !== index,
+      (_, i) => i !== index
     );
     return this.itemTypes.filter(
-      (itemType) => !selectedBeforeCurrent.includes(itemType.id),
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
     );
   }
-  onSelectionChange(event: any, index: number): void {
-    const selectedValue = event.value;
-    this.selectedItems[index] = selectedValue;
+  onSelectionChange(id: any, index: number): void {
+    this.selectedItems[index] = id;
   }
 
   addRow() {
@@ -83,13 +103,14 @@ export class IncomingStockComponent {
         itemId: [],
         quantity: [],
         pricePerTon: [],
-      }),
+      })
     );
     this.currentItemIndex++;
   }
   deleteRow(rowId: number): void {
     this.Items.removeAt(rowId);
-    this.currentItemIndex--;
+    this.selectedItems.splice(rowId, 1);
+    this.currentItemIndex = this.Items.length > 0 ? this.Items.length - 1 : 0;
   }
 
   isCurrentFeedItemRowInvalid(): boolean {
@@ -122,13 +143,11 @@ export class IncomingStockComponent {
     this.warehouseService
       .createTransaction(this.form.value)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تمت العملية بنجاح ، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        }
+        this.successMesg = 'تم تسجيل التوريد وتحديث المخزن بنجاح';
+        this.showSuccessDialog = true;
       });
   }
   backToList() {
-    this.router.navigate(['warehouse']);
+    this.router.navigate(['warehouse/items-medicine']);
   }
 }

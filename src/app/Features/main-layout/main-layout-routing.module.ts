@@ -62,6 +62,18 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'traders',
+        loadChildren: () =>
+          import('../traders/traders.module').then(
+            (m) => m.TradersModule,
+          ),
+      },
+      {
+        path: 'feed-mix',
+        loadChildren: () =>
+          import('../feed-mix/feed-mix.module').then((m) => m.FeedMixModule),
+      },
+      {
         path: 'treasury',
         loadChildren: () =>
           import('../treasury/treasury.module').then((m) => m.TreasuryModule),
@@ -70,6 +82,11 @@ const routes: Routes = [
         path: 'medicine',
         loadChildren: () =>
           import('../medicine/medicine.module').then((m) => m.MedicineModule),
+      },
+      {
+        path: 'raw-material',
+        loadChildren: () =>
+          import('../raw-material/raw-material.module').then((m) => m.RawMaterialModule),
       },
     ],
   },

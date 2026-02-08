@@ -2,36 +2,39 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { CycleService } from '../../cycle/cycle.service';
-import { DailyRegistrationService } from '../daily-registration.service';
+import { TradersService } from '../traders.service';
 
 @Component({
-  selector: 'app-daily-registration-listing',
-  templateUrl: './daily-registration-listing.component.html',
-  styleUrl: './daily-registration-listing.component.scss',
+  selector: 'app-traders-list',
+  templateUrl: './traders-list.component.html',
+  styleUrl: './traders-list.component.scss'
 })
-export class DailyRegistrationListingComponent {
+export class TradersListComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedTrader: any;
+
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
   editMode: boolean = false;
   successMesg: string = '';
-  showWarnningDialog: boolean = false;
+
   searchMode: boolean = false;
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
+
   constructor(
-    private dailyRegisterService: DailyRegistrationService,
+    private tradersService: TradersService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.intializeListCoulmns();
     this.getPage();
   }
+
   intializeListCoulmns() {
     this.columns = [
       new ListColumn({
@@ -42,91 +45,80 @@ export class DailyRegistrationListingComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'cycleName',
+        field: 'name',
         hide: false,
-        header: 'الدورة',
+        header: 'اسم المورد',
       }),
       new ListColumn({
-        field: 'roomName',
+        field: 'mobile',
         hide: false,
-        header: 'العنبر',
+        header: 'رقم الموبايل',
       }),
       new ListColumn({
-        field: 'feedPrice',
+        field: 'typeName',
         hide: false,
-        header: 'سعر التغذية',
+        header: 'النوع',
       }),
       new ListColumn({
-        field: 'medicinePrice',
+        field: 'balance',
         hide: false,
-        header: 'سعر الأدوية',
-      }),
-      new ListColumn({
-        field: 'feedUsage',
-        hide: false,
-        header: ' التغذية المستخدمة',
-      }),
-      new ListColumn({
-        field: 'deadChicken',
-        hide: false,
-        header: 'الفراخ الميتة',
-      }),
-      new ListColumn({
-        field: 'remainingChickenCount',
-        hide: false,
-        header: 'الفراخ المتبقية',
+        header: 'الرصيد',
       }),
     ];
   }
+
   getPage() {
-    this.dailyRegisterService
+    this.tradersService
       .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
         this.pageResult.items = response;
       });
   }
+
   onPageChanged(event: any) {
     this.pageNumber = event.first;
     this.pageSize = event.rows;
     this.getPage();
   }
+
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
     this.pageNumber = 1;
     this.getPage();
   }
+
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedTrader = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
-    this.dailyRegisterService
-      .delete(this.selectedDepartment.id)
-      .subscribe((response: any) => {
-        this.successMesg = 'تم حذف التسجيل اليومي بنجاح، يمكنك المتابعة';
+    this.tradersService
+      .delete(this.selectedTrader.id)
+      .subscribe(() => {
+        this.successMesg = 'تم حذف المورد بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
         this.showConfirmDeleteDialog = false;
       });
   }
+
   addNew() {
-    this.router.navigate(['/daily-registration/create']);
+    this.router.navigate(['/traders/create']);
   }
+
   edit(data: any) {
-    this.router.navigate(['/daily-registration/update/' + data.item.id]);
+    this.router.navigate(['/traders/update/' + data.item.id]);
   }
+
   close() {
     this.showForm = false;
     this.showConfirmDeleteDialog = false;
-    this.showWarnningDialog = false;
   }
+
   backToList() {
     this.showForm = false;
     this.showSuccessDialog = false;
     this.getPage();
-  }
-  back() {
-    this.showWarnningDialog = false;
   }
 }

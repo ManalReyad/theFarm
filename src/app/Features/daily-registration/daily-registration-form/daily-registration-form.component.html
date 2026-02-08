@@ -9,14 +9,13 @@
         formControlName="cycleId"
         [options]="cycleOptions"
         placeholder="اختر الدورة"
-        emptyMessage="إختر مزرعة أولاً"
       >
       </app-dropdown>
     </div>
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-input
         labelText="عدد النافق اليومي "
-        formControlName="deadChicken"
+        formControlName="deadCount"
         placeholder="حدد عدد النافق اليومي "
         inputType="number"
       >
@@ -39,17 +38,17 @@
           <th></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-task formArrayName="feedItems">
+      <ng-template pTemplate="body" let-task formArrayName="feedConsumptions">
         <tr
-          *ngFor="let target of feedItems.controls; let i = index"
+          *ngFor="let target of feedConsumptions.controls; let i = index"
           [formGroupName]="i"
         >
           <td>{{ i + 1 }}</td>
           <td>
             <app-dropdown
-              [options]="getAvailableFeedItems(i)"
+              [options]="getAvailablefeedConsumptions(i)"
               placeholder="اختر نوع المكون"
-              formControlName="itemTypeId"
+              formControlName="itemId"
               (change)="onSelectionChange($event, i, 'feed')"
               [showLabel]="false"
               [isRequired]="false"
@@ -74,7 +73,7 @@
               class="add flex items-center"
               [disabled]="
                 isCurrentFeedItemRowInvalid() ||
-                allFeedItemTypes.length == feedItems.controls.length
+                allFeedItemTypes.length == feedConsumptions.controls.length
               "
             >
               <i class="pi pi-plus"></i>
@@ -99,17 +98,17 @@
           <th></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-task formArrayName="feedItems">
+      <ng-template pTemplate="body" let-task formArrayName="medicineConsumptions">
         <tr
-          *ngFor="let target of feedItems.controls; let i = index"
+          *ngFor="let target of medicineConsumptions.controls; let i = index"
           [formGroupName]="i"
         >
           <td>{{ i + 1 }}</td>
           <td>
             <app-dropdown
-              [options]="getAvailableMedicineItems(i)"
+              [options]="getAvailablemedicineConsumptions(i)"
               placeholder="اختر نوع المكون"
-              formControlName="itemTypeId"
+              formControlName="itemId"
               (change)="onSelectionChange($event, i, 'medicine')"
               [showLabel]="false"
               [isRequired]="false"
@@ -134,7 +133,7 @@
               class="add flex items-center"
               [disabled]="
                 isCurrentMedicineItemRowInvalid() ||
-                allMedicineItemTypes.length == feedItems.controls.length
+                allMedicineItemTypes.length == feedConsumptions.controls.length
               "
             >
               <i class="pi pi-plus"></i>

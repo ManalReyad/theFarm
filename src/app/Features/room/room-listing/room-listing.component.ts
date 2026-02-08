@@ -4,7 +4,6 @@ import { PageResult } from 'src/app/Shared/Models/page-result';
 import { RoomService } from '../room.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FarmService } from '../../farm/farm.service';
 import { RoomType } from '../enums/room-type';
 
 @Component({
@@ -36,7 +35,6 @@ export class RoomListingComponent {
   constructor(
     private roomService: RoomService,
     private router: Router,
-    private farmService: FarmService,
   ) {}
   ngOnInit(): void {
     this.farmId = localStorage.getItem('farmId');

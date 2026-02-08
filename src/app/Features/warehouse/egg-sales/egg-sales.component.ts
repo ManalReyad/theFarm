@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { CycleService } from '../../cycle/cycle.service';
-import { DailyRegistrationService } from '../daily-registration.service';
+import { EggSalesService } from '../egg-sales.service';
 
 @Component({
-  selector: 'app-daily-registration-listing',
-  templateUrl: './daily-registration-listing.component.html',
-  styleUrl: './daily-registration-listing.component.scss',
+  selector: 'app-egg-sales',
+  templateUrl: './egg-sales.component.html',
+  styleUrl: './egg-sales.component.scss'
 })
-export class DailyRegistrationListingComponent {
+export class EggSalesComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedDepartment: any;
@@ -24,11 +23,13 @@ export class DailyRegistrationListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
+  farmId: any;
   constructor(
-    private dailyRegisterService: DailyRegistrationService,
-    private router: Router
+    private eggSalesService: EggSalesService,
+    private router: Router,
   ) {}
   ngOnInit(): void {
+    this.farmId =Number( localStorage.getItem('farmId'))
     this.intializeListCoulmns();
     this.getPage();
   }
@@ -42,45 +43,56 @@ export class DailyRegistrationListingComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'cycleName',
+        field: 'traderName',
         hide: false,
-        header: 'الدورة',
+        header: 'المورد',
       }),
       new ListColumn({
-        field: 'roomName',
+        field: 'warehouseName',
         hide: false,
-        header: 'العنبر',
+        header: 'المخزن',
       }),
       new ListColumn({
-        field: 'feedPrice',
+        field: 'quantity',
         hide: false,
-        header: 'سعر التغذية',
+        header: 'العدد',
       }),
       new ListColumn({
-        field: 'medicinePrice',
+        field: 'unitPrice',
         hide: false,
-        header: 'سعر الأدوية',
+        header: 'سعر الطبق',
       }),
       new ListColumn({
-        field: 'feedUsage',
+        field: 'totalPrice',
         hide: false,
-        header: ' التغذية المستخدمة',
+        header: 'السعر الكلي',
       }),
       new ListColumn({
-        field: 'deadChicken',
+        field: 'paidAmount',
         hide: false,
-        header: 'الفراخ الميتة',
+        header: 'القيمة المدفوعة',
       }),
       new ListColumn({
-        field: 'remainingChickenCount',
+        field: 'remainingAmount',
         hide: false,
-        header: 'الفراخ المتبقية',
+        header: 'القيمة المتبقية',
+      }),
+      new ListColumn({
+        field: 'cumulativeBalance',
+        hide: false,
+        header: 'الرصيد التراكمي',
+      }),
+      new ListColumn({
+        field: 'date',
+        hide: false,
+        header: 'التاريخ',
+        isDate: true,
       }),
     ];
   }
   getPage() {
-    this.dailyRegisterService
-      .getAll(this.pageNumber, this.pageSize)
+    this.eggSalesService
+      .getEggSales()
       .subscribe((response: any) => {
         this.pageResult.items = response;
       });
@@ -101,20 +113,11 @@ export class DailyRegistrationListingComponent {
     this.showConfirmDeleteDialog = true;
   }
 
-  submitDelete() {
-    this.dailyRegisterService
-      .delete(this.selectedDepartment.id)
-      .subscribe((response: any) => {
-        this.successMesg = 'تم حذف التسجيل اليومي بنجاح، يمكنك المتابعة';
-        this.showSuccessDialog = true;
-        this.showConfirmDeleteDialog = false;
-      });
-  }
   addNew() {
-    this.router.navigate(['/daily-registration/create']);
+    this.router.navigate(['/warehouse/egg-sales/add']);
   }
   edit(data: any) {
-    this.router.navigate(['/daily-registration/update/' + data.item.id]);
+    this.router.navigate(['/cycle/update/' + data.item.id]);
   }
   close() {
     this.showForm = false;

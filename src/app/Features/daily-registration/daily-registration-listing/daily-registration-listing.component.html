@@ -13,6 +13,7 @@
       (pageChange)="onPageChanged($event)"
       (edit)="edit($event)"
       (delete)="delete($event)"
+      [hasEdit]="false"
       (add)="addNew()"
       [searchMode]="searchMode"
       (back)="resetSearch()"
@@ -20,6 +21,7 @@
       noDataMessage="يبدو أنك لم تقم بإضافة أي تسجيل يومي بعد، ستظهر التسجيلات اليومية المضافة هنا... يمكنك البدء بإضافة أول تسجيل يومي "
       addButtonText="إضافة تسجيل يومي"
       nosearchBtnText="العودة إلى التسجيلات اليومية"
+      [hasPagination]="false"
     ></app-list>
   </div>
 

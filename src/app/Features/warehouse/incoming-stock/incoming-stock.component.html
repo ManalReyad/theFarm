@@ -3,17 +3,25 @@
 
 <form [formGroup]="form" class="card">
   <div class="grid grid-cols-12 gap-3">
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-4 col-span-12">
+      <app-dropdown
+        labelText="المخزن"
+        formControlName="warehouseId"
+        [options]="warehouseOptions"
+        placeholder="اختر المخزن"
+      ></app-dropdown>
+    </div>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-4 col-span-12">
       <app-dropdown
         labelText="اسم المورد"
         formControlName="traderId"
-        [options]="[]"
+        [options]="traderOptions"
         placeholder="اختر المورد"
 
       >
       </app-dropdown>
     </div>
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-4 col-span-12">
       <app-date-input
         labelText="التاريخ"
         formControlName="date"
