@@ -48,10 +48,10 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
             });
           }
         } else {
-          baseService.showFaildMessageDailoge();
-          baseService.setFailureMessage(
-            'يبدو أنه قد حدث خطأ ما، من فضلك أعد المحاولة مجددًا'
-          );
+          // baseService.showFaildMessageDailoge();
+          // baseService.setFailureMessage(
+          //   'يبدو أنه قد حدث خطأ ما، من فضلك أعد المحاولة مجددًا'
+          // );
         }
   
         return throwError(() => error);

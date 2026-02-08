@@ -6,7 +6,7 @@
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-dropdown
         labelText="الدورة"
-        formControlName="cycleID"
+        formControlName="cycleId"
         [options]="cycleOptions"
         placeholder="اختر الدورة"
         emptyMessage="إختر مزرعة أولاً"
@@ -74,7 +74,7 @@
               class="add flex items-center"
               [disabled]="
                 isCurrentFeedItemRowInvalid() ||
-                allItemTypes.length == feedItems.controls.length
+                allFeedItemTypes.length == feedItems.controls.length
               "
             >
               <i class="pi pi-plus"></i>
@@ -134,7 +134,7 @@
               class="add flex items-center"
               [disabled]="
                 isCurrentMedicineItemRowInvalid() ||
-                allItemTypes.length == feedItems.controls.length
+                allMedicineItemTypes.length == feedItems.controls.length
               "
             >
               <i class="pi pi-plus"></i>

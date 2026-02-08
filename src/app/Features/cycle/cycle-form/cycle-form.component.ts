@@ -1,8 +1,10 @@
+import { FarmService } from 'src/app/Features/farm/farm.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CycleService } from '../cycle.service';
 import { RoomService } from '../../room/room.service';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-cycle-form',
@@ -19,12 +21,12 @@ export class CycleFormComponent {
   successMesg: string = '';
   showSuccessDialog: boolean = false;
   roomOptions: { id: number; name: string }[] = [];
-  farmId:any
+  farmId: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cycleService: CycleService,
-    private roomService:RoomService
+    private lookupService: LookupService,
   ) {}
   ngOnInit(): void {
     let cycleId = this.activatedRoute.snapshot.params['id'];
@@ -36,56 +38,49 @@ export class CycleFormComponent {
         { name: 'تعديل بيانات الدورة' },
       ];
     }
-    this.farmId=localStorage.getItem('farmId')||''
-    this.getRooms();
+    this.farmId = Number(localStorage.getItem('farmId'));
+    if (this.farmId) {
+      this.lookupService
+        .getBarnsByFarmId(this.farmId)
+        .subscribe((data: any) => {
+          this.roomOptions = data || [];
+        });
+    }
     this.createForm();
   }
-  getRooms() {
-    this.roomService.getList(+this.farmId).subscribe((response: any) => {
-      if (response.success) {
-        this.roomOptions = response.data;
-      }
-    });
-  }
+
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
       name: new FormControl(null, Validators.required),
       farmId: new FormControl(),
-      roomId: new FormControl(null, Validators.required),
+      barnId: new FormControl(null, Validators.required),
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
-      chickenCount: new FormControl(null, Validators.required),
-      chickenAge: new FormControl(null, Validators.required),
-
+      chickCount: new FormControl(null, Validators.required),
+      chickAge: new FormControl(null, Validators.required),
     });
   }
   getById(id: any) {
     this.cycleService.getById(id).subscribe((response: any) => {
-      if (response.success) {
-        this.form.patchValue({
-          ...response.data,
-          startDate: new Date(response.data.startDate),
-          endDate: new Date(response.data.endDate),
-        });
-      }
+      this.form.patchValue({
+        ...response,
+        startDate: new Date(response?.startDate),
+        endDate: new Date(response?.endDate),
+      });
     });
   }
   save() {
     this.form.patchValue({ ...this.form.value, farmId: +this.farmId });
     if (this.editMode) {
       this.cycleService.update(this.form.value).subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تم تعديل بيانات الدورة بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        }
+        this.successMesg = 'تم تعديل بيانات الدورة بنجاح، يمكنك المتابعة';
+        this.showSuccessDialog = true;
       });
     } else {
       this.cycleService.create(this.form.value).subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تمت إضافة الدورة بنجاح ، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        }
+        this.successMesg = 'تمت إضافة الدورة بنجاح ، يمكنك المتابعة';
+        this.showSuccessDialog = true;
       });
     }
   }

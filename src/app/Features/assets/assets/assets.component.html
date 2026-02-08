@@ -11,8 +11,6 @@
       [listColumns]="columns"
       [pageResult]="pageResult"
       (pageChange)="onPageChanged($event)"
-      (edit)="edit($event)"
-      (delete)="delete($event)"
       (add)="addNew()"
       [searchMode]="searchMode"
       (back)="resetSearch()"
@@ -20,6 +18,8 @@
       noDataMessage="يبدو أنك لم تقم بإضافة أي أصل بعد، ستظهر الأصول المضافة هنا... يمكنك البدء بإضافة أول أصل "
       addButtonText="إضافة أصل"
       nosearchBtnText="العودة إلى الأصول"
+      [hasPagination]="false"
+      [withAction]="false"
     ></app-list>
   </div>
   
@@ -43,22 +43,6 @@
             formControlName="name"
           ></app-input>
         </div>
-        <div class="col-span-12">
-            <app-input
-              labelText="العدد"
-              placeholder="أدخل عدد الأصل"
-              formControlName="count"
-            ></app-input>
-          </div>
-        <div class="col-span-12 flex flex-col mt-4">
-          <label>الوصف</label>
-          <textarea
-            placeholder="وصف الأصل"
-            cols="12"
-            rows="3"
-            formControlName="description"
-          ></textarea>
-        </div>
       </div>
     </form>
   
@@ -73,7 +57,6 @@
   <app-confirmation-delete-dialog
     message="هل أنت متأكد أنك تريد حذف الأصل؟ سيتم حذفه نهائيًا من قائمة الأصول"
     [visible]="showConfirmDeleteDialog"
-    (onSubmitEvent)="submitDelete()"
     (exit)="close()"
   ></app-confirmation-delete-dialog>
   

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { AssetService } from '../asset.service';
+import { ItemsService } from 'src/app/Shared/Services/items.service';
 
 @Component({
-  selector: 'app-assets',
-  templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss'],
+  selector: 'app-raw-material',
+  templateUrl: './raw-material.component.html',
+  styleUrl: './raw-material.component.scss',
 })
-export class AssetsComponent {
+export class RawMaterialComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedDepartment: any;
@@ -24,7 +24,7 @@ export class AssetsComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private assetService: AssetService) {}
+  constructor(private itemService: ItemsService) {}
   ngOnInit(): void {
     this.createForm();
     this.intializeListCoulmns();
@@ -44,25 +44,31 @@ export class AssetsComponent {
         hide: false,
         header: 'الاسم',
       }),
+      new ListColumn({
+        field: 'pricePerTon',
+        hide: false,
+        header: 'سعر الوحدة',
+      }),
     ];
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
       name: new FormControl(null, Validators.required),
+      pricePerTon: new FormControl(),
+      itemType: new FormControl(),
     });
   }
   addNew() {
     this.editMode = false;
     this.form.reset();
+    this.form.get('itemType')?.setValue(1)
     this.showForm = true;
   }
   getPage() {
-    this.assetService
-      .getAll(this.pageNumber, this.pageSize)
-      .subscribe((response: any) => {
-        this.pageResult.items = response;
-      });
+    this.itemService.getItems().subscribe((response: any) => {
+      this.pageResult.items = response.map((item: any) => item.itemType == 1);
+    });
   }
   edit(object: any) {
     this.showForm = true;
@@ -70,13 +76,19 @@ export class AssetsComponent {
     this.form.patchValue({ ...object.item });
   }
   save() {
-       this.assetService.create(this.form.value).subscribe((response: any) => {
-        if (response) {
-          this.successMesg = 'تمت إضافة الأصل بنجاح ، يمكنك المتابعة';
-          this.showForm = false;
-          this.showSuccessDialog = true;
-        }
+    if (this.editMode) {
+      this.itemService.update(this.form.value).subscribe((response: any) => {
+        this.successMesg = 'تم تعديل بيانات المادة الخام بنجاح، يمكنك المتابعة';
+        this.showForm = false;
+        this.showSuccessDialog = true;
       });
+    } else {
+      this.itemService.addItems(this.form.value).subscribe((response: any) => {
+        this.successMesg = 'تمت إضافة المادة الخام بنجاح ، يمكنك المتابعة';
+        this.showForm = false;
+        this.showSuccessDialog = true;
+      });
+    }
   }
   showWarnningMessage() {
     this.showWarnningDialog = true;
@@ -97,17 +109,15 @@ export class AssetsComponent {
     this.showConfirmDeleteDialog = true;
   }
 
-  // submitDelete() {
-  //   this.assetService
-  //     .delete(this.selectedDepartment.id)
-  //     .subscribe((response: any) => {
-  //       if (response.success) {
-  //         this.successMesg = 'تم حذف الأصل بنجاح، يمكنك المتابعة';
-  //         this.showSuccessDialog = true;
-  //         this.showConfirmDeleteDialog = false;
-  //       }
-  //     });
-  // }
+  submitDelete() {
+    this.itemService
+      .delete(this.selectedDepartment.id)
+      .subscribe((response: any) => {
+        this.successMesg = 'تم حذف المادة الخام بنجاح، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+        this.showConfirmDeleteDialog = false;
+      });
+  }
 
   close() {
     this.showForm = false;

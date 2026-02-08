@@ -36,13 +36,12 @@ export class RoomListingComponent {
   constructor(
     private roomService: RoomService,
     private router: Router,
-    private farmService: FarmService
+    private farmService: FarmService,
   ) {}
   ngOnInit(): void {
     this.farmId = localStorage.getItem('farmId');
     this.intializeListCoulmns();
     this.getPage();
-    this.getDropdowns();
     this.createForm();
   }
   intializeListCoulmns() {
@@ -60,7 +59,7 @@ export class RoomListingComponent {
         header: 'الاسم',
       }),
       new ListColumn({
-        field: 'roomTypeName',
+        field: 'typeName',
         hide: false,
         header: 'نوع العنبر',
       }),
@@ -75,9 +74,7 @@ export class RoomListingComponent {
     this.roomService
       .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.pageResult = response.data;
-        }
+        this.pageResult.items = response;
       });
   }
   onPageChanged(event: any) {
@@ -100,11 +97,9 @@ export class RoomListingComponent {
     this.roomService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تم حذف العنبر بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-          this.showConfirmDeleteDialog = false;
-        }
+        this.successMesg = 'تم حذف العنبر بنجاح، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+        this.showConfirmDeleteDialog = false;
       });
   }
   addNew() {
@@ -117,44 +112,33 @@ export class RoomListingComponent {
     this.editMode = true;
     this.form.patchValue({
       ...object.item,
-      roomTypeID: object.item.roomTypeId,
-      farmID: this.farmId,
-    });
-  }
-  getDropdowns() {
-    this.farmService.getList().subscribe((response: any) => {
-      if (response.success) {
-        this.farmOptions = response.data;
-      }
+      type: object.item.type,
+      farmId: this.farmId,
     });
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
       name: new FormControl(null, Validators.required),
-      farmID: new FormControl(this.farmId),
-      roomTypeID: new FormControl(null, Validators.required),
+      farmId: new FormControl(this.farmId),
+      type: new FormControl(null, Validators.required),
     });
   }
   save() {
-    this.form.patchValue({ ...this.form.value, farmID: +this.farmId });
+    this.form.patchValue({ ...this.form.value, farmId: +this.farmId });
 
     if (this.editMode) {
       this.roomService.update(this.form.value).subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تم تعديل بيانات العنبر بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-          this.editMode = false;
-          this.showForm = false;
-        }
+        this.successMesg = 'تم تعديل بيانات العنبر بنجاح، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+        this.editMode = false;
+        this.showForm = false;
       });
     } else {
       this.roomService.create(this.form.value).subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تمت إضافة العنبر بنجاح ، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-          this.showForm = false;
-        }
+        this.successMesg = 'تمت إضافة العنبر بنجاح ، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+        this.showForm = false;
       });
     }
   }

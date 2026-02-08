@@ -11,6 +11,7 @@ import { CycleService } from '../../cycle/cycle.service';
 import { DailyRegistrationService } from '../daily-registration.service';
 import { RoomService } from '../../room/room.service';
 import { FarmService } from '../../farm/farm.service';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-daily-registration-form',
@@ -24,7 +25,7 @@ export class DailyRegistrationFormComponent {
   ];
   form!: FormGroup;
   editMode: boolean = false;
-  roomOptions: { id: number; name: string }[] = [];
+  barnsOptions: { id: number; name: string }[] = [];
   cycleOptions: { id: number; name: string }[] = [];
   successMesg: string = '';
   showSuccessDialog: boolean = false;
@@ -33,18 +34,19 @@ export class DailyRegistrationFormComponent {
   selectedMedicineItems: any[] = [];
   currentFeedItemIndex: number = 0;
   currentMedicineItemIndex: number = 0;
-  allItemTypes: { id: number; name: string }[] = [];
-  currentFeedItemRowInvalid:boolean=false
-  currentMedicineRowInvalid:boolean=false
-
+  allFeedItemTypes: { id: number; name: string }[] = [];
+  allMedicineItemTypes: { id: number; name: string }[] = [];
+  currentFeedItemRowInvalid: boolean = false;
+  currentMedicineRowInvalid: boolean = false;
+  farmId: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cycleService: CycleService,
     private roomService: RoomService,
     private dailyRegisterService: DailyRegistrationService,
-    private farmService: FarmService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private lookupService: LookupService,
   ) {}
   ngOnInit(): void {
     let cycleId = this.activatedRoute.snapshot.params['id'];
@@ -56,20 +58,26 @@ export class DailyRegistrationFormComponent {
         { name: 'تعديل تسجيل يومي' },
       ];
     }
+    // this.farmId = Number(localStorage.getItem('farmId'));
+    // if (this.farmId) {
+    //   this.lookupService
+    //     .getBarnsByFarmId(this.farmId)
+    //     .subscribe((data: any) => {
+    //       this.barnsOptions = data || [];
+    //     });
+    // }
     this.getDropdowns();
     this.createForm();
   }
   getDropdowns() {
-    this.farmService.getList().subscribe((response: any) => {
-      this.farmOptions = response.data;
+    this.lookupService.getFeedMixes().subscribe((response: any) => {
+      this.allFeedItemTypes = response.data;
+    });
+    this.lookupService.getMedicines().subscribe((response: any) => {
+      this.allMedicineItemTypes = response.data;
     });
   }
   getRooms(id: any) {
-    this.roomService.getList(id).subscribe((response: any) => {
-      if (response.success) {
-        this.roomOptions = response.data;
-      }
-    });
     this.cycleService.getList(id).subscribe((response: any) => {
       if (response.success) {
         this.cycleOptions = response.data;
@@ -80,7 +88,7 @@ export class DailyRegistrationFormComponent {
     this.form = new FormGroup({
       id: new FormControl(),
       deadChicken: new FormControl(null, Validators.required),
-      cycleID: new FormControl(null, Validators.required),
+      cycleId: new FormControl(null, Validators.required),
       feedItems: this.fb.array([
         this.fb.group({
           id: [0],
@@ -115,18 +123,18 @@ export class DailyRegistrationFormComponent {
   }
   getAvailableMedicineItems(index: number): any[] {
     const selectedBeforeCurrent = this.selectedMedicineItems.filter(
-      (_, i) => i !== index
+      (_, i) => i !== index,
     );
-    return this.allItemTypes.filter(
-      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
+    return this.allMedicineItemTypes.filter(
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id),
     );
   }
   getAvailableFeedItems(index: number): any[] {
     const selectedBeforeCurrent = this.selectedFeedItems.filter(
-      (_, i) => i !== index
+      (_, i) => i !== index,
     );
-    return this.allItemTypes.filter(
-      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
+    return this.allFeedItemTypes.filter(
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id),
     );
   }
   onSelectionChange(event: any, index: number, type: string): void {
@@ -145,7 +153,7 @@ export class DailyRegistrationFormComponent {
           id: [0],
           itemTypeId: [],
           quantity: [],
-        })
+        }),
       );
       this.currentFeedItemIndex++;
     } else {
@@ -154,7 +162,7 @@ export class DailyRegistrationFormComponent {
           id: [0],
           itemTypeId: [],
           quantity: [],
-        })
+        }),
       );
       this.currentMedicineItemIndex++;
     }
@@ -175,9 +183,7 @@ export class DailyRegistrationFormComponent {
       const itemTypeId = rowForm.get('itemTypeId')?.value;
       const quantity = rowForm.get('quantity')?.value;
       return (this.currentFeedItemRowInvalid =
-        !itemTypeId ||
-        quantity === null ||
-        quantity === undefined);
+        !itemTypeId || quantity === null || quantity === undefined);
     }
     return false;
   }
@@ -188,9 +194,7 @@ export class DailyRegistrationFormComponent {
       const quantity = rowForm.get('quantity')?.value;
 
       return (this.currentMedicineRowInvalid =
-        !itemTypeId ||
-        quantity === null ||
-        quantity === undefined);
+        !itemTypeId || quantity === null || quantity === undefined);
     }
     return false;
   }

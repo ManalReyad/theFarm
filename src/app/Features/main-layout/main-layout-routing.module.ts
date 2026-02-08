@@ -37,29 +37,39 @@ const routes: Routes = [
         path: 'daily-registration',
         loadChildren: () =>
           import('../daily-registration/daily-registration.module').then(
-            (m) => m.DailyRegistrationModule
+            (m) => m.DailyRegistrationModule,
           ),
       },
       {
         path: 'warehouse',
         loadChildren: () =>
           import('../warehouse/warehouse.module').then(
-            (m) => m.WarehouseModule
+            (m) => m.WarehouseModule,
+          ),
+      },
+      {
+        path: 'warehouse-assets',
+        loadChildren: () =>
+          import('../wharehouse-assets/wharehouse-assets.module').then(
+            (m) => m.WharehouseAssetsModule,
+          ),
+      },
+       {
+        path: 'warehouse-assets-transactions',
+        loadChildren: () =>
+          import('../transactions/transactions.module').then(
+            (m) => m.TransactionsModule,
           ),
       },
       {
         path: 'treasury',
         loadChildren: () =>
-          import('../treasury/treasury.module').then(
-            (m) => m.TreasuryModule
-          ),
+          import('../treasury/treasury.module').then((m) => m.TreasuryModule),
       },
       {
         path: 'medicine',
         loadChildren: () =>
-          import('../medicine/medicine.module').then(
-            (m) => m.MedicineModule
-          ),
+          import('../medicine/medicine.module').then((m) => m.MedicineModule),
       },
     ],
   },

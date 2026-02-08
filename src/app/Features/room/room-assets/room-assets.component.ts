@@ -85,9 +85,9 @@ export class RoomAssetsComponent {
       this.roomID = this.activatedRoute.snapshot.params['id'];
       this.createForm();
     });
-    this.assetService.getList().subscribe((result: any) => {
-      this.assetsOptions = result.data;
-    });
+    // this.assetService.getList().subscribe((result: any) => {
+    //   this.assetsOptions = result.data;
+    // });
   }
   addNew() {
     this.editMode = false;

@@ -7,11 +7,11 @@ import { CycleService } from '../cycle.service';
 @Component({
   selector: 'app-cycle-listing',
   templateUrl: './cycle-listing.component.html',
-  styleUrl: './cycle-listing.component.scss'
+  styleUrl: './cycle-listing.component.scss',
 })
 export class CycleListingComponent {
   columns: ListColumn[] = [];
-  pageResult: PageResult = { items: [] };;
+  pageResult: PageResult = { items: [] };
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
@@ -23,7 +23,10 @@ export class CycleListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private cycleService: CycleService, private router: Router) {}
+  constructor(
+    private cycleService: CycleService,
+    private router: Router,
+  ) {}
   ngOnInit(): void {
     this.intializeListCoulmns();
     this.getPage();
@@ -43,7 +46,7 @@ export class CycleListingComponent {
         header: 'الاسم',
       }),
       new ListColumn({
-        field: 'roomName',
+        field: 'barnName',
         hide: false,
         header: 'العنبر',
       }),
@@ -51,21 +54,21 @@ export class CycleListingComponent {
         field: 'startDate',
         hide: false,
         header: 'تاريخ البداية',
-        isDate:true
+        isDate: true,
       }),
       new ListColumn({
         field: 'endDate',
         hide: false,
         header: 'تاريخ النهاية',
-        isDate:true
+        isDate: true,
       }),
       new ListColumn({
-        field: 'chickenCount',
+        field: 'chickCount',
         hide: false,
         header: 'عدد الفراخ',
       }),
       new ListColumn({
-        field: 'chickenAge',
+        field: 'chickAge',
         hide: false,
         header: 'عمر الفراخ',
       }),
@@ -75,9 +78,7 @@ export class CycleListingComponent {
     this.cycleService
       .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.pageResult = response.data;
-        }
+        this.pageResult.items = response;
       });
   }
   onPageChanged(event: any) {
@@ -100,11 +101,9 @@ export class CycleListingComponent {
     this.cycleService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
+                this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
-        }
       });
   }
   addNew() {

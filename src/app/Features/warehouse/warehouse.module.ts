@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/Shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { WarehouseDetailsComponent } from './warehouse-details/warehouse-details.component';
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { WarehouseDetailsComponent } from './warehouse-details/warehouse-details
     WarehouseRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-  ],
+    TableModule
+],
 })
 export class WarehouseModule {}

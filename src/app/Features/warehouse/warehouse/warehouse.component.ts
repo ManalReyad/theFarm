@@ -25,12 +25,12 @@ export class WarehouseComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
+  warehouseData:any[]=[]
   constructor(
     private warehouseService: WarehouseService,
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.createForm();
     this.intializeListCoulmns();
     this.getPage();
   }
@@ -44,28 +44,31 @@ export class WarehouseComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'farmName',
+        field: 'warehouseName',
         hide: false,
-        header: 'المزرعة',
+        header: 'المخزن',
       }),
       new ListColumn({
-        field: 'inventoryTypeName',
+        field: 'itemName',
         hide: false,
-        header: 'نوع المخزون',
+        header: 'اسم الصنف/الدوا',
       }),
       new ListColumn({
         field: 'quantity',
         hide: false,
         header: 'الكمية',
       }),
+       new ListColumn({
+        field: 'pricePerUnit',
+        hide: false,
+        header: 'سعر الوحدة',
+      }),
+       new ListColumn({
+        field: 'totalValue',
+        hide: false,
+        header: 'السعر الكلي',
+      }),
     ];
-  }
-  createForm() {
-    this.form = new FormGroup({
-      id: new FormControl(0),
-      name: new FormControl(null, Validators.required),
-      description: new FormControl(''),
-    });
   }
   outgoing() {
     this.router.navigate(['warehouse/outgoing']);
@@ -73,15 +76,12 @@ export class WarehouseComponent {
   incoming() {
     this.router.navigate(['warehouse/incoming']);
   }
-  goToDetails(data: any) {
-    this.router.navigate(['warehouse/details/' + data.id]);
-  }
   getPage() {
     this.warehouseService
-      .getAll(this.pageNumber,this.pageSize)
+      .getAll()
       .subscribe((response: any) => {
         if (response.success) {
-          this.pageResult = response.data;
+          this.warehouseData = response.data;
         }
       });
   }

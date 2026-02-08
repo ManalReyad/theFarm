@@ -8,25 +8,20 @@ import { environment } from 'src/environments/environment';
 export class WarehouseService {
   baseUrl = environment.baseUrl + 'Warehouse/';
   constructor(private http: HttpClient) {}
-  getAll(
-    pageIndex: number,
-    pageSize: number,
-    isAscending: boolean = true,
-    orderBy: string = ''
-  ) {
-    return this.http.get(
-      this.baseUrl +
-        `Get?OrderBy=${orderBy}&IsAscending=${isAscending}&PageIndex=${pageIndex}&PageSize=${pageSize}`
-    );
+  getAll() {
+    return this.http.get(this.baseUrl);
   }
-  createIncomingStock(body: any) {
-    return this.http.post(this.baseUrl + `IncomingStock`, body);
+
+  getWarehouseItem(wharehousId: number) {
+    return this.http.get(this.baseUrl + `${wharehousId}/items`);
+  }
+  createTransaction(body: any) {
+    return this.http.post(this.baseUrl + `transaction`, body);
   }
   createOutgoingStock(body: any) {
     return this.http.post(this.baseUrl + `OutgoingStock`, body);
   }
-  getById(id:number)
-  {
-    return this.http.get(this.baseUrl+`GetByID?id=${id}`)
+  getById(id: number) {
+    return this.http.get(this.baseUrl + `GetByID?id=${id}`);
   }
 }

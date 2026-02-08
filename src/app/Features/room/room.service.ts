@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RoomService {
- baseUrl = environment.baseUrl + 'Room';
+ baseUrl = environment.baseUrl + 'Barns';
   constructor(private http: HttpClient) {}
 
   getAll(
@@ -16,23 +16,22 @@ export class RoomService {
     orderBy: string = ''
   ) {
     return this.http.get(
-      this.baseUrl +
-        `/Get?OrderBy=${orderBy}&IsAscending=${isAscending}&PageIndex=${pageIndex}&PageSize=${pageSize}`
+      this.baseUrl 
     );
   }
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
   update(body: any) {
-    return this.http.put(this.baseUrl, body);
+    return this.http.put(this.baseUrl+'/'+body.id, body);
   }
   getById(id: number) {
-    return this.http.get(this.baseUrl + `/GetByID?id=${id}`);
+    return this.http.get(this.baseUrl + `/GetByID/${id}`);
   }
   delete(id: number) {
-    return this.http.delete(this.baseUrl + `?id=${id}`);
+    return this.http.delete(this.baseUrl + `/${id}`);
   }
   getList(farmId:any='') {
-    return this.http.get(this.baseUrl + `/GetList?farmID=${farmId}`);
+    return this.http.get(this.baseUrl);
   }
 }

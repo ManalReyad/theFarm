@@ -3,8 +3,7 @@
     <h1>المخزن</h1>
 
     <div class="flex gap-3" *ngIf="pageResult.items?.length!>0">
-      <button class="submitBtn" (click)="outgoing()">الموارد الصادرة</button>
-      <button class="submitBtn" (click)="incoming()">الموارد الواردة</button>
+      <button class="submitBtn" (click)="incoming()">توريد أصناف وأدوية</button>
     </div>
   </div>
 
@@ -13,18 +12,13 @@
     [pageResult]="pageResult"
     (pageChange)="onPageChanged($event)"
     [searchMode]="searchMode"
-    noDataMessage="يبدو أنك لم تقم بإضافة أي موارد صادرة أو ورادة بعد، ستظهر الموارد المضافة هنا... يمكنك البدء "
+    noDataMessage="يبدو أنك لم تقم بتوريد أي أصناف أو أدوية  بعد، ستظهر الموارد المضافة هنا... يمكنك البدء "
     addButtonText="إضافة مزرعة"
     nosearchBtnText="العودة إلى المخزن"
-    secondButtonText="الموارد الواردة"
-    addButtonText="الموارد الصادرة"
-    (add)="outgoing()"
-    (secondBtnEvent)="incoming()"
-    [hasSecondBtn]="true"
-    (view)="goToDetails($event)"
-    [hasDelete]="false"
-    [hasEdit]="false"
-    [hasView]="true"
+    addButtonText="توريد أصناف وأدوية"
+    (add)="incoming()"
+    [withAction]="false"
+    [hasPagination]="false"
   ></app-list>
 </div>
 

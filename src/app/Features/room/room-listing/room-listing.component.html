@@ -20,9 +20,7 @@
       noDataMessage="يبدو أنك لم تقم بإضافة أي عنبر بعد، ستظهر العنابر المضافة هنا... يمكنك البدء بإضافة أول عنبر "
       addButtonText="إضافة عنبر"
       nosearchBtnText="العودة إلى العنابر"
-      [withCustomAction]="true"
-      [withAction]="false"
-      (assetClicked)="goToRoomAssets($event)"
+      [hasPagination]="false"
     ></app-list>
   </div>
   <p-dialog
@@ -48,7 +46,7 @@
       <div class="col-span-12">
         <app-dropdown
           labelText="نوع العنبر"
-          formControlName="roomTypeID"
+          formControlName="type"
           [options]="roomTypeOptions"
           placeholder="اختر نوع العنبر"
         >

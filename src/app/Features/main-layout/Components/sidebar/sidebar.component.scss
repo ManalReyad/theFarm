@@ -16,7 +16,7 @@
     direction: rtl;
     @apply bg-transparent mx-3;
     color: var(--main-white);
-    font-size: 20px;
+    font-size: 17px;
     padding: 0;
     white-space: nowrap;
 
@@ -24,7 +24,7 @@
       border-radius: 8px;
       background-color: var(--active-sidebar-item);
       color: var(--secondary) !important;
-      font-size: 20px;
+      font-size: 17px;
       .p-menuitem-text {
         color: var(--secondary);
       }
@@ -34,7 +34,8 @@
     border-radius: 8px;
     background-color: var(--active-sidebar-item);
     color: var(--secondary);
-    padding: 0.5rem;
+    padding: 0.5rem ;
+    width: fit-content;
     .p-menuitem-text {
       color: var(--secondary);
     }
@@ -48,11 +49,12 @@
     padding: 0;
   }
   .p-menuitem-text {
-    margin: auto 20px;
-    font-size: 20px;
+    margin: auto 14px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 30px;
     color: var(--main-white);
+    white-space: nowrap;
   }
   .p-submenu-list {
     @apply mx-3;
@@ -73,12 +75,13 @@
     padding: 0;
   }
   .p-menuitem-link {
-    padding: 8px;
+    padding: 8px ;
+    width: fit-content;
     &:hover {
       border-radius: 8px !important;
       background-color: var(--active-sidebar-item);
       color: var(--secondary) !important;
-      font-size: 20px;
+      font-size: 17px;
       .p-menuitem-text {
         color: var(--secondary);
       }
@@ -103,4 +106,16 @@
   .p-submenu-icon {
     transform: rotate(180deg);
   }
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary) !important;
+  border-radius: 5px;
+}
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }

@@ -8,11 +8,11 @@ import { FarmService } from '../farm.service';
 @Component({
   selector: 'app-farm',
   templateUrl: './farm.component.html',
-  styleUrls: ['./farm.component.scss']
+  styleUrls: ['./farm.component.scss'],
 })
 export class FarmComponent {
   columns: ListColumn[] = [];
-  pageResult: PageResult = { items: [] };;
+  pageResult: PageResult = { items: [] };
   selectedDepartment: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
@@ -23,7 +23,7 @@ export class FarmComponent {
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
   pageSize: number = 10;
-  pageNumber:number=1
+  pageNumber: number = 1;
   searchReset: boolean = false;
   constructor(private farmService: FarmService) {}
   ngOnInit(): void {
@@ -66,11 +66,9 @@ export class FarmComponent {
   }
   getPage() {
     this.farmService
-      .getAll(this.pageNumber,this.pageSize)
+      .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.pageResult = response.data;
-        }
+        this.pageResult.items = response;
       });
   }
   edit(object: any) {
@@ -80,27 +78,17 @@ export class FarmComponent {
   }
   save() {
     if (this.editMode) {
-      this.farmService
-        .update(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg =
-              'تم تعديل بيانات المزرعة بنجاح، يمكنك المتابعة';
-            this.showForm = false;
-            this.showSuccessDialog = true;
-          }
-        });
+      this.farmService.update(this.form.value).subscribe((response: any) => {
+       this.successMesg = 'تم تعديل بيانات المزرعة بنجاح، يمكنك المتابعة';
+          this.showForm = false;
+          this.showSuccessDialog = true;
+      });
     } else {
-      this.farmService
-        .create(this.form.value)
-        .subscribe((response: any) => {
-          if (response.success) {
-            this.successMesg =
-              'تمت إضافة المزرعة بنجاح ، يمكنك المتابعة';
-            this.showForm = false;
-            this.showSuccessDialog = true;
-          }
-        });
+      this.farmService.create(this.form.value).subscribe((response: any) => {
+       this.successMesg = 'تمت إضافة المزرعة بنجاح ، يمكنك المتابعة';
+          this.showForm = false;
+          this.showSuccessDialog = true;
+      });
     }
   }
   showWarnningMessage() {
@@ -114,7 +102,7 @@ export class FarmComponent {
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber=1
+    this.pageNumber = 1;
     this.getPage();
   }
   delete(item: any) {
@@ -126,11 +114,9 @@ export class FarmComponent {
     this.farmService
       .delete(this.selectedDepartment.id)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';
+     this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
-        }
       });
   }
 

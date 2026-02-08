@@ -71,12 +71,12 @@ export class OutgoingStockComponent {
     });
   }
   save() {
-    this.warehouseService.createIncomingStock(this.form.value).subscribe((response: any) => {
-      if (response.success) {
-        this.successMesg = 'تمت الإضافة بنجاح ، يمكنك المتابعة';
-        this.showSuccessDialog = true;
-      }
-    });
+    // this.warehouseService.(this.form.value).subscribe((response: any) => {
+    //   if (response.success) {
+    //     this.successMesg = 'تمت الإضافة بنجاح ، يمكنك المتابعة';
+    //     this.showSuccessDialog = true;
+    //   }
+    // });
   }
   backToList() {
     this.router.navigate(['warehouse']);

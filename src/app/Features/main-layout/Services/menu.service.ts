@@ -47,6 +47,20 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['assets'],
       },
+      {
+        label: 'عمليات مخزن الأصول',
+        visible: true,
+        icon: PrimeIcons.HISTORY,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['warehouse-assets-transactions'],
+      },
+      {
+        label: 'مخزن الأصول',
+        visible: true,
+        icon: PrimeIcons.SERVER,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['warehouse-assets'],
+      },
 
       {
         label: 'التسجيل اليومي',
@@ -55,47 +69,22 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['daily-registration'],
       },
-      // {
-      //   label: 'وارد المخزن',
-      //   visible: true,
-      //   icon: PrimeIcons.WAREHOUSE,
-      //   iconStyle: { fontSize: '1.5rem' },
-      //   routerLink: ['warehouse'],
-      // },
-
       {
         label: 'المخزن',
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
         //routerLink: ['daily-registration'],
-        expanded: this.shouldExpand([
-          'warehouse/outgoing',
-          'warehouse/incoming',
-        ]),
+        expanded: this.shouldExpand(['warehouse/incoming', 'warehouse']),
         items: [
           {
-            label: 'توريد الأصناف',
+            label: 'توريد أصناف وأدوية',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['warehouse/outgoing'],
-          },
-          {
-            label: 'توريد الأدوية',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['warehouse/incoming'],
+            routerLink: ['warehouse'],
           },
         ],
-      },
-      {
-        label: 'الخزنة',
-        visible: true,
-        icon: PrimeIcons.MONEY_BILL,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['treasury'],
       },
       {
         label: 'الأدوية',
@@ -103,6 +92,13 @@ export class MenuService {
         icon: 'fa-solid fa-capsules',
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['medicine'],
+      },
+      {
+        label: 'المواد الخام',
+        visible: true,
+        icon: PrimeIcons.DATABASE,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['raw-material'],
       },
     ];
   }
