@@ -116,12 +116,12 @@ export class WharehouseAssetsComponent {
     this.form.patchValue({ ...object.item });
   }
   saveWarehoseAsset() {
-    let body = { ...this.warehouseForm, farmId: this.farmId };
+    let body = { ...this.warehouseForm.value, farmId: this.farmId };
     this.wharehouseAssetService
       .createWarehouseAsset(body)
       .subscribe((response: any) => {
         this.successMesg = 'تمت إضافة مخزن الأصل بنجاح ، يمكنك المتابعة';
-        this.showForm = false;
+        this.showAddWarehouseForm = false;
         this.showSuccessDialog = true;
 
       });
@@ -130,11 +130,9 @@ export class WharehouseAssetsComponent {
     this.wharehouseAssetService
       .createAsset(this.form.value)
       .subscribe((response: any) => {
-        if (response.success) {
-          this.successMesg = 'تمت إضافة الأصل بنجاح ، يمكنك المتابعة';
-          this.showForm = false;
-          this.showSuccessDialog = true;
-        }
+        this.successMesg = 'تمت إضافة الأصل بنجاح ، يمكنك المتابعة';
+        this.showForm = false;
+        this.showSuccessDialog = true;
       });
   }
   showWarnningMessage() {

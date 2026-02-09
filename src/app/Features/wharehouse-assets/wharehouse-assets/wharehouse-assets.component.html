@@ -24,7 +24,7 @@
           'ستظهر الأصول المضافة هنا... يمكنك البدء بإضافة أول أصل'
         : 'يبدو أنك لم تقم بإضافة مخزن أصول بعد، يمكنك البدء بإضافة مخزن أصول'
     "
-    [addButtonText]="warehouseAsset ? 'إضافة أصل' : 'إضافة مخزن أصل'"
+    [addButtonText]="warehouseAsset?.id ? 'إضافة أصل' : 'إضافة مخزن أصل'"
     nosearchBtnText="العودة إلى الأصول"
     [hasPagination]="false"
     [withAction]="false"
@@ -56,11 +56,11 @@
     <button
       class="submitBtn"
       (click)="saveWarehoseAsset()"
-      [disabled]="form.invalid"
+      [disabled]="warehouseForm.invalid"
     >
       {{ editMode ? "حفظ" : "إضافة" }}
     </button>
-    <button class="exitBtn" (click)="showForm = false">إلغاء</button>
+    <button class="exitBtn" (click)="showAddWarehouseForm = false">إلغاء</button>
   </div>
 </p-dialog>
 <p-dialog
@@ -129,7 +129,7 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض الأصول"
+  [btnText]="warehouseAsset?.id?'حسناً':'عرض الأصول'"
 ></app-success-dialog>
 
 <app-confirmation-dialog

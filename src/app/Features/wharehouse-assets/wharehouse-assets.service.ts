@@ -15,7 +15,7 @@ export class WharehouseAssetsService {
     return this.http.get(this.baseUrl + `/${farmId}`);
   }
   createAsset(body: any) {
-    return this.http.post(this.baseUrl + '/add', body);
+    return this.http.post(this.baseUrl + '/add', body,{ responseType: 'text' });
   }
   getById(id: number) {
     return this.http.get(this.baseUrl + `/GetByID?id=${id}`);
