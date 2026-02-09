@@ -6,8 +6,10 @@ import { EggProductionFormComponent } from './egg-production-form/egg-production
 import { EggSalesComponent } from './egg-sales/egg-sales.component';
 import { EggProductionComponent } from './egg-production/egg-production.component';
 import { EggSalesFormComponent } from './egg-sales-form/egg-sales-form.component';
+import { WarehouseListingComponent } from './warehouse-listing/warehouse-listing.component';
 
 const routes: Routes = [
+  { path: 'list', component: WarehouseListingComponent },
   { path: 'items-medicine', component: WarehouseComponent },
   {
     path: 'incoming',

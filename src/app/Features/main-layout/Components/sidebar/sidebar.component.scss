@@ -2,7 +2,7 @@
   font-size: 20px;
   font-weight: 700;
   position: absolute;
-  left: 10%;
+  left: 2%;
 }
 
 :host ::ng-deep {
@@ -34,7 +34,7 @@
     border-radius: 8px;
     background-color: var(--active-sidebar-item);
     color: var(--secondary);
-    padding: 0.5rem ;
+    padding: 0.5rem;
     width: 100%;
     .p-menuitem-text {
       color: var(--secondary);
@@ -75,7 +75,7 @@
     padding: 0;
   }
   .p-menuitem-link {
-    padding: 8px ;
+    padding: 8px;
     width: 100%;
     &:hover {
       border-radius: 8px !important;
@@ -90,6 +90,10 @@
       }
     }
   }
+
+  .p-toggleable-content {
+    padding-right: 0.8rem;
+  }
 }
 
 :host
@@ -102,7 +106,7 @@
   padding: 0.5rem;
   margin-top: 20px;
 }
-:host ::ng-deep .p-highlight{
+:host ::ng-deep .p-highlight {
   .p-submenu-icon {
     transform: rotate(180deg);
   }

@@ -18,10 +18,10 @@ export class WarehouseService {
   createTransaction(body: any) {
     return this.http.post(this.baseUrl + `transaction`, body);
   }
-  createOutgoingStock(body: any) {
-    return this.http.post(this.baseUrl + `OutgoingStock`, body);
+  createWarehouse(body: any) {
+    return this.http.post(this.baseUrl, body);
   }
-  getById(id: number) {
-    return this.http.get(this.baseUrl + `GetByID?id=${id}`);
+  getWarehouse() {
+    return this.http.get(this.baseUrl);
   }
 }

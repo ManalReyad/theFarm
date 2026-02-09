@@ -11,6 +11,8 @@ import { EggProductionComponent } from './egg-production/egg-production.componen
 import { EggProductionFormComponent } from './egg-production-form/egg-production-form.component';
 import { EggSalesFormComponent } from './egg-sales-form/egg-sales-form.component';
 import { EggSalesComponent } from './egg-sales/egg-sales.component';
+import { WarehouseListingComponent } from './warehouse-listing/warehouse-listing.component';
+import { DialogModule } from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -20,14 +22,16 @@ import { EggSalesComponent } from './egg-sales/egg-sales.component';
     EggProductionComponent,
     EggProductionFormComponent,
     EggSalesFormComponent,
-    EggSalesComponent
+    EggSalesComponent,
+    WarehouseListingComponent
   ],
   imports: [
     CommonModule,
     WarehouseRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    TableModule
+    TableModule,
+    DialogModule
 ],
 })
 export class WarehouseModule {}

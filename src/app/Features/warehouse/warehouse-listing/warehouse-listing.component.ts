@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { FarmService } from '../farm.service';
+import { WarehouseService } from '../warehouse.service';
 
 @Component({
-  selector: 'app-farm',
-  templateUrl: './farm.component.html',
-  styleUrls: ['./farm.component.scss'],
+  selector: 'app-warehouse-listing',
+  templateUrl: './warehouse-listing.component.html',
+  styleUrl: './warehouse-listing.component.scss'
 })
-export class FarmComponent {
+export class WarehouseListingComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedDepartment: any;
@@ -24,8 +24,10 @@ export class FarmComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private farmService: FarmService) {}
+  farmId: any;
+  constructor(private warehouseService: WarehouseService) {}
   ngOnInit(): void {
+    this.farmId =Number( localStorage.getItem('farmId'))
     this.createForm();
     this.intializeListCoulmns();
     this.getPage();
@@ -45,9 +47,9 @@ export class FarmComponent {
         header: 'الاسم',
       }),
       new ListColumn({
-        field: 'description',
+        field: 'farmName',
         hide: false,
-        header: 'الوصف',
+        header: 'المزرعة',
       }),
     ];
   }
@@ -55,17 +57,18 @@ export class FarmComponent {
     this.form = new FormGroup({
       id: new FormControl(0),
       name: new FormControl(null, Validators.required),
-      description: new FormControl(''),
+      farmId: new FormControl(),
     });
   }
   addNew() {
     this.editMode = false;
     this.form.reset();
+    this.form.get('farmId')?.setValue(this.farmId)
     this.showForm = true;
   }
   getPage() {
-    this.farmService
-      .getAll(this.pageNumber, this.pageSize)
+    this.warehouseService
+      .getWarehouse()
       .subscribe((response: any) => {
         this.pageResult.items = response;
       });
@@ -76,19 +79,11 @@ export class FarmComponent {
     this.form.patchValue({ ...object.item });
   }
   save() {
-    if (this.editMode) {
-      this.farmService.update(this.form.value).subscribe((response: any) => {
-       this.successMesg = 'تم تعديل بيانات المزرعة بنجاح، يمكنك المتابعة';
-          this.showForm = false;
-          this.showSuccessDialog = true;
-      });
-    } else {
-      this.farmService.create(this.form.value).subscribe((response: any) => {
-       this.successMesg = 'تمت إضافة المزرعة بنجاح ، يمكنك المتابعة';
-          this.showForm = false;
-          this.showSuccessDialog = true;
-      });
-    }
+    this.warehouseService.createWarehouse(this.form.value).subscribe((response: any) => {
+      this.successMesg = 'تمت إضافة المخزن بنجاح ، يمكنك المتابعة';
+         this.showForm = false;
+         this.showSuccessDialog = true;
+     });
   }
   showWarnningMessage() {
     this.showWarnningDialog = true;
@@ -110,13 +105,13 @@ export class FarmComponent {
   }
 
   submitDelete() {
-    this.farmService
-      .delete(this.selectedDepartment.id)
-      .subscribe((response: any) => {
-     this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-          this.showConfirmDeleteDialog = false;
-      });
+    // this.warehouseService
+    //   .delete(this.selectedDepartment.id)
+    //   .subscribe((response: any) => {
+    //  this.successMesg = 'تم حذف المخزن بنجاح، يمكنك المتابعة';
+    //       this.showSuccessDialog = true;
+    //       this.showConfirmDeleteDialog = false;
+    //   });
   }
 
   close() {
