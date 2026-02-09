@@ -34,18 +34,18 @@ export class MenuService {
         routerLink: ['/room'],
       },
       {
+        label: 'الخلطات',
+        visible: true,
+        icon: PrimeIcons.SITEMAP,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['feed-mix'],
+      },
+      {
         label: 'الدورات',
         visible: true,
         icon: PrimeIcons.SYNC,
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['cycle'],
-      },
-      {
-        label: 'الأصول',
-        visible: true,
-        icon: PrimeIcons.BOX,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['assets'],
       },
       {
         label: 'عمليات مخزن الأصول',
@@ -74,7 +74,12 @@ export class MenuService {
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
         iconStyle: { fontSize: '1.5rem' },
-        expanded: this.shouldExpand(['warehouse/incoming', 'warehouse/items-medicine','warehouse/egg-production','egg-sales']),
+        expanded: this.shouldExpand([
+          'warehouse/incoming',
+          'warehouse/items-medicine',
+          'warehouse/egg-production',
+          'egg-sales',
+        ]),
         items: [
           {
             label: 'توريد أصناف وأدوية',
@@ -97,6 +102,49 @@ export class MenuService {
             iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/egg-sales'],
           },
+        ],
+      },
+      {
+        label: 'الإعدادات',
+        visible: true,
+        icon: PrimeIcons.COG,
+        iconStyle: { fontSize: '1.5rem' },
+        expanded: this.shouldExpand([
+          'medicine',
+          'raw-material',
+          'assets',
+          'traders',
+          'warehouse/list',
+        ]),
+        items: [
+          {
+            label: 'الأدوية',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['medicine'],
+          },
+          {
+            label: 'المواد الخام',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['raw-material'],
+          },
+          {
+            label: 'الأصول',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['assets'],
+          },
+          {
+            label: 'الموردين',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['traders'],
+          },
           {
             label: 'المخازن',
             visible: true,
@@ -106,34 +154,7 @@ export class MenuService {
           },
         ],
       },
-      {
-        label: 'الأدوية',
-        visible: true,
-        icon: 'fa-solid fa-capsules',
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['medicine'],
-      },
-      {
-        label: 'المواد الخام',
-        visible: true,
-        icon: PrimeIcons.DATABASE,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['raw-material'],
-      },
-      {
-        label: 'الخلطات',
-        visible: true,
-        icon: PrimeIcons.SITEMAP,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['feed-mix'],
-      },
-      {
-        label: 'الموردين',
-        visible: true,
-        icon: PrimeIcons.USERS,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['traders'],
-      },
+    
     ];
   }
 
