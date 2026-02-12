@@ -48,21 +48,6 @@ export class MenuService {
         routerLink: ['cycle'],
       },
       {
-        label: 'عمليات مخزن الأصول',
-        visible: true,
-        icon: PrimeIcons.HISTORY,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['warehouse-assets-transactions'],
-      },
-      {
-        label: 'مخزن الأصول',
-        visible: true,
-        icon: PrimeIcons.SERVER,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['warehouse-assets'],
-      },
-
-      {
         label: 'التسجيل اليومي',
         visible: true,
         icon: PrimeIcons.FILE_EDIT,
@@ -82,7 +67,7 @@ export class MenuService {
         ]),
         items: [
           {
-            label: 'توريد أصناف وأدوية',
+            label: 'مخزن المواد',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
@@ -101,6 +86,32 @@ export class MenuService {
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/egg-sales'],
+          },
+        ],
+      },
+      {
+        label: 'مخزن الأصول',
+        visible: true,
+        icon: PrimeIcons.SERVER,
+        iconStyle: { fontSize: '1.5rem' },
+        expanded: this.shouldExpand([
+          'warehouse-assets',
+          'warehouse-assets-transactions',
+        ]),
+        items: [
+          {
+            label: 'مخزن الأصول',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['warehouse-assets'],
+          },
+          {
+            label: 'عمليات مخزن الأصول',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['warehouse-assets-transactions'],
           },
         ],
       },
@@ -154,7 +165,6 @@ export class MenuService {
           },
         ],
       },
-    
     ];
   }
 
