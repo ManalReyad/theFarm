@@ -47,7 +47,7 @@ export class TradersListComponent {
       new ListColumn({
         field: 'name',
         hide: false,
-        header: 'اسم المورد',
+        header: 'اسم التاجر',
       }),
       new ListColumn({
         field: 'mobile',
@@ -97,7 +97,7 @@ export class TradersListComponent {
     this.tradersService
       .delete(this.selectedTrader.id)
       .subscribe(() => {
-        this.successMesg = 'تم حذف المورد بنجاح، يمكنك المتابعة';
+        this.successMesg = 'تم حذف التاجر بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
         this.showConfirmDeleteDialog = false;
       });

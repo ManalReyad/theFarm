@@ -1,9 +1,9 @@
 <div class="flex flex-col gap-4">
     <div class="flex justify-between items-center">
-      <h1>التجّار</h1>
+      <h1>الموظفين</h1>
   
       <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
-        <button class="submitBtn" (click)="addNew()">إضافة تاجر</button>
+        <button class="submitBtn" (click)="addNew()">إضافة موظف</button>
       </div>
     </div>
   
@@ -17,15 +17,19 @@
       [searchMode]="searchMode"
       (back)="resetSearch()"
       noDataImg="nodepartments.svg"
-      noDataMessage="يبدو أنك لم تقم بإضافة أي تاجر بعد، ستظهر التجّار المضافة هنا... يمكنك البدء بإضافة أول تاجر"
-      addButtonText="إضافة تاجر"
-      nosearchBtnText="العودة إلى التجّار"
+      noDataMessage="يبدو أنك لم تقم بإضافة أي موظف بعد، ستظهر الموظفين المضافة هنا... يمكنك البدء بإضافة أول موظف"
+      addButtonText="إضافة موظف"
+      nosearchBtnText="العودة إلى الموظفين"
       [hasPagination]="false"
+      [withAction]="false"
+      [withCustomAction]="true"
+      [customActionMenu]="customActionMenu"
+      
     ></app-list>
   </div>
   
   <app-confirmation-delete-dialog
-    message="هل أنت متأكد أنك تريد حذف التاجر؟ سيتم حذفه نهائيًا من قائمة التجّار"
+    message="هل أنت متأكد أنك تريد حذف الموظف؟ سيتم حذفه نهائيًا من قائمة الموظفين"
     [visible]="showConfirmDeleteDialog"
     (onSubmitEvent)="submitDelete()"
     (exit)="close()"
@@ -35,6 +39,6 @@
     [visible]="showSuccessDialog"
     (onSubmitEvent)="backToList()"
     [message]="successMesg"
-    btnText="عرض التجّار"
+    btnText="عرض الموظفين"
   ></app-success-dialog>
   

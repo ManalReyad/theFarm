@@ -18,21 +18,7 @@ export class MenuService {
       //   iconStyle: { fontSize: '1.5rem' },
       //   routerLink: ['home'],
       // },
-      {
-        label: 'المزارع',
-        visible: true,
-        icon: PrimeIcons.BUILDING_COLUMNS,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['farm'],
-      },
-
-      {
-        label: 'العنابر',
-        visible: true,
-        icon: PrimeIcons.SHOP,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['/room'],
-      },
+     
       {
         label: 'الخلطات',
         visible: true,
@@ -100,7 +86,7 @@ export class MenuService {
         ]),
         items: [
           {
-            label: 'مخزن الأصول',
+            label: 'أصول المزرعة',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
@@ -126,8 +112,26 @@ export class MenuService {
           'assets',
           'traders',
           'warehouse/list',
+          '/room',
+          'farm',
+          'workers'
         ]),
         items: [
+          {
+            label: 'المزارع',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['farm'],
+          },
+    
+          {
+            label: 'العنابر',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1.5rem' },
+            routerLink: ['/room'],
+          },
           {
             label: 'الأدوية',
             visible: true,
@@ -150,11 +154,18 @@ export class MenuService {
             routerLink: ['assets'],
           },
           {
-            label: 'الموردين',
+            label: 'التجار',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
             routerLink: ['traders'],
+          },
+          {
+            label: 'الموظفين',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['workers'],
           },
           {
             label: 'المخازن',

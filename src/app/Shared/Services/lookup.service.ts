@@ -25,6 +25,12 @@ export class LookupService {
   getMedicines() {
     return this.http.get(this.baseUrl + `medicines`);
   }
+  getSuppliers() {
+    return this.http.get(this.baseUrl + `suppliers`);
+  }
+  getBuyers() {
+    return this.http.get(this.baseUrl + `buyers`);
+  }
   getActiveCycles(farmId: number) {
     return this.http.get(this.baseUrl + `active-cycles/${farmId}`);
   }

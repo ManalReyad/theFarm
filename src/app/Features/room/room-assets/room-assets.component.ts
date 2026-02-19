@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RoomAssetsComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -147,13 +147,13 @@ export class RoomAssetsComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
     this.roomAssetService
-      .delete(this.selectedDepartment.id)
+      .delete(this.selectedItem.id)
       .subscribe((response: any) => {
         if (response.success) {
           this.successMesg = 'تم حذف الأصل بنجاح، يمكنك المتابعة';

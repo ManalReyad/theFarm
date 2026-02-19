@@ -14,7 +14,7 @@ import { RoomType } from '../enums/room-type';
 export class RoomListingComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -87,13 +87,13 @@ export class RoomListingComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
     this.roomService
-      .delete(this.selectedDepartment.id)
+      .delete(this.selectedItem.id)
       .subscribe((response: any) => {
         this.successMesg = 'تم حذف العنبر بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;

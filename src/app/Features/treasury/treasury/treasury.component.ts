@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class TreasuryComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showAddMonyForm: boolean = false;
@@ -133,13 +133,13 @@ export class TreasuryComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
     this.farmService
-      .delete(this.selectedDepartment.id)
+      .delete(this.selectedItem.id)
       .subscribe((response: any) => {
         if (response.success) {
           this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';

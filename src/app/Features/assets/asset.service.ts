@@ -12,17 +12,17 @@ export class AssetService {
     pageIndex: number,
     pageSize: number,
     isAscending: boolean = true,
-    orderBy: string = '',
+    orderBy: string = ''
   ) {
     return this.http.get(this.baseUrl);
   }
-  getList()
-  {
-        return this.http.get(this.baseUrl);
-
+  getList() {
+    return this.http.get(this.baseUrl);
   }
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
- 
+  update(body: any) {
+    return this.http.put(`${this.baseUrl}/${body.id}`, body);
+  }
 }

@@ -10,8 +10,8 @@ import { TradersService } from '../traders.service';
 })
 export class TradersFormComponent {
   pages: any = [
-    { name: 'الموردين', route: '/traders' },
-    { name: 'تسجيل بيانات المورد' },
+    { name: 'التجّار', route: '/traders' },
+    { name: 'تسجيل بيانات التاجر' },
   ];
 
   form!: FormGroup;
@@ -20,8 +20,8 @@ export class TradersFormComponent {
   showSuccessDialog: boolean = false;
 
   traderTypeOptions = [
-    { id: 1, name: 'مورد' },
-    { id: 2, name: 'موزّع' },
+    { id: 1, name: 'تاجر' },
+    { id: 2, name: 'مشتري' },
   ];
 
   constructor(
@@ -36,8 +36,8 @@ export class TradersFormComponent {
       this.getById(traderId);
       this.editMode = true;
       this.pages = [
-        { name: 'الموردين', route: '/traders' },
-        { name: 'تعديل بيانات المورد' },
+        { name: 'التجّار', route: '/traders' },
+        { name: 'تعديل بيانات التاجر' },
       ];
     }
     this.createForm();
@@ -62,12 +62,12 @@ export class TradersFormComponent {
   save() {
     if (this.editMode) {
       this.tradersService.update(this.form.value).subscribe(() => {
-        this.successMesg = 'تم تعديل بيانات المورد بنجاح، يمكنك المتابعة';
+        this.successMesg = 'تم تعديل بيانات التاجر بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
       });
     } else {
       this.tradersService.create(this.form.value).subscribe(() => {
-        this.successMesg = 'تم إضافة بيانات المورد بنجاح، يمكنك المتابعة';
+        this.successMesg = 'تم إضافة بيانات التاجر بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
       });
     }

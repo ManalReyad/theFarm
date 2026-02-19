@@ -27,6 +27,9 @@ export class ListComponent implements OnInit {
   @Input() secondButtonText: string = '';
   @Input() nosearchBtnText: string = '';
   @Input() displayEmptyList: boolean = false;
+  @Input() customActionMenu:{
+    label:string,icon?:string, img?:string , command: (entity: any) => void;
+  }[]=[]
   @Output() onChangeStatus = new EventEmitter();
   @Output() pageChange = new EventEmitter();
   @Output() edit = new EventEmitter();

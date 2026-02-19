@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
+import { WorkersService } from '../workers.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { WarehouseService } from '../warehouse.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-warehouse-listing',
-  templateUrl: './warehouse-listing.component.html',
-  styleUrl: './warehouse-listing.component.scss',
+  selector: 'app-vacations',
+  templateUrl: './vacations.component.html',
+  styleUrl: './vacations.component.scss'
 })
-export class WarehouseListingComponent {
+export class VacationsComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedItem: any;
@@ -24,10 +25,14 @@ export class WarehouseListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  farmId: any;
-  constructor(private warehouseService: WarehouseService) {}
+  workerId:any
+  pages: any = [
+    { name: 'الموظفين', route: '/workers' },
+    { name: 'الأجازات' },
+  ];
+  constructor(private workersService: WorkersService,private activatedRoute:ActivatedRoute) {}
   ngOnInit(): void {
-    this.farmId = Number(localStorage.getItem('farmId'));
+    this.workerId=this.activatedRoute.snapshot.params['id']
     this.createForm();
     this.intializeListCoulmns();
     this.getPage();
@@ -42,59 +47,74 @@ export class WarehouseListingComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'name',
+        field: 'workerName',
         hide: false,
-        header: 'الاسم',
+        header: 'اسم الموظف',
       }),
       new ListColumn({
-        field: 'farmName',
+        field: 'days',
         hide: false,
-        header: 'المزرعة',
+        header: 'عدد الأيام ',
+      }),
+      new ListColumn({
+        field: 'startDate',
+        hide: false,
+        header: 'تاريخ البداية',
+        isDate:true
+      }),
+      new ListColumn({
+        field: 'endDate',
+        hide: false,
+        header: 'تاريخ النهاية',
+        isDate:true
+      }),
+      new ListColumn({
+        field: 'cumulativeDays',
+        hide: false,
+        header: 'إجمالي الإجازات',
       }),
     ];
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
-      name: new FormControl(null, Validators.required),
-      farmId: new FormControl(),
+      workerId: new FormControl(null, Validators.required),
+      startDate:new FormControl(null, Validators.required),
+      endDate:new FormControl(null, Validators.required),
+
     });
   }
   addNew() {
     this.editMode = false;
     this.form.reset();
-    this.form.get('farmId')?.setValue(this.farmId);
+    this.form.get('workerId')?.setValue(this.workerId)
     this.showForm = true;
   }
   getPage() {
-    this.warehouseService.getWarehouse().subscribe((response: any) => {
-      this.pageResult.items = response;
-    });
+    this.workersService
+      .getWorkerVacations(this.workerId)
+      .subscribe((response: any) => {
+        this.pageResult.items = response;
+      });
   }
   edit(object: any) {
     this.showForm = true;
     this.editMode = true;
     this.form.patchValue({ ...object.item });
-    this.form.get('farmId')?.setValue(this.farmId);
-
   }
   save() {
     if (this.editMode) {
-      this.warehouseService
-        .updateWarehouse(this.form.value)
-        .subscribe((response: any) => {
-          this.successMesg = 'تمت تعديل المخزن بنجاح ، يمكنك المتابعة';
-          this.showForm = false;
-          this.showSuccessDialog = true;
-        });
+      // this.workersService.update(this.form.value).subscribe((response: any) => {
+      //  this.successMesg = 'تم تعديل بيانات المزرعة بنجاح، يمكنك المتابعة';
+      //     this.showForm = false;
+      //     this.showSuccessDialog = true;
+      // });
     } else {
-      this.warehouseService
-        .createWarehouse(this.form.value)
-        .subscribe((response: any) => {
-          this.successMesg = 'تمت إضافة المخزن بنجاح ، يمكنك المتابعة';
+      this.workersService.createVacation(this.form.value).subscribe((response: any) => {
+       this.successMesg = 'تمت إضافة طلب الإجازة بنجاح';
           this.showForm = false;
           this.showSuccessDialog = true;
-        });
+      });
     }
   }
   showWarnningMessage() {
@@ -117,13 +137,13 @@ export class WarehouseListingComponent {
   }
 
   submitDelete() {
-    this.warehouseService
-      .deleteWarehouse(this.selectedItem.id)
-      .subscribe((response: any) => {
-     this.successMesg = 'تم حذف المخزن بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-          this.showConfirmDeleteDialog = false;
-      });
+    // this.workersService
+    //   .delete(this.selectedItem.id)
+    //   .subscribe((response: any) => {
+    //  this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';
+    //       this.showSuccessDialog = true;
+    //       this.showConfirmDeleteDialog = false;
+    //   });
   }
 
   close() {

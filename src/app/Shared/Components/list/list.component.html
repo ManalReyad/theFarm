@@ -46,7 +46,7 @@
           <span class="p-column-title">{{ entity[col.header] }}</span>
           <span class="">
             <span *ngIf="col.isIndex">
-              {{ i + 1 }}
+              {{ (pageResult?.items?.length || 0) - i }}
             </span>
 
             <span *ngIf="col.isToggle">
@@ -148,32 +148,17 @@
             <div class="flex flex-col gap-3">
               <button
                 class="flex items-center gap-2 cursor-pointer"
-                (click)="onEdit(entity, i); actionMenu.hide()"
+                (click)="item.command(entity); actionMenu.hide()"
+                *ngFor="let item of customActionMenu"
               >
                 <img
                   class="w-4"
-                  src="assets/images/edit.svg"
+                  [src]="item.img"
                   alt="edit icon"
+                  *ngIf="item.img"
                 />
-                <label class="cursor-pointer">تعديل</label>
-              </button>
-              <button
-                class="flex items-center gap-2 cursor-pointer"
-                (click)="actionMenu.hide(); onAssetClicked(entity)"
-              >
-                <i class="pi pi-bullseye"></i>
-                <label class="cursor-pointer">الأصول</label>
-              </button>
-              <button
-                class="flex items-center gap-2 cursor-pointer"
-                (click)="onDelete(entity, i); actionMenu.hide()"
-              >
-                <img
-                  class="w-4"
-                  src="assets/images/delete.svg"
-                  alt="delete icon"
-                />
-                <label class="cursor-pointer">حذف</label>
+                <i [class]="item.icon"  *ngIf="item.icon"></i>
+                <label class="cursor-pointer text-[#000]">{{item.label}}</label>
               </button>
             </div>
           </p-overlayPanel>

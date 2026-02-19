@@ -1,4 +1,4 @@
-<h1>تسجيل بيانات التاجر</h1>
+<h1>تسجيل بيانات الموظف</h1>
 <app-bread-crumb [pages]="pages"></app-bread-crumb>
 
 <form [formGroup]="form" class="card">
@@ -6,8 +6,8 @@
 
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-input
-        labelText="اسم التاجر"
-        placeholder="أدخل اسم التاجر"
+        labelText="اسم الموظف"
+        placeholder="أدخل اسم الموظف"
         formControlName="name"
       ></app-input>
     </div>
@@ -16,28 +16,36 @@
       <app-input
         labelText="رقم الموبايل"
         placeholder="أدخل رقم الموبايل"
-        formControlName="mobile"
+        formControlName="phone"
       ></app-input>
     </div>
 
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-dropdown
-        labelText="نوع التاجر"
-        formControlName="type"
-        [options]="traderTypeOptions"
-        placeholder="اختر نوع التاجر"
+        labelText="الدور الوظيفي"
+        formControlName="role"
+        [options]="workerTypeOptions"
+        placeholder="اختر الدور الوظيفي"
       >
       </app-dropdown>
     </div>
 
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-input
-        labelText="الرصيد"
-        placeholder="أدخل الرصيد"
-        formControlName="balance"
+        labelText="المرتب"
+        placeholder="أدخل المرتب"
+        formControlName="salary"
         inputType="number"
       ></app-input>
     </div>
+    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
+        <app-input
+          labelText="رصيد الأجازات"
+          placeholder="أدخل رصيد الأجازات"
+          formControlName="vacationDays"
+          inputType="number"
+        ></app-input>
+      </div>
 
   </div>
 
@@ -53,5 +61,5 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض التجّار"
+  btnText="عرض الموظفين"
 ></app-success-dialog>

@@ -13,7 +13,7 @@ import { DailyRegistrationService } from '../daily-registration.service';
 export class DailyRegistrationListingComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -97,13 +97,13 @@ export class DailyRegistrationListingComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
     this.dailyRegisterService
-      .delete(this.selectedDepartment.id)
+      .delete(this.selectedItem.id)
       .subscribe((response: any) => {
         this.successMesg = 'تم حذف التسجيل اليومي بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;

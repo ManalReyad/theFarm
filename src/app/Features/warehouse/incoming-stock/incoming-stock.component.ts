@@ -50,7 +50,7 @@ export class IncomingStockComponent {
     this.lookupService.getStoreItems().subscribe((response: any) => {
       this.itemTypes = response;
     });
-    this.tradersService.getList().subscribe((response: any) => {
+    this.lookupService.getSuppliers().subscribe((response: any) => {
       this.traderOptions = response?.map((item: any) => {
         return {
           id: item.id,

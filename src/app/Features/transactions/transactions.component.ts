@@ -14,7 +14,7 @@ import { LookupService } from 'src/app/Shared/Services/lookup.service';
 export class TransactionsComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -167,7 +167,7 @@ export class TransactionsComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
   close() {

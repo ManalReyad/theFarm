@@ -20,7 +20,7 @@
     [noDataMessage]="
       warehouseAsset
         ? 'يبدو أنك لم تقم بإضافة أي أصل ' +'إلى '+
-          warehouseAsset?.name +
+         '('+ warehouseAsset?.name+')' +' '+
           'ستظهر الأصول المضافة هنا... يمكنك البدء بإضافة أول أصل'
         : 'يبدو أنك لم تقم بإضافة مخزن أصول بعد، يمكنك البدء بإضافة مخزن أصول'
     "
@@ -28,6 +28,7 @@
     nosearchBtnText="العودة إلى الأصول"
     [hasPagination]="false"
     [withAction]="false"
+    
   ></app-list>
 </div>
 

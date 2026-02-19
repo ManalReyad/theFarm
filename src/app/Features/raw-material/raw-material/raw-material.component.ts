@@ -12,7 +12,7 @@ import { ItemsService } from 'src/app/Shared/Services/items.service';
 export class RawMaterialComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -106,13 +106,13 @@ export class RawMaterialComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
     this.itemService
-      .delete(this.selectedDepartment.id)
+      .delete(this.selectedItem.id)
       .subscribe((response: any) => {
         this.successMesg = 'تم حذف المادة الخام بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;

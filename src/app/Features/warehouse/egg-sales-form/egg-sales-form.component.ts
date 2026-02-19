@@ -19,13 +19,13 @@ export class EggSalesFormComponent {
   editMode: boolean = false;
   successMesg: string = '';
   showSuccessDialog: boolean = false;
-  tradersOptions: { id: number; name: string }[] = [];
+  buyersOptions: { id: number; name: string }[] = [];
   warehouseOptions: any[] = [];
   farmId: any;
   barnId: any;
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private lookupService: LookupService,
     private eggSalesService: EggSalesService,
     private tradersService: TradersService
   ) {}
@@ -49,8 +49,8 @@ export class EggSalesFormComponent {
   }
   getDropdown()
   {
-    this.tradersService.getList().subscribe((data:any)=>{
-      this.tradersOptions=data?.map((item:any)=>{return {name:item.name,id:item.id}})
+    this.lookupService.getBuyers().subscribe((data:any)=>{
+      this.buyersOptions=data?.map((item:any)=>{return {name:item.name,id:item.id}})
     })
   }
   save() {

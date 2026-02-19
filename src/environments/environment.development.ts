@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: 'https://farmmanagementapi-production.up.railway.app/api/',
+  baseUrl: 'http://localhost:5112/api/',
 };

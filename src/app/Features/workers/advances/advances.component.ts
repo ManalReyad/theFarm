@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { AssetService } from '../asset.service';
+import { WorkersService } from '../workers.service';
 
 @Component({
-  selector: 'app-assets',
-  templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss'],
+  selector: 'app-advances',
+  templateUrl: './advances.component.html',
+  styleUrl: './advances.component.scss'
 })
-export class AssetsComponent {
+export class AdvancesComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedItem: any;
@@ -24,8 +25,14 @@ export class AssetsComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  constructor(private assetService: AssetService) {}
+  workerId:any
+  pages: any = [
+    { name: 'الموظفين', route: '/workers' },
+    { name: 'السُّلف' },
+  ];
+  constructor(private workersService: WorkersService,private activatedRoute:ActivatedRoute) {}
   ngOnInit(): void {
+    this.workerId=this.activatedRoute.snapshot.params['id']
     this.createForm();
     this.intializeListCoulmns();
     this.getPage();
@@ -40,26 +47,46 @@ export class AssetsComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'name',
+        field: 'workerName',
         hide: false,
-        header: 'الاسم',
+        header: 'اسم الموظف',
+      }),
+      new ListColumn({
+        field: 'amount',
+        hide: false,
+        header: 'قيمة السلفة',
+      }),
+      new ListColumn({
+        field: 'date',
+        hide: false,
+        header: 'تاريخ السُلفة',
+        isDate:true
+      }),
+      new ListColumn({
+        field: 'cumulativeAmount',
+        hide: false,
+        header: 'إجمالي السُّلف',
       }),
     ];
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
-      name: new FormControl(null, Validators.required),
+      workerId: new FormControl(null, Validators.required),
+      date:new FormControl(null, Validators.required),
+      amount:new FormControl(null, Validators.required),
+
     });
   }
   addNew() {
     this.editMode = false;
     this.form.reset();
+    this.form.get('workerId')?.setValue(this.workerId)
     this.showForm = true;
   }
   getPage() {
-    this.assetService
-      .getAll(this.pageNumber, this.pageSize)
+    this.workersService
+      .getWorkerAdvances(this.workerId)
       .subscribe((response: any) => {
         this.pageResult.items = response;
       });
@@ -71,20 +98,16 @@ export class AssetsComponent {
   }
   save() {
     if (this.editMode) {
-      this.assetService.update(this.form.value).subscribe((response: any) => {
-        if (response) {
-          this.successMesg = 'تمت تعديل الأصل بنجاح ، يمكنك المتابعة';
-          this.showForm = false;
-          this.showSuccessDialog = true;
-        }
-      });
+      // this.workersService.update(this.form.value).subscribe((response: any) => {
+      //  this.successMesg = 'تم تعديل بيانات المزرعة بنجاح، يمكنك المتابعة';
+      //     this.showForm = false;
+      //     this.showSuccessDialog = true;
+      // });
     } else {
-      this.assetService.create(this.form.value).subscribe((response: any) => {
-        if (response) {
-          this.successMesg = 'تمت إضافة الأصل بنجاح ، يمكنك المتابعة';
+      this.workersService.createAdvance(this.form.value).subscribe((response: any) => {
+       this.successMesg = 'تمت إضافة طلب السُلفة بنجاح';
           this.showForm = false;
           this.showSuccessDialog = true;
-        }
       });
     }
   }
@@ -107,17 +130,15 @@ export class AssetsComponent {
     this.showConfirmDeleteDialog = true;
   }
 
-  // submitDelete() {
-  //   this.assetService
-  //     .delete(this.selectedItem.id)
-  //     .subscribe((response: any) => {
-  //       if (response.success) {
-  //         this.successMesg = 'تم حذف الأصل بنجاح، يمكنك المتابعة';
-  //         this.showSuccessDialog = true;
-  //         this.showConfirmDeleteDialog = false;
-  //       }
-  //     });
-  // }
+  submitDelete() {
+    // this.workersService
+    //   .delete(this.selectedItem.id)
+    //   .subscribe((response: any) => {
+    //  this.successMesg = 'تم حذف المزرعة بنجاح، يمكنك المتابعة';
+    //       this.showSuccessDialog = true;
+    //       this.showConfirmDeleteDialog = false;
+    //   });
+  }
 
   close() {
     this.showForm = false;

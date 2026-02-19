@@ -12,7 +12,7 @@ import { CycleService } from '../cycle.service';
 export class CycleListingComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedDepartment: any;
+  selectedItem: any;
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -93,13 +93,13 @@ export class CycleListingComponent {
     this.getPage();
   }
   delete(item: any) {
-    this.selectedDepartment = item;
+    this.selectedItem = item;
     this.showConfirmDeleteDialog = true;
   }
 
   submitDelete() {
     this.cycleService
-      .delete(this.selectedDepartment.id)
+      .delete(this.selectedItem.id)
       .subscribe((response: any) => {
                 this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;

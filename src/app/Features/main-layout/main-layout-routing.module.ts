@@ -88,6 +88,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../raw-material/raw-material.module').then((m) => m.RawMaterialModule),
       },
+      {
+        path: 'workers',
+        loadChildren: () =>
+          import('../workers/workers.module').then((m) => m.WorkersModule),
+      },
     ],
   },
 ];
