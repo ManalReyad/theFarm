@@ -32,4 +32,13 @@ export class WorkersService {
   getWorkerAdvances(workerId: number) {
     return this.http.get(this.baseUrl + `/advances/${workerId}`);
   }
+  getRoles() {
+    return this.http.get(this.baseUrl + `/roles`);
+  }
+  getBarnManagers() {
+    return this.http.get(this.baseUrl + `/barn-managers`);
+  }
+  getBarnWorkers() {
+    return this.http.get(this.baseUrl + `/barn-workers`);
+  }
 }

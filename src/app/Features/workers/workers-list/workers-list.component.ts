@@ -92,7 +92,17 @@ export class WorkersListComponent {
 
   getPage() {
     this.workersService.getAllWorkers().subscribe((response: any) => {
-      this.pageResult.items = response;
+      if (response.length > 0) {
+        response.forEach((element: any) => {
+          element.role =
+            element.role == 'FarmManager'
+              ? 'مدير المزرعة'
+              : element.role == 'BarnManager'
+              ? 'مدير العنبر'
+              : 'عامل العنبر';
+          this.pageResult.items = response;
+        });
+      }
     });
   }
 

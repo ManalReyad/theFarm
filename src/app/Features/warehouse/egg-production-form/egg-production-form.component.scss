@@ -1,0 +1,63 @@
+:host ::ng-deep .p-datatable {
+    @apply mt-5;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top: 0px;
+    margin-bottom: 20px;
+    td {
+      @apply py-2 px-2;
+    }
+    tr:not(:last-child) {
+      border-bottom: 1px solid #01563c27;
+    }
+  }
+  :host ::ng-deep th {
+    @apply py-4 px-4 text-base text-[var(--primary)] font-medium whitespace-nowrap;
+    background-color: var(--primary);
+    color: #fff;
+    width: fit-content;
+    // width: 220px !important;
+    padding-left: 20px !important;
+    text-align: start;
+  
+    span{
+      visibility: hidden;
+    }
+  }
+  :host ::ng-deep td {
+    @apply whitespace-nowrap;
+    padding-left: 20px !important;
+    text-align: center;
+  }
+  :host ::ng-deep td:nth-child(1) {
+    display: flex;
+    justify-content: center;
+  }
+  :host ::ng-deep th:first-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 2% !important;
+  }
+  :host ::ng-deep th:last-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  :host ::ng-deep td:last-child {
+    @apply flex justify-center items-center gap-3;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left: 20px;
+    padding-top: 3rem;
+  }
+  .add {
+    color: #fff;
+    background-color: var(--primary);
+    border-radius: 50%;
+    @apply p-2 flex justify-center items-center;
+    cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+  }
+  

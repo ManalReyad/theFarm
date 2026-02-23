@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CycleService } from '../cycle.service';
 import { RoomService } from '../../room/room.service';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
+import { WorkersService } from '../../workers/workers.service';
 
 @Component({
   selector: 'app-cycle-form',
@@ -22,11 +23,14 @@ export class CycleFormComponent {
   showSuccessDialog: boolean = false;
   roomOptions: { id: number; name: string }[] = [];
   farmId: any;
+  barnWorkerOptions: { id: number; name: string }[] = [];
+  barnManagerOptions: { id: number; name: string }[] = [];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cycleService: CycleService,
     private lookupService: LookupService,
+    private workersService: WorkersService
   ) {}
   ngOnInit(): void {
     let cycleId = this.activatedRoute.snapshot.params['id'];
@@ -47,14 +51,25 @@ export class CycleFormComponent {
         });
     }
     this.createForm();
+    this.getDropdowns()
   }
 
+  getDropdowns() {
+    this.workersService.getBarnManagers().subscribe((data: any) => {
+      this.barnManagerOptions = data || [];
+    });
+    this.workersService.getBarnWorkers().subscribe((data: any) => {
+      this.barnWorkerOptions = data || [];
+    });
+  }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
       name: new FormControl(null, Validators.required),
       farmId: new FormControl(),
       barnId: new FormControl(null, Validators.required),
+      barnManagerId: new FormControl(null, Validators.required),
+      barnWorkerId: new FormControl(null, Validators.required),
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
       chickCount: new FormControl(null, Validators.required),

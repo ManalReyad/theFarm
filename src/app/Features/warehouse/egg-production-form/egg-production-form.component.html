@@ -50,6 +50,68 @@
         formControlName="notes"
       ></textarea>
     </div>
+    <div class="lg:col-span-8 col-span-12">
+      <p-table     [value]="[
+      { property1: 'Value 1A', property2: 'Value 1B', property3: 'Value 1C' }
+    ]">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>#</th>
+            <th>جودة البيض</th>
+            <th>عدد الكرتونات</th>
+            <th></th>
+          </tr>
+        </ng-template>
+      
+        <ng-template pTemplate="body" let-row let-i="index" formArrayName="details">
+          <tr [formGroupName]="i" *ngFor="let target of Details.controls; let i = index">
+            <td>{{ i + 1 }}</td>
+      
+            <!-- جودة البيض -->
+            <td>
+              <app-dropdown
+                [options]="getAvailableEggQualities(i)"
+                placeholder="اختر جودة البيض"
+                formControlName="eggQuality"
+                [showLabel]="false"
+                [isRequired]="false"
+              ></app-dropdown>
+            </td>
+      
+            <!-- عدد الكرتونات -->
+            <td>
+              <app-input
+                type="number"
+                placeholder="ادخل عدد الكرتونات"
+                formControlName="cartonsCount"
+                (keydown)="restrictNagtive($event)"
+                [showLabel]="false"
+                [isRequired]="false"
+
+              ></app-input>
+            </td>
+      
+            <!-- أزرار إضافة/حذف -->
+            <td>
+              <button (click)="deleteDetailRow(i)" class="add">
+                <i class="pi pi-minus"></i>
+              </button>
+              <button
+                (click)="addDetailRow()"
+                class="add flex items-center"
+                [disabled]="
+                  isCurrentDetailRowInvalid() ||
+                  Details.length >= eggQualityOptions.length
+                "
+              >
+                <i class="pi pi-plus"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
   </div>
 
   <div class="flex justify-end gap-4 mt-5">

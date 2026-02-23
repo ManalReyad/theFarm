@@ -20,6 +20,24 @@
       </app-dropdown>
     </div>
     <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="مدير العنبر"
+        formControlName="barnManagerId"
+        [options]="barnManagerOptions"
+        placeholder="اختر مدير العنبر"
+      >
+      </app-dropdown>
+    </div>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
+      <app-dropdown
+        labelText="عامل العنبر"
+        formControlName="barnWorkerId"
+        [options]="barnWorkerOptions"
+        placeholder="اختر عامل العنبر"
+      >
+      </app-dropdown>
+    </div>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-date-input
         labelText=" تاريخ بداية الدورة"
         formControlName="startDate"

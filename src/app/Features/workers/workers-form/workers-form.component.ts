@@ -21,7 +21,8 @@ export class WorkersFormComponent {
 
   workerTypeOptions = [
     { id: 1, name: 'مدير المزرعة ' },
-    { id: 2, name: 'مشتري' },
+    { id: 2, name: 'مدير العنبر' },
+    { id: 3, name: 'عامل العنبر' },
   ];
 
   constructor(
@@ -42,7 +43,6 @@ export class WorkersFormComponent {
     }
     this.createForm();
   }
-
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
