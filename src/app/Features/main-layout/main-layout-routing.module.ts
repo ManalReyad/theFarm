@@ -89,6 +89,11 @@ const routes: Routes = [
           import('../raw-material/raw-material.module').then((m) => m.RawMaterialModule),
       },
       {
+        path: 'evaluation-items',
+        loadChildren: () =>
+          import('../evaluation/evaluation.module').then((m) => m.EvaluationModule),
+      },
+      {
         path: 'workers',
         loadChildren: () =>
           import('../workers/workers.module').then((m) => m.WorkersModule),

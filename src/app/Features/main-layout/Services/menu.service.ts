@@ -114,7 +114,8 @@ export class MenuService {
           'warehouse/list',
           '/room',
           'farm',
-          'workers'
+          'workers',
+          'evaluation-items'
         ]),
         items: [
           {
@@ -173,6 +174,13 @@ export class MenuService {
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/list'],
+          },
+          {
+            label: 'بنود التقييم',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['evaluation-items'],
           },
         ],
       },

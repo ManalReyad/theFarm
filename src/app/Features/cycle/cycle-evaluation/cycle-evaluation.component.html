@@ -1,9 +1,9 @@
 <div class="flex flex-col gap-4">
     <div class="flex justify-between items-center">
-      <h1> الدورات </h1>
+      <h1> التقييمات </h1>
   
       <div class="flex gap-3" *ngIf="pageResult.items?.length!>0">
-        <button class="submitBtn" (click)="addNew()">إضافة دورة</button>
+        <button class="submitBtn" (click)="addNew()">إضافة تقييم</button>
       </div>
     </div>
   
@@ -15,18 +15,16 @@
       [searchMode]="searchMode"
       (back)="resetSearch()"
       noDataImg="nodepartments.svg"
-      noDataMessage="يبدو أنك لم تقم بإضافة أي دورة بعد، ستظهر الدورات المضافة هنا... يمكنك البدء بإضافة أول دورة "
-      addButtonText="إضافة دورة"
-      nosearchBtnText="العودة إلى الدورات"
+      noDataMessage="يبدو أنك لم تقم بإضافة أي تقييم بعد، ستظهر التقييمات المضافة هنا... يمكنك البدء بإضافة أول تقييم "
+      addButtonText="إضافة تقييم"
+      nosearchBtnText="العودة إلى التقييمات"
       [hasPagination]="false"
       [withAction]="false"
-      [withCustomAction]="true"
-      [customActionMenu]="customActionMenu"
     ></app-list>
   </div>
 
     <app-confirmation-delete-dialog
-    message="هل أنت متأكد أنك تريد حذف الدورة؟ سيتم حذفها نهائيًا من قائمة الدورات"
+    message="هل أنت متأكد أنك تريد حذف التقييم؟ سيتم حذفها نهائيًا من قائمة التقييمات"
     [visible]="showConfirmDeleteDialog"
     (onSubmitEvent)="submitDelete()"
     (exit)="close()"
@@ -36,5 +34,5 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض الدورات"
+  btnText="عرض التقييمات"
 ></app-success-dialog>

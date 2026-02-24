@@ -77,7 +77,7 @@ export class DropdownComponent {
     this.search.emit(e.filter);
   }
   open() {
-    if (this.dropdown) {
+    if (this.dropdown&&!this.disabled) {
       this.dropdown.show();
     }
   }

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { CycleService } from '../cycle.service';
+import { CycleEvaluationService } from '../cycle-evaluation.service';
 
 @Component({
-  selector: 'app-cycle-listing',
-  templateUrl: './cycle-listing.component.html',
-  styleUrl: './cycle-listing.component.scss',
+  selector: 'app-cycle-evaluation',
+  templateUrl: './cycle-evaluation.component.html',
+  styleUrl: './cycle-evaluation.component.scss'
 })
-export class CycleListingComponent {
+export class CycleEvaluationComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedItem: any;
@@ -23,35 +23,21 @@ export class CycleListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  customActionMenu: {
-    label: string;
-    icon?: string;
-    img?: string;
-    command: (entity: any) => void;
-  }[] = [
-    {
-      label: 'تعديل',
-      img: 'assets/images/edit.svg',
-      command: (item: any) => this.edit(item),
-    },
-    {
-      label: 'حذف',
-      img: 'assets/images/delete.svg',
-      command: (item: any) => this.delete(item),
-    },
-    {
-      label: 'إنشاء تقييم',
-      icon: 'pi pi-star text-[#f59e0b]',
-      command: (item: any) => this.addEvaluation(item),
-    },
-    {
-      label: 'التقييمات',
-      icon: 'pi pi-list text-[#7c3aed]',
-      command: (item: any) => this.goToEvaluations(item),
-    },
+  cycleId:any;
+  cycleName:string=''
+  pages: any = [
+    { name: 'الدورات', route: '/cycle' },
+    { name: 'التقييمات' },
   ];
-  constructor(private cycleService: CycleService, private router: Router) {}
+  constructor(
+    private cycleEvaluationService: CycleEvaluationService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {}
   ngOnInit(): void {
+     this.cycleId = this.activatedRoute.snapshot.params['id'];
+      this.cycleName = this.activatedRoute.snapshot.queryParams['name'];
+
     this.intializeListCoulmns();
     this.getPage();
   }
@@ -98,19 +84,9 @@ export class CycleListingComponent {
       }),
     ];
   }
-  addEvaluation(item: any) {
-    this.router.navigate(['/cycle/evaluation/create/' + item.id], {
-      queryParams: { name: item.name },
-    });
-  }
-  goToEvaluations(item: any) {
-    this.router.navigate(['/cycle/evaluations/' + item.id], {
-      queryParams: { name: item.name },
-    });
-  }
   getPage() {
-    this.cycleService
-      .getAll(this.pageNumber, this.pageSize)
+    this.cycleEvaluationService
+      .getAllByCycle(2)
       .subscribe((response: any) => {
         this.pageResult.items = response;
       });
@@ -132,19 +108,18 @@ export class CycleListingComponent {
   }
 
   submitDelete() {
-    this.cycleService
+    this.cycleEvaluationService
       .delete(this.selectedItem.id)
       .subscribe((response: any) => {
-        this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
-        this.showSuccessDialog = true;
-        this.showConfirmDeleteDialog = false;
+                this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+          this.showConfirmDeleteDialog = false;
       });
   }
   addNew() {
-    this.router.navigate(['/cycle/create']);
-  }
-  edit(data: any) {
-    this.router.navigate(['/cycle/update/' + data.item.id]);
+    this.router.navigate(['/cycle/evaluation/create/' +this.cycleId], {
+      queryParams: { name: this.cycleName },
+    });
   }
   close() {
     this.showForm = false;
