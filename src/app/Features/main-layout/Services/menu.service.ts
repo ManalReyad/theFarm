@@ -18,7 +18,7 @@ export class MenuService {
       //   iconStyle: { fontSize: '1.5rem' },
       //   routerLink: ['home'],
       // },
-     
+
       {
         label: 'الخلطات',
         visible: true,
@@ -50,6 +50,7 @@ export class MenuService {
           'warehouse/items-medicine',
           'warehouse/egg-production',
           'egg-sales',
+          'warehouse/chicken-sales'
         ]),
         items: [
           {
@@ -72,6 +73,13 @@ export class MenuService {
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/egg-sales'],
+          },
+          {
+            label: 'مبيعات الفراخ',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['warehouse/chicken-sales'],
           },
         ],
       },
@@ -115,7 +123,7 @@ export class MenuService {
           '/room',
           'farm',
           'workers',
-          'evaluation-items'
+          'evaluation-items',
         ]),
         items: [
           {
@@ -125,7 +133,7 @@ export class MenuService {
             iconStyle: { fontSize: '1.5rem' },
             routerLink: ['farm'],
           },
-    
+
           {
             label: 'العنابر',
             visible: true,

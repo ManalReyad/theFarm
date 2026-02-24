@@ -13,6 +13,8 @@ import { EggSalesFormComponent } from './egg-sales-form/egg-sales-form.component
 import { EggSalesComponent } from './egg-sales/egg-sales.component';
 import { WarehouseListingComponent } from './warehouse-listing/warehouse-listing.component';
 import { DialogModule } from "primeng/dialog";
+import { ChickenSalesComponent } from './chicken-sales/chicken-sales.component';
+import { ChickenSalesFormComponent } from './chicken-sales-form/chicken-sales-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { DialogModule } from "primeng/dialog";
     EggProductionFormComponent,
     EggSalesFormComponent,
     EggSalesComponent,
-    WarehouseListingComponent
+    WarehouseListingComponent,
+    ChickenSalesComponent,
+    ChickenSalesFormComponent
   ],
   imports: [
     CommonModule,

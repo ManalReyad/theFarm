@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
+import { ChickenSalesService } from '../chicken-sales.service';
 import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { EggSalesService } from '../egg-sales.service';
+import { SharedModule } from "src/app/Shared/shared.module";
 
 @Component({
-  selector: 'app-egg-sales',
-  templateUrl: './egg-sales.component.html',
-  styleUrl: './egg-sales.component.scss'
+  selector: 'app-chicken-sales',
+  templateUrl: './chicken-sales.component.html',
+  styleUrl: './chicken-sales.component.scss',
 })
-export class EggSalesComponent {
+export class ChickenSalesComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedItem: any;
@@ -25,7 +26,7 @@ export class EggSalesComponent {
   searchReset: boolean = false;
   farmId: any;
   constructor(
-    private eggSalesService: EggSalesService,
+    private chickenSalesService: ChickenSalesService,
     private router: Router,
   ) {}
   ngOnInit(): void {
@@ -48,9 +49,9 @@ export class EggSalesComponent {
         header: 'المشتري',
       }),
       new ListColumn({
-        field: 'warehouseName',
+        field: 'cycleName',
         hide: false,
-        header: 'المخزن',
+        header: 'الدورة',
       }),
       new ListColumn({
         field: 'quantity',
@@ -60,12 +61,12 @@ export class EggSalesComponent {
       new ListColumn({
         field: 'unitPrice',
         hide: false,
-        header: 'سعر الطبق',
+        header: 'السعر ',
       }),
       new ListColumn({
         field: 'totalPrice',
         hide: false,
-        header: 'السعر الكلي',
+        header: 'إجمالي السعر',
       }),
       new ListColumn({
         field: 'paidAmount',
@@ -78,9 +79,9 @@ export class EggSalesComponent {
         header: 'القيمة المتبقية',
       }),
       new ListColumn({
-        field: 'cumulativeBalance',
+        field: 'traderBalance',
         hide: false,
-        header: 'الرصيد التراكمي',
+        header: 'رصيد المشتري',
       }),
       new ListColumn({
         field: 'date',
@@ -91,8 +92,8 @@ export class EggSalesComponent {
     ];
   }
   getPage() {
-    this.eggSalesService
-      .getEggSales()
+    this.chickenSalesService
+      .getChickenSales()
       .subscribe((response: any) => {
         this.pageResult.items = response;
       });
@@ -114,11 +115,9 @@ export class EggSalesComponent {
   }
 
   addNew() {
-    this.router.navigate(['/warehouse/egg-sales/add']);
+    this.router.navigate(['/warehouse/chicken-sales/add']);
   }
-  edit(data: any) {
-    this.router.navigate(['/cycle/update/' + data.item.id]);
-  }
+
   close() {
     this.showForm = false;
     this.showConfirmDeleteDialog = false;
