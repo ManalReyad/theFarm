@@ -7,7 +7,7 @@ import { CycleEvaluationService } from '../cycle-evaluation.service';
 @Component({
   selector: 'app-cycle-evaluation',
   templateUrl: './cycle-evaluation.component.html',
-  styleUrl: './cycle-evaluation.component.scss'
+  styleUrl: './cycle-evaluation.component.scss',
 })
 export class CycleEvaluationComponent {
   columns: ListColumn[] = [];
@@ -23,20 +23,17 @@ export class CycleEvaluationComponent {
   pageSize: number = 10;
   pageNumber: number = 1;
   searchReset: boolean = false;
-  cycleId:any;
-  cycleName:string=''
-  pages: any = [
-    { name: 'الدورات', route: '/cycle' },
-    { name: 'التقييمات' },
-  ];
+  cycleId: any;
+  cycleName: string = '';
+  pages: any = [{ name: 'الدورات', route: '/cycle' }, { name: 'التقييمات' }];
   constructor(
     private cycleEvaluationService: CycleEvaluationService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
-     this.cycleId = this.activatedRoute.snapshot.params['id'];
-      this.cycleName = this.activatedRoute.snapshot.queryParams['name'];
+    this.cycleId = this.activatedRoute.snapshot.params['id'];
+    this.cycleName = this.activatedRoute.snapshot.queryParams['name'];
 
     this.intializeListCoulmns();
     this.getPage();
@@ -53,42 +50,24 @@ export class CycleEvaluationComponent {
       new ListColumn({
         field: 'name',
         hide: false,
-        header: 'الاسم',
+        header: 'البند',
+        isObject: true,
+        objectName: 'evaluationItem',
       }),
       new ListColumn({
-        field: 'barnName',
+        field: 'score',
         hide: false,
-        header: 'العنبر',
-      }),
-      new ListColumn({
-        field: 'startDate',
-        hide: false,
-        header: 'تاريخ البداية',
-        isDate: true,
-      }),
-      new ListColumn({
-        field: 'endDate',
-        hide: false,
-        header: 'تاريخ النهاية',
-        isDate: true,
-      }),
-      new ListColumn({
-        field: 'chickCount',
-        hide: false,
-        header: 'عدد الفراخ',
-      }),
-      new ListColumn({
-        field: 'chickAge',
-        hide: false,
-        header: 'عمر الفراخ',
+        header: 'الدرجة',
       }),
     ];
   }
   getPage() {
     this.cycleEvaluationService
-      .getAllByCycle(2)
+      .getAllByCycle(this.cycleId)
       .subscribe((response: any) => {
-        this.pageResult.items = response;
+        if (response.length > 0) {
+          this.pageResult.items = response[response.length - 1].details;
+        }
       });
   }
   onPageChanged(event: any) {
@@ -111,13 +90,13 @@ export class CycleEvaluationComponent {
     this.cycleEvaluationService
       .delete(this.selectedItem.id)
       .subscribe((response: any) => {
-                this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-          this.showConfirmDeleteDialog = false;
+        this.successMesg = 'تم حذف الدورة بنجاح، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+        this.showConfirmDeleteDialog = false;
       });
   }
   addNew() {
-    this.router.navigate(['/cycle/evaluation/create/' +this.cycleId], {
+    this.router.navigate(['/cycle/evaluation/create/' + this.cycleId], {
       queryParams: { name: this.cycleName },
     });
   }

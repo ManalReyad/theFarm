@@ -3,7 +3,7 @@
 
 <form [formGroup]="form" class="card">
   <div class="grid grid-cols-12 gap-3">
-    <div class="lg:col-span-6 col-span-12">
+    <div class="lg:col-span-4 col-span-12">
       <app-dropdown
         [options]="cycleOptions"
         formControlName="cycleId"
@@ -11,6 +11,7 @@
         [disabled]="true"
       ></app-dropdown>
     </div>
+    <div class="col-span-1"></div>
     <div class="lg:col-span-8 col-span-12">
       <p-table
         [value]="[
@@ -42,7 +43,7 @@
           >
             <td>{{ i + 1 }}</td>
 
-            <td>
+            <td class="min-w-[50%]">
               <app-dropdown
                 [options]="getAvailableEvaluationItems(i)"
                 placeholder="اختر بند التقييم"
@@ -51,7 +52,7 @@
                 [isRequired]="false"
               ></app-dropdown>
             </td>
-            <td>
+            <td class="lg:w-[130px] w-fit">
               <app-input
                 type="number"
                 placeholder="الدرجة"
@@ -92,3 +93,11 @@
     <button class="exitBtn" (click)="backToList()">إلغاء</button>
   </div>
 </form>
+
+
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض التقييمات"
+></app-success-dialog>

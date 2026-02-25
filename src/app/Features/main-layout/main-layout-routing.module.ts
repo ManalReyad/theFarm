@@ -5,7 +5,7 @@ import { MainLayoutComponent } from './Components/main-layout/main-layout.compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'farm',
+    redirectTo: 'cycle',
     pathMatch: 'full',
   },
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
 import { TradersService } from '../../traders/traders.service';
 import { ChickenSalesService } from '../chicken-sales.service';
+import { CycleService } from '../../cycle/cycle.service';
 
 @Component({
   selector: 'app-chicken-sales-form',
@@ -26,14 +27,18 @@ export class ChickenSalesFormComponent {
   constructor(
     private router: Router,
     private lookupService: LookupService,
+    private cycleService: CycleService,
     private chickenSalesService: ChickenSalesService,
-  ) {}
+  ) {}   
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
     this.farmId = Number(localStorage.getItem('farmId'));
     if (this.farmId) {
-      this.lookupService.getActiveCycles(this.farmId).subscribe((data: any) => {
-        this.cycleOptions = data.map((item:any)=>{return{id:item.id,name:item.cycleName,barnName:item.barnName}}) || [];
+      // this.cycleService.getList(this.farmId).subscribe((data: any) => {
+      //   this.cycleOptions = data.map((item:any)=>{return{id:item.id,name:item.cycleName,barnName:item.barnName}}) || [];
+      // });
+      this.cycleService.getList().subscribe((data: any) => {
+        this.cycleOptions = data|| [];
       });
     }
     this.createForm();

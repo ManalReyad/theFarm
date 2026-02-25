@@ -106,21 +106,27 @@ export class CycleEvaluationFormComponent {
   }
   save() {
     this.form.patchValue({ ...this.form.value, farmId: +this.farmId });
-    if (this.editMode) {
-      this.cycleEvaluationService
-        .update(this.form.value)
-        .subscribe((response: any) => {
-          this.successMesg = 'تم تعديل بيانات التقييم بنجاح، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        });
-    } else {
-      this.cycleEvaluationService
-        .create(this.form.value)
-        .subscribe((response: any) => {
-          this.successMesg = 'تمت إضافة التقييم بنجاح ، يمكنك المتابعة';
-          this.showSuccessDialog = true;
-        });
-    }
+    // if (this.editMode) {
+    //   this.cycleEvaluationService
+    //     .update(this.form.value)
+    //     .subscribe((response: any) => {
+    //       this.successMesg = 'تم تعديل بيانات التقييم بنجاح، يمكنك المتابعة';
+    //       this.showSuccessDialog = true;
+    //     });
+    // } else {
+    //   this.cycleEvaluationService
+    //     .create(this.form.value)
+    //     .subscribe((response: any) => {
+    //       this.successMesg = 'تمت إضافة التقييم بنجاح ، يمكنك المتابعة';
+    //       this.showSuccessDialog = true;
+    //     });
+    // }
+    this.cycleEvaluationService
+    .create(this.form.value)
+    .subscribe((response: any) => {
+      this.successMesg = 'تمت إضافة التقييم بنجاح ، يمكنك المتابعة';
+      this.showSuccessDialog = true;
+    });
   }
   restrictNagtive(event: KeyboardEvent) {
     if (

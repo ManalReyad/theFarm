@@ -11,21 +11,6 @@ export class MenuService {
 
   initializeMenus() {
     this.menus = [
-      // {
-      //   label: 'الرئيسية',
-      //   visible: true,
-      //   icon: PrimeIcons.HOME,
-      //   iconStyle: { fontSize: '1.5rem' },
-      //   routerLink: ['home'],
-      // },
-
-      {
-        label: 'الخلطات',
-        visible: true,
-        icon: PrimeIcons.SITEMAP,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['feed-mix'],
-      },
       {
         label: 'الدورات',
         visible: true,
@@ -41,6 +26,14 @@ export class MenuService {
         routerLink: ['daily-registration'],
       },
       {
+        label: 'الخلطات',
+        visible: true,
+        icon: PrimeIcons.SITEMAP,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['feed-mix'],
+      },
+
+      {
         label: 'المخزن',
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
@@ -50,7 +43,7 @@ export class MenuService {
           'warehouse/items-medicine',
           'warehouse/egg-production',
           'egg-sales',
-          'warehouse/chicken-sales'
+          'warehouse/chicken-sales',
         ]),
         items: [
           {

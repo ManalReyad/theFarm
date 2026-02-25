@@ -48,7 +48,7 @@ export class TradersFormComponent {
       id: new FormControl(),
       name: new FormControl(null, Validators.required),
       mobile: new FormControl(null, Validators.required),
-      type: new FormControl(1, Validators.required),
+      type: new FormControl(null, Validators.required),
       balance: new FormControl(0),
     });
   }
