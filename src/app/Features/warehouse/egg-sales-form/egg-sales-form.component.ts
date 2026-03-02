@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
 import { TradersService } from '../../traders/traders.service';
+import { WarehouseService } from '../warehouse.service';
 
 @Component({
   selector: 'app-egg-sales-form',
@@ -20,14 +21,15 @@ export class EggSalesFormComponent {
   successMesg: string = '';
   showSuccessDialog: boolean = false;
   buyersOptions: { id: number; name: string }[] = [];
-  warehouseOptions: any[] = [];
+  warehouseOptions: { id: number; name: string }[] = [];
   farmId: any;
   barnId: any;
   constructor(
     private router: Router,
     private lookupService: LookupService,
     private eggSalesService: EggSalesService,
-    private tradersService: TradersService
+    private warehouseService:WarehouseService
+
   ) {}
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
@@ -51,6 +53,13 @@ export class EggSalesFormComponent {
     this.lookupService.getBuyers().subscribe((data:any)=>{
       this.buyersOptions=data?.map((item:any)=>{return {name:item.name,id:item.id}})
     })
+    this.warehouseService.getAll().subscribe((res: any) => {
+      this.warehouseOptions =
+        res.map((item: any) => {
+          return { name: item.name, id: item.id };
+        }) || [];
+    });
+  
   }
   save() {
     this.eggSalesService.setEggSales(this.form.value).subscribe((response: any) => {

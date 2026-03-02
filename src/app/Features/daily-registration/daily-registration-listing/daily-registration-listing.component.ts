@@ -42,39 +42,51 @@ export class DailyRegistrationListingComponent {
         isIndex: true,
       }),
       new ListColumn({
-        field: 'cycleName',
+        field: 'date',
         hide: false,
-        header: 'الدورة',
+        header: 'التاريخ',
+        isDate:true
       }),
       new ListColumn({
-        field: 'roomName',
+        field: 'dayName',
         hide: false,
-        header: 'العنبر',
+        header: 'اليوم',
       }),
       new ListColumn({
-        field: 'feedPrice',
+        field: 'chickAge',
         hide: false,
-        header: 'سعر التغذية',
+        header: 'عمر الفراخ',
       }),
       new ListColumn({
-        field: 'medicinePrice',
+        field: 'deadCount',
         hide: false,
-        header: 'سعر الأدوية',
+        header: 'النافق اليومي',
       }),
       new ListColumn({
-        field: 'feedUsage',
+        field: 'deadCumulative',
         hide: false,
-        header: ' التغذية المستخدمة',
+        header: 'النافق التراكمي',
       }),
       new ListColumn({
-        field: 'deadChicken',
+        field: 'remainingChicks',
         hide: false,
-        header: 'الفراخ الميتة',
+        header: 'صافي العدد بعد النافق',
       }),
       new ListColumn({
-        field: 'remainingChickenCount',
-        hide: false,
-        header: 'الفراخ المتبقية',
+        field: 'feedQuantityTotal',
+        header: 'استهلاك وزن العلف'
+      }),
+      new ListColumn({
+        field: 'feedCostTotal',
+        header: 'سعر استهلاك العلف'
+      }),
+      new ListColumn({
+        field: 'medicineQuantityTotal',
+        header: 'استهلاك الأدوية'
+      }),
+      new ListColumn({
+        field: 'medicineCostTotal',
+        header: 'سعر استهلاك الأدوية'
       }),
     ];
   }
@@ -82,7 +94,38 @@ export class DailyRegistrationListingComponent {
     this.dailyRegisterService
       .getAll(this.pageNumber, this.pageSize)
       .subscribe((response: any) => {
-        this.pageResult.items = response;
+  
+        this.pageResult.items = response.map((item:any) => {
+  
+          const feedQuantityTotal = item.feedConsumptions?.reduce(
+            (sum:any, el:any) => sum + (el.quantity || 0),
+            0
+          );
+  
+          const feedCostTotal = item.feedConsumptions?.reduce(
+            (sum:any, el:any) => sum + (el.cost || 0),
+            0
+          );
+  
+          const medicineQuantityTotal = item.medicineConsumptions?.reduce(
+            (sum:any, el:any) => sum + (el.quantity || 0),
+            0
+          );
+  
+          const medicineCostTotal = item.medicineConsumptions?.reduce(
+            (sum:any, el:any) => sum + (el.cost || 0),
+            0
+          );
+  
+          return {
+            ...item,
+            feedQuantityTotal,
+            feedCostTotal,
+            medicineQuantityTotal,
+            medicineCostTotal
+          };
+        });
+  
       });
   }
   onPageChanged(event: any) {

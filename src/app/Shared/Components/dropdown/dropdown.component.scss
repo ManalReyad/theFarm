@@ -14,7 +14,10 @@ label {
     left: 8px;
   }
 }
-
+.disabled{
+  opacity: .8;
+  cursor: not-allowed;
+}
 :host ::ng-deep .p-inputwrapper {
   background-color: transparent;
   border: none;

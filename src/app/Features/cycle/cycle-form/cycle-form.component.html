@@ -16,6 +16,7 @@
         formControlName="barnId"
         [options]="roomOptions"
         placeholder="اختر العنبر"
+        [disabled]="editMode"
       >
       </app-dropdown>
     </div>
@@ -25,6 +26,7 @@
         formControlName="barnManagerId"
         [options]="barnManagerOptions"
         placeholder="اختر مدير العنبر"
+        [disabled]="editMode"
       >
       </app-dropdown>
     </div>
@@ -34,6 +36,7 @@
         formControlName="barnWorkerId"
         [options]="barnWorkerOptions"
         placeholder="اختر عامل العنبر"
+        [disabled]="editMode"
       >
       </app-dropdown>
     </div>
@@ -61,6 +64,7 @@
         placeholder="أدخل عدد الفراخ عند البداية"
         formControlName="chickCount"
         unit="فرخة"
+        [disabled]="editMode"
       ></app-input>
     </div>
     <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
@@ -70,6 +74,7 @@
         formControlName="chickAge"
         inputType="number"
         unit="يوم"
+        [disabled]="editMode"
       ></app-input>
     </div>
   </div>

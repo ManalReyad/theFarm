@@ -68,7 +68,7 @@
             <td>{{ i + 1 }}</td>
       
             <!-- جودة البيض -->
-            <td>
+            <td class="min-w-[40%]">
               <app-dropdown
                 [options]="getAvailableEggQualities(i)"
                 placeholder="اختر جودة البيض"
@@ -79,7 +79,7 @@
             </td>
       
             <!-- عدد الكرتونات -->
-            <td>
+            <td class="lg:w-[200px] w-fit">
               <app-input
                 type="number"
                 placeholder="ادخل عدد الكرتونات"

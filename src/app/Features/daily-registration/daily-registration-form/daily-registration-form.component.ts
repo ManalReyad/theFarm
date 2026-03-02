@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CycleService } from '../../cycle/cycle.service';
 import { DailyRegistrationService } from '../daily-registration.service';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
+import { WarehouseService } from '../../warehouse/warehouse.service';
 
 @Component({
   selector: 'app-daily-registration-form',
@@ -34,6 +35,7 @@ export class DailyRegistrationFormComponent {
   currentMedicineItemIndex: number = 0;
   allFeedItemTypes: { id: number; name: string }[] = [];
   allMedicineItemTypes: { id: number; name: string }[] = [];
+  warehouseOptions: { id: number; name: string }[] = [];
   currentFeedItemRowInvalid: boolean = false;
   currentMedicineRowInvalid: boolean = false;
   farmId: any;
@@ -43,7 +45,8 @@ export class DailyRegistrationFormComponent {
     private cycleService: CycleService,
     private dailyRegisterService: DailyRegistrationService,
     private fb: FormBuilder,
-    private lookupService: LookupService
+    private lookupService: LookupService,
+    private warehouseService:WarehouseService
   ) {}
   ngOnInit(): void {
     let id = this.activatedRoute.snapshot.params['id'];
@@ -76,12 +79,19 @@ export class DailyRegistrationFormComponent {
     this.cycleService.getList().subscribe((response: any) => {
       this.cycleOptions = response;
     });
+    this.warehouseService.getAll().subscribe((res: any) => {
+      this.warehouseOptions =
+        res.map((item: any) => {
+          return { name: item.name, id: item.id };
+        }) || [];
+    });
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
       deadCount: new FormControl(null, Validators.required),
       cycleId: new FormControl(null, Validators.required),
+      warehouseId:new FormControl(null, Validators.required),
       feedConsumptions: this.fb.array([
         this.fb.group({
           itemId: [],

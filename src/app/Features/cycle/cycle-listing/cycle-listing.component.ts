@@ -96,6 +96,11 @@ export class CycleListingComponent {
         hide: false,
         header: 'عمر الفراخ',
       }),
+      new ListColumn({
+        field: 'finalScore',
+        hide: false,
+        header: 'التقييم',
+      }),
     ];
   }
   addEvaluation(item: any) {
@@ -144,7 +149,7 @@ export class CycleListingComponent {
     this.router.navigate(['/cycle/create']);
   }
   edit(data: any) {
-    this.router.navigate(['/cycle/update/' + data.item.id]);
+    this.router.navigate(['/cycle/update/' + data.id]);
   }
   close() {
     this.showForm = false;

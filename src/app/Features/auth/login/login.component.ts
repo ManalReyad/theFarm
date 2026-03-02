@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.saveClicked = true;
     this.errorMsg=''
     if (this.form.valid) {
-      this.router.navigate(['/farm']);
+      this.router.navigate(['/cycle']);
     //   this.authServices.login(this.form.value).subscribe((response: any) => {
     //     if (response.isSuccess) {
     //       this.saveClicked = false;

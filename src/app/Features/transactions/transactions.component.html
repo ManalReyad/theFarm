@@ -3,8 +3,8 @@
     <h1>عمليات مخزن الأصول</h1>
 
     <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
-      <button class="submitBtn" (click)="withdraw()">إضافة إلى المخزن</button>
-      <button class="submitBtn" (click)="deposit()">صرف من المخزن</button>
+      <button class="submitBtn" (click)="deposit()">إضافة إلى المخزن</button>
+      <button class="submitBtn" (click)="withdraw()">صرف من المخزن</button>
     </div>
   </div>
 
@@ -22,8 +22,8 @@
     [hasSecondBtn]="true"
     secondButtonText="صرف من المخزن"
     addButtonText="إضافة إلى المخزن"
-    (secondBtnEvent)="deposit()"
-    (add)="withdraw()"
+    (secondBtnEvent)="withdraw()"
+    (add)="deposit()"
     [hasPagination]="false"
     [withAction]="false"
   ></app-list>
@@ -38,7 +38,7 @@
   [breakpoints]="{ '960px': '80vw' }"
 >
   <div class="title">
-    {{ isWithdraw ? "إضافة أصل من العنبر للمخزن" : "صرف أصل من المخزن للعنبر" }}
+    {{ isDeposit ? "إضافة أصل من العنبر للمخزن" : "صرف أصل من المخزن للعنبر" }}
   </div>
   <form [formGroup]="form">
     <div class="grid grid-cols-12 mt-5">
@@ -80,7 +80,7 @@
 
   <div class="flex justify-center gap-3 mt-5">
     <button class="submitBtn" [disabled]="form.invalid" (click)="submitTransaction()">
-      {{ isWithdraw ? "إضافة" : "صرف" }}
+      {{ isDeposit ? "إضافة" : "صرف" }}
     </button>
     <button class="exitBtn" (click)="showForm = false">إلغاء</button>
   </div>

@@ -49,7 +49,7 @@ export class EggProductionFormComponent {
     this.farmId = Number(localStorage.getItem('farmId'));
     if (this.farmId) {
       this.lookupService.getActiveCycles(this.farmId).subscribe((data: any) => {
-        this.cycleOptions = data.map((item:any)=>{return{id:item.id,name:item.cycleName,barnName:item.barnName}}) || [];
+        this.cycleOptions = data.map((item:any)=>{return{id:item.id,name:item.cycleName,barnName:item.barnName,}}) || [];
       });
     }
     this.createForm();
@@ -121,7 +121,7 @@ isCurrentDetailRowInvalid(): boolean {
           this.roomOptions = data || [];
           let barnId = this.roomOptions.find(
             (item: any) => item.name == cycle.barnName
-          );
+          )?.id;
           this.form.get('barnId')?.setValue(barnId);
         });
     }

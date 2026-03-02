@@ -18,7 +18,7 @@ export class TransactionsComponent {
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
-  isWithdraw: boolean = false;
+  isDeposit: boolean = false;
   form!: FormGroup;
   successMesg: string = '';
   showWarnningDialog: boolean = false;
@@ -34,7 +34,7 @@ export class TransactionsComponent {
   constructor(
     private transactionsService: TransactionsService,
     private wharehouseAssetService: WharehouseAssetsService,
-    private lookupService: LookupService,
+    private lookupService: LookupService
   ) {}
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
@@ -52,8 +52,8 @@ export class TransactionsComponent {
           return { name: item.assetItemName, id: item.assetItemId };
         });
       });
-    this.lookupService.getBarnsByFarmId(this.farmId).subscribe((data:any) => {
-      this.barnsOptions=data||[]
+    this.lookupService.getBarnsByFarmId(this.farmId).subscribe((data: any) => {
+      this.barnsOptions = data || [];
     });
   }
   intializeListCoulmns() {
@@ -106,31 +106,31 @@ export class TransactionsComponent {
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
-      assetWarehouseItemId: new FormControl(null,Validators.required),
+      assetWarehouseItemId: new FormControl(null, Validators.required),
       barnId: new FormControl(null, Validators.required),
       quantity: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
     });
   }
   withdraw() {
-    this.isWithdraw = true;
+    this.isDeposit = false;
     this.form.reset();
     this.showForm = true;
   }
   deposit() {
-    this.isWithdraw = false;
+    this.isDeposit = true;
     this.form.reset();
     this.showForm = true;
   }
   submitTransaction() {
-    if (this.isWithdraw) {
-      this.transactionsService.withdraw(this.form.value).subscribe((data) => {
-        this.successMesg = 'تم إضافة الأصل للمخزن بنجاح';
+    if (this.isDeposit) {
+      this.transactionsService.deposit(this.form.value).subscribe((data) => {
+        this.successMesg = 'تم إضافة الأصل من العنبر للمخزن بنجاح';
         this.showForm = false;
         this.showSuccessDialog = true;
       });
     } else {
-      this.transactionsService.deposit(this.form.value).subscribe((data) => {
+      this.transactionsService.withdraw(this.form.value).subscribe((data) => {
         this.successMesg = 'تم صرف الأصل من المخزن إلى العنبر بنجاح';
         this.showForm = false;
         this.showSuccessDialog = true;
@@ -145,8 +145,8 @@ export class TransactionsComponent {
         response.forEach((element: any) => {
           element.transactionType =
             element.transactionType == 'Withdraw'
-              ? 'إضافة إلى المخزن'
-              : 'صرف من المخزن';
+              ? 'صرف من المخزن للعنبر'
+              : 'إضافة من العنبر إلى المخزن';
         });
         this.pageResult.items = response;
       });

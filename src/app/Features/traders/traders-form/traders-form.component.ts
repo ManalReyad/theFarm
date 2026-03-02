@@ -20,8 +20,8 @@ export class TradersFormComponent {
   showSuccessDialog: boolean = false;
 
   traderTypeOptions = [
-    { id: 1, name: 'تاجر' },
-    { id: 2, name: 'مشتري' },
+    { id: 1, name: 'مورد' },
+    { id: 2, name: 'عميل' },
   ];
 
   constructor(

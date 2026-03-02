@@ -87,6 +87,11 @@ export class WorkersListComponent {
         hide: false,
         header: 'رصيد الأجازات',
       }),
+      new ListColumn({
+        field: 'finalScore',
+        hide: false,
+        header: 'التقييم',
+      }),
     ];
   }
 
