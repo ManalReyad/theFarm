@@ -28,6 +28,50 @@
     ></app-list>
   </div>
   
+
+
+
+  <p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="showForm"
+  [closable]="false"
+  [style]="{ width: '25vw' }"
+  [breakpoints]="{ '960px': '80vw' }"
+  [focusOnShow]="false"
+>
+  <div class="title">
+   إاضافة الراتب
+  </div>
+  <form [formGroup]="form">
+    <div class="grid grid-cols-12 mt-5">
+      <div class="col-span-12">
+        <app-input
+          labelText="الشهر"
+          placeholder="ادخل الشهر"
+          formControlName="month"
+        ></app-input>
+      </div>
+      <div class="col-span-12">
+        <app-input
+          labelText="السنة"
+          placeholder="ادخل السنة"
+          formControlName="year"
+        ></app-input>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-center gap-3 mt-5">
+    <button class="submitBtn" (click)="saveSalary()" [disabled]="form.invalid">
+      {{ editMode ? "حفظ" : "إضافة" }}
+    </button>
+    <button class="exitBtn" (click)="showForm = false">إلغاء</button>
+  </div>
+</p-dialog>
+
+
+
   <app-confirmation-delete-dialog
     message="هل أنت متأكد أنك تريد حذف الموظف؟ سيتم حذفه نهائيًا من قائمة الموظفين"
     [visible]="showConfirmDeleteDialog"

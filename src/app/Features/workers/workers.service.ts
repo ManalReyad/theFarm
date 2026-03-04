@@ -41,4 +41,7 @@ export class WorkersService {
   getBarnWorkers() {
     return this.http.get(this.baseUrl + `/barn-workers`);
   }
+  createSalary(body: any) {
+    return this.http.post(this.baseUrl + `/salary`, body);
+  }
 }

@@ -3,6 +3,7 @@ import { WorkersService } from '../workers.service';
 import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-workers-list',
@@ -19,7 +20,7 @@ export class WorkersListComponent {
   showForm: boolean = false;
   editMode: boolean = false;
   successMesg: string = '';
-
+  form!: FormGroup;
   searchMode: boolean = false;
   pageSize: number = 10;
   pageNumber: number = 1;
@@ -45,12 +46,18 @@ export class WorkersListComponent {
       icon: 'pi pi-money-bill text-[#3B82F6]',
       command: (item: any) => this.advances(item),
     },
+    {
+      label: 'الراتب',
+      icon: 'pi pi-credit-card text-teal-600',
+      command: (item: any) => this.setSalary(item),
+    },
   ];
   constructor(private workersService: WorkersService, private router: Router) {}
 
   ngOnInit(): void {
     this.intializeListCoulmns();
     this.getPage();
+    this.createForm();
   }
 
   intializeListCoulmns() {
@@ -94,7 +101,14 @@ export class WorkersListComponent {
       }),
     ];
   }
-
+  createForm() {
+    this.form = new FormGroup({
+      id: new FormControl(0),
+      workerId: new FormControl(null, Validators.required),
+      month: new FormControl(null, Validators.required),
+      year: new FormControl(null, Validators.required),
+    });
+  }
   getPage() {
     this.workersService.getAllWorkers().subscribe((response: any) => {
       if (response.length > 0) {
@@ -151,6 +165,20 @@ export class WorkersListComponent {
   }
   vacations(item: any) {
     this.router.navigate(['/workers/vacations/' + item.id]);
+  }
+  setSalary(item: any) {
+    this.form.reset();
+    this.form.get('workerId')?.setValue(item.id);
+    this.showForm = true;
+  }
+  saveSalary() {
+    this.workersService
+      .createSalary(this.form.value)
+      .subscribe((response: any) => {
+        this.successMesg = 'تمت إضافة الراتب  بنجاح';
+        this.showForm = false;
+        this.showSuccessDialog = true;
+      });
   }
   close() {
     this.showForm = false;
