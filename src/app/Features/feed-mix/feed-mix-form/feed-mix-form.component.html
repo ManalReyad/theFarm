@@ -36,7 +36,7 @@
         <ng-template pTemplate="body" let-task formArrayName="items">
           <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
             <td>{{ i + 1 }}</td>
-            <td>
+            <td class="min-w-[40%]">
               <app-dropdown
                 [options]="getAvailableItems(i)"
                 placeholder="اختر الصنف"
@@ -46,7 +46,7 @@
                 [isRequired]="false"
               ></app-dropdown>
             </td>
-            <td>
+            <td class="lg:w-[220px] w-fit">
               <app-input
                 inputType="number"
                 placeholder="ادخل الكمية"

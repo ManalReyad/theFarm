@@ -27,6 +27,7 @@ export class DateInputComponent {
   @Input() value: any;
   @Input() id: string='date';
   @Input() isRange: boolean = false;
+  @Input() showClear: boolean = false;
   @Output() change: EventEmitter<any> = new EventEmitter();
   @ViewChild('calendar') calendar!: Calendar;
   @ViewChild(FormControlDirective, { static: true })

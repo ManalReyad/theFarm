@@ -205,7 +205,7 @@
     [noDataMessage]="noDataMessage"
   ></app-no-data>
 <div class="w-full flex justify-center items-center gap-3">
-  <button (click)="addNew()">
+  <button (click)="addNew()" *ngIf="addButtonText">
     <span>{{ addButtonText }} </span>
   </button>
   <button (click)="secondBtnClick()" *ngIf="hasSecondBtn">

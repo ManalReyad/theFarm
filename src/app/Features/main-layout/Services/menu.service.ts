@@ -32,7 +32,20 @@ export class MenuService {
         iconStyle: { fontSize: '1.5rem' },
         routerLink: ['feed-mix'],
       },
-
+      {
+        label: 'الخزنة',
+        visible: true,
+        icon: PrimeIcons.MONEY_BILL,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['cash-box'],
+      },
+      {
+        label: 'الملخص اليومي',
+        visible: true,
+        icon: PrimeIcons.CALENDAR,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['dialy-summary'],
+      },
       {
         label: 'المخزن',
         visible: true,

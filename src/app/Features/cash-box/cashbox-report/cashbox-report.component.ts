@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { DailySummaryService } from '../daily-summary.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { CashBoxService } from '../cash-box.service';
 
 @Component({
-  selector: 'app-daily-summary',
-  templateUrl: './daily-summary.component.html',
-  styleUrl: './daily-summary.component.scss'
+  selector: 'app-cashbox-report',
+  templateUrl: './cashbox-report.component.html',
+  styleUrl: './cashbox-report.component.scss'
 })
-export class DailySummaryComponent {
+export class CashboxReportComponent implements OnInit {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedItem: any;
@@ -25,10 +25,11 @@ export class DailySummaryComponent {
   pageNumber: number = 1;
   searchReset: boolean = false;
   form!:FormGroup
-  constructor(private dailySummaryService: DailySummaryService, private router: Router) {}
+  report:any
+  constructor(private cashBoxService: CashBoxService, private router: Router) {}
   ngOnInit(): void {
     this.form=new FormGroup({
-      date:new FormControl([new Date(Date.now())]),
+      date:new FormControl(null),
     })
     this.intializeListCoulmns();
     this.getPage();
@@ -44,60 +45,45 @@ export class DailySummaryComponent {
       }),
       new ListColumn({
         field: 'date',
-        hide: false, 
+        hide: false,
         header: 'التاريخ',
-        isDate:true
+        isDate: true,
       }),
       new ListColumn({
-        field: 'dayName',
+        field: 'type',
         hide: false,
-        header: 'اليوم',
+        header: 'النوع',
       }),
       new ListColumn({
-        field: 'cycleName',
+        field: 'category',
         hide: false,
-        header: 'الدورة',
+        header: 'الفئة',
       }),
       new ListColumn({
-        field: 'chickAge',
+        field: 'amount',
         hide: false,
-        header: 'عمر الفراخ',
+        header: 'المبلغ',
       }),
       new ListColumn({
-        field: 'eggsGood',
+        field: 'notes',
         hide: false,
-        header: 'إنتاج بيض سليم',
+        header: 'ملاحظات',
       }),
-      new ListColumn({
-        field: 'eggsBroken',
-        hide: false,
-        header: 'إنتاج بيض كسر',
-      }),
-      new ListColumn({
-        field: 'eggsDouble',
-        hide: false,
-        header: 'إنتاج بيض دبل',
-      }),
-      new ListColumn({
-        field: 'eggsTotal',
-        hide: false,
-        header: 'إنتاج بيض كلي',
-      }),
-      new ListColumn({
-        field: 'deadCount',
-        hide: false,
-        header: 'النافق',
-      }),
-      new ListColumn({
-        field: 'feedConsumed',
-        hide: false,
-        header: 'المستهلك ',
-      }),
-      new ListColumn({
-        field: 'eggsSold',
-        hide: false,
-        header: 'مبيعات بيض كام كرتونة ',
-      }),
+      // new ListColumn({
+      //   field: 'traderId',
+      //   hide: false,
+      //   header: 'رقم التاجر',
+      // }),
+      // new ListColumn({
+      //   field: 'workerId',
+      //   hide: false,
+      //   header: 'رقم العامل',
+      // }),
+      // new ListColumn({
+      //   field: 'warehouseId',
+      //   hide: false,
+      //   header: 'رقم المخزن',
+      // }),
     ];
   }
   getPage() {
@@ -121,10 +107,11 @@ export class DailySummaryComponent {
       : start
       ? toISOStringWithoutOffset(setEndOfDay(new Date(start)))
       : '';
-    this.dailySummaryService
-      .getAll(startDate,endDate)
+    this.cashBoxService
+      .getReport(startDate,endDate)
       .subscribe((response: any) => {
-        this.pageResult.items = response;
+        this.pageResult.items = response.transactions;
+        this.report=response
       });
   }
   onPageChanged(event: any) {
@@ -157,4 +144,3 @@ export class DailySummaryComponent {
     this.showWarnningDialog = false;
   }
 }
-

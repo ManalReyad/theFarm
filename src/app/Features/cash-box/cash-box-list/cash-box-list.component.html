@@ -1,0 +1,91 @@
+<div class="flex flex-col gap-4">
+  <div class="flex justify-between items-center">
+    <h1>الخزنة</h1>
+
+    <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
+      <button class="submitBtn" (click)="addNewIncomeCash()">
+        إضافة إيراد
+      </button>
+      <button class="submitBtn" (click)="addNewOutcomeCash()">
+        إضافة مصروف
+      </button>
+      <button class="submitBtn" routerLink="/cash-box/report">
+        تقرير
+        <i class="pi pi-eye"></i>
+      </button>
+    </div>
+  </div>
+
+  <app-list
+    [listColumns]="columns"
+    [pageResult]="pageResult"
+    (pageChange)="onPageChanged($event)"
+    [searchMode]="searchMode"
+    (back)="resetSearch()"
+    noDataImg="nodepartments.svg"
+    noDataMessage="يبدو أنك لم تقم بإضافة أي شئ بعد،  يمكنك البدء بالإضافة  "
+    addButtonText="إضافة مصروف"
+    secondButtonText="إضافة إيراد"
+    [hasSecondBtn]="true"
+    nosearchBtnText="العودة إلى الخزنة"
+    [hasPagination]="false"
+    [withAction]="false"
+    (add)="addNewIncomeCash()"
+    (secondBtnEvent)="addNewOutcomeCash()"
+  ></app-list>
+</div>
+
+<p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="showForm"
+  [closable]="false"
+  [style]="{ width: '25vw' }"
+  [breakpoints]="{ '960px': '80vw' }"
+>
+  <div class="title">
+    {{ incomeCashMode ? "إضافة إيراد" : "إضافة مصروف" }}
+  </div>
+  <form [formGroup]="form">
+    <div class="grid grid-cols-12 mt-5">
+      <div class="col-span-12">
+        <app-input
+          labelText="القيمة"
+          placeholder="أدخل القيمة"
+          formControlName="amount"
+          inputType="number"
+        ></app-input>
+      </div>
+      <div class="col-span-12">
+        <app-date-input
+          labelText="التاريخ"
+          placeholder="أدخل التاريخ"
+          formControlName="date"
+        ></app-date-input>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <label>الوصف</label>
+        <textarea
+          placeholder="ادخل الوصف"
+          cols="12"
+          rows="3"
+          formControlName="notes"
+        ></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-center gap-3 mt-5">
+    <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
+      {{ "حفظ" }}
+    </button>
+    <button class="exitBtn" (click)="showForm = false">إلغاء</button>
+  </div>
+</p-dialog>
+
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض الخزنة"
+></app-success-dialog>

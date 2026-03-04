@@ -53,7 +53,7 @@
           [formGroupName]="i"
         >
           <td>{{ i + 1 }}</td>
-          <td>
+          <td class="min-w-[40%]">
             <app-dropdown
               [options]="getAvailableItems(i)"
               placeholder="اختر الصنف"
@@ -63,7 +63,7 @@
               [isRequired]="false"
             ></app-dropdown>
           </td>
-           <td>
+           <td class="lg:w-[220px] w-fit">
             <app-input
               type="number"
               placeholder="ادخل الكمية"
@@ -73,7 +73,7 @@
               [isRequired]="false"
             />
           </td>
-          <td>
+          <td class="lg:w-[220px] w-fit">
             <app-input
               type="number"
               placeholder="ادخل سعر الوحدة"

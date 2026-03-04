@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { DailySummaryRoutingModule } from './daily-summary-routing.module';
 import { DailySummaryComponent } from './daily-summary/daily-summary.component';
+import { SharedModule } from "src/app/Shared/shared.module";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { DailySummaryComponent } from './daily-summary/daily-summary.component';
   ],
   imports: [
     CommonModule,
-    DailySummaryRoutingModule
-  ]
+    DailySummaryRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
+]
 })
 export class DailySummaryModule { }

@@ -1,0 +1,102 @@
+<div class="flex flex-col gap-4">
+    <div class="flex justify-between items-center">
+      <h1>الملخص اليومي</h1>
+      <form [formGroup]="form" >
+       <div class="w-[320px]">
+          <app-date-input
+          [isRange]="true"
+          [isRequired]="false"
+          [clear]="true"
+          formControlName="date"
+          [hideLabel]="true"
+          placeholder="اختر التاريخ من-إلى"
+          [showClear]="true"
+          (change)="getPage()"
+        ></app-date-input>
+       </div>
+      </form>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+        <!-- الرصيد الافتتاحي -->
+        <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
+          <div class="text-sm text-gray-500 mb-2">
+            الرصيد الافتتاحي
+          </div>
+          <div class="text-2xl font-bold text-gray-700">
+            {{ report?.openingBalance | number }}
+          </div>
+        </div>
+      
+        <!-- إجمالي الإيرادات -->
+        <div class="bg-green-50 rounded-xl shadow-sm p-5 border border-green-100">
+          <div class="text-sm text-green-600 mb-2">
+            إجمالي الإيرادات
+          </div>
+          <div class="text-2xl font-bold text-green-700">
+            {{ report?.totalIncome | number }}
+          </div>
+        </div>
+      
+        <!-- إجمالي المصروفات -->
+        <div class="bg-red-50 rounded-xl shadow-sm p-5 border border-red-100">
+          <div class="text-sm text-red-600 mb-2">
+            إجمالي المصروفات
+          </div>
+          <div class="text-2xl font-bold text-red-700">
+            {{ report?.totalExpense | number }}
+          </div>
+        </div>
+      
+        <!-- الرصيد الختامي -->
+        <div
+          class="rounded-xl shadow-sm p-5 border"
+          [ngClass]="
+            report?.closingBalance < 0
+              ? 'bg-red-50 border-red-100'
+              : 'bg-green-50 border-green-100'
+          "
+        >
+          <div
+            class="text-sm mb-2"
+            [ngClass]="
+              report?.closingBalance < 0
+                ? 'text-red-600'
+                : 'text-green-600'
+            "
+          >
+            الرصيد الختامي
+          </div>
+      
+          <div
+            class="text-2xl font-bold"
+            [ngClass]="
+              report?.closingBalance < 0
+                ? 'text-red-700'
+                : 'text-green-700'
+            "
+          >
+            {{ report?.closingBalance | number }}
+          </div>
+        </div>
+      
+      </div>
+
+    <app-list
+    [listColumns]="columns"
+    [pageResult]="pageResult"
+    (pageChange)="onPageChanged($event)"
+    (delete)="delete($event)"
+    [searchMode]="searchMode"
+    (back)="resetSearch()"
+    noDataImg="nodepartments.svg"
+    noDataMessage="لا توجد بيانات"
+    nosearchBtnText="العودة إلى الملخص اليومي"
+    [hasPagination]="false"
+    [withAction]="false"
+  ></app-list>
+</div>
+
+
+

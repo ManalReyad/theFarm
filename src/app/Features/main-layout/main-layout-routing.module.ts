@@ -98,6 +98,16 @@ const routes: Routes = [
         loadChildren: () =>
           import('../workers/workers.module').then((m) => m.WorkersModule),
       },
+      {
+        path: 'dialy-summary',
+        loadChildren: () =>
+          import('../daily-summary/daily-summary.module').then((m) => m.DailySummaryModule),
+      },
+      {
+        path: 'cash-box',
+        loadChildren: () =>
+          import('../cash-box/cash-box.module').then((m) => m.CashBoxModule),
+      },
     ],
   },
 ];

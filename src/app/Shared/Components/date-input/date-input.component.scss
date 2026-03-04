@@ -35,8 +35,15 @@
 :host ::ng-deep .p-focus {
   display: flex;
 }
+:host ::ng-deep .p-icon-wrapper
+{
+  position: relative;
+  width: 100px;
+}
 ::ng-deep .p-calendar-clear-icon {
-  margin-right: 1rem;
+  position: absolute;
+  left: 0;
+ // margin-right: 2.5rem;
 }
 :host ::ng-deep .ng-trigger-overlayAnimation {
   top: 0;

@@ -13,6 +13,7 @@
         (onSelect)="onChange($event)"
         appendTo="body"
         [readonlyInput]="true"
+        [showClear]="showClear"
       ></p-calendar>
       <span *ngIf="!control.value" class="placeholder">{{ placeholder }}</span>
     </p-floatLabel>
