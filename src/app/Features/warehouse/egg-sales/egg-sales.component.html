@@ -22,8 +22,44 @@
       nosearchBtnText="العودة إلى القائمة"
       [hasPagination]="false"
       [withAction]="false"
+      [specificAction]="role===1"
+      specificActionLabel="تحديد السعر"
+      (specificEvent)="openPriceForm($event)"
     ></app-list>
   </div>
+
+
+  <p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="showForm"
+  [closable]="false"
+  [style]="{ width: '25vw' }"
+  [breakpoints]="{ '960px': '80vw' }"
+>
+  <div class="title">
+    تحديد السعر
+  </div>
+  <form [formGroup]="form">
+    <div class="grid grid-cols-12 mt-5">
+      <div class="col-span-12">
+        <app-input
+          labelText="سعر الكرتونة"
+          placeholder="أدخل سعر الكرتونة"
+          formControlName="unitPrice"
+          inputType="number"
+        ></app-input>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-center gap-3 mt-5">
+    <button class="submitBtn" (click)="savePrice()" [disabled]="form.invalid">
+      {{ "حفظ" }}
+    </button>
+    <button class="exitBtn" (click)="showForm = false">إلغاء</button>
+  </div>
+</p-dialog>
 
   <app-success-dialog
   [visible]="showSuccessDialog"

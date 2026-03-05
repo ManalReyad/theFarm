@@ -16,5 +16,7 @@ export class EggSalesService {
     return this.http.get(this.baseUrl );
   }
 
-  
+  setEggPrice(body: any,id:any) {
+    return this.http.put(this.baseUrl+`${id}/set-price`, body);
+  }
 }

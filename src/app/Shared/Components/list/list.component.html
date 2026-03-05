@@ -22,7 +22,7 @@
         </th>
         <th
           [ngClass]="'text-center'"
-          *ngIf="withAction || withCustomAction"
+          *ngIf="withAction || withCustomAction || specificAction"
           style="width: 10%; min-width: 5rem"
         >
           إعدادات
@@ -120,7 +120,7 @@
         </td>
         <td *ngIf="withAction" class="flex justify-center items-center gap-3">
           <span *ngIf="hasView" (click)="onView(entity)">
-           <i class="pi pi-eye cursor-pointer"></i>
+            <i class="pi pi-eye cursor-pointer"></i>
           </span>
           <span *ngIf="hasEdit" (click)="onEdit(entity, i)">
             <img
@@ -157,17 +157,27 @@
                   alt="edit icon"
                   *ngIf="item.img"
                 />
-                <i [class]="item.icon"  *ngIf="item.icon"></i>
-                <label class="cursor-pointer text-[#000]">{{item.label}}</label>
+                <i [class]="item.icon" *ngIf="item.icon"></i>
+                <label class="cursor-pointer text-[#000]">{{
+                  item.label
+                }}</label>
               </button>
             </div>
           </p-overlayPanel>
+        </td>
+        <td *ngIf="specificAction">
+          <button class="" (click)="onSpecificActionClicked(entity)">
+            {{ specificActionLabel }}
+          </button>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-<div class="pagination" *ngIf="pageResult?.items&&pageResult?.items?.length != 0 && hasPagination">
+<div
+  class="pagination"
+  *ngIf="pageResult?.items && pageResult?.items?.length != 0 && hasPagination"
+>
   <p-paginator
     (onPageChange)="onPageChange($event)"
     [first]="first"
@@ -204,14 +214,14 @@
     [noDataImg]="noDataImg"
     [noDataMessage]="noDataMessage"
   ></app-no-data>
-<div class="w-full flex justify-center items-center gap-3">
-  <button (click)="addNew()" *ngIf="addButtonText">
-    <span>{{ addButtonText }} </span>
-  </button>
-  <button (click)="secondBtnClick()" *ngIf="hasSecondBtn">
-    <span>{{ secondButtonText }} </span>
-  </button>
-</div>
+  <div class="w-full flex justify-center items-center gap-3">
+    <button (click)="secondBtnClick()" *ngIf="hasSecondBtn">
+      <span>{{ secondButtonText }} </span>
+    </button>
+    <button (click)="addNew()" *ngIf="addButtonText">
+      <span>{{ addButtonText }} </span>
+    </button>
+  </div>
 </div>
 <div
   class="noDataSection"

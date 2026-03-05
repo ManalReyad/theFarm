@@ -125,3 +125,10 @@
     cursor: pointer;
   }
 }
+.btn{
+  padding: 4px 12px;
+  border-radius: 8px;
+  background-color: var(--main-white);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}

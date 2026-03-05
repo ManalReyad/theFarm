@@ -26,7 +26,9 @@ export class ListComponent implements OnInit {
   @Input() addButtonText: string = '';
   @Input() secondButtonText: string = '';
   @Input() nosearchBtnText: string = '';
+  @Input() specificActionLabel: string = '';
   @Input() displayEmptyList: boolean = false;
+  @Input() specificAction: boolean = false;
   @Input() customActionMenu:{
     label:string,icon?:string, img?:string , command: (entity: any) => void;
   }[]=[]
@@ -39,6 +41,7 @@ export class ListComponent implements OnInit {
   @Output() assetClicked = new EventEmitter();
   @Output() secondBtnEvent = new EventEmitter();
   @Output() view = new EventEmitter();
+  @Output() specificEvent = new EventEmitter();
 
   first: number = 0;
   last!: number;
@@ -87,5 +90,8 @@ export class ListComponent implements OnInit {
   }
   onAssetClicked(data: any) {
     this.assetClicked.emit(data);
+  }
+  onSpecificActionClicked(data: any) {
+    this.specificEvent.emit(data);
   }
 }

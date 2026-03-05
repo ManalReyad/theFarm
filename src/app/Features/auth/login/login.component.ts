@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -12,41 +13,46 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   saveClicked: boolean = false;
   errorMsg:string=''
+  private secretKey = 'mySecretKlkjdfjkvk;lvzjosAL:SJKoikjj1012';
   constructor(private authServices: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('otp');
     this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      Username: new FormControl(null, [Validators.required,]),
       password: new FormControl(null, [Validators.required]),
     });
   }
 
   login() {
     this.saveClicked = true;
-    this.errorMsg=''
+    this.errorMsg = '';
+
     if (this.form.valid) {
-      this.router.navigate(['/cycle']);
-    //   this.authServices.login(this.form.value).subscribe((response: any) => {
-    //     if (response.isSuccess) {
-    //       this.saveClicked = false;
-    //       localStorage.setItem('otp', JSON.stringify(response.data));
-    //       this.router.navigate(['auth/verify']);
-    //     }else
-    //     {
-    //       this.errorMsg='البريد الإلكتروني أو كلمة المرور غير صحيحة'
+      this.authServices.login(this.form.value).subscribe(
+        (response: any) => {
+            this.saveClicked = false;
           
-    //     }
-    //   },
-    //   (error:any)=>
-    //   {
-    //     console.log(error);
-        
-    //   }
-    // );
+            this.router.navigate(['/cycle']);
+            // تشفير role قبل التخزين
+            if (response.userType) {
+              const encryptedRole = CryptoJS.AES.encrypt(
+                response.userType.toString(),
+                this.secretKey
+              ).toString();
+              localStorage.setItem('role', encryptedRole);
+            }
+
+        },
+        (error: any) => {
+          this.errorMsg=error.error
+        }
+      );
     }
   }
+
+
 
   goToForgorPassword() {
     this.router.navigate(['auth/forget']);

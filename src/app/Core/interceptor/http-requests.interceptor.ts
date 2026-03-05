@@ -50,6 +50,11 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
             baseService.showFaildMessageDailoge();
             baseService.setFailureMessage(error.error);
           }
+        } else if (error.status === 401) {
+          baseService.showFaildMessageDailoge();
+          baseService.setFailureMessage(
+            'يبدو أنه قد حدث خطأ ما، من فضلك أعد المحاولة مجددًا'
+          );
         } else {
           // baseService.showFaildMessageDailoge();
           // baseService.setFailureMessage(

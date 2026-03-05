@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { EggSalesService } from '../egg-sales.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-egg-sales',
   templateUrl: './egg-sales.component.html',
-  styleUrl: './egg-sales.component.scss'
+  styleUrl: './egg-sales.component.scss',
 })
 export class EggSalesComponent {
   columns: ListColumn[] = [];
@@ -24,14 +26,22 @@ export class EggSalesComponent {
   pageNumber: number = 1;
   searchReset: boolean = false;
   farmId: any;
+  form!: FormGroup;
+  selectedItemId: any;
+  role:any
   constructor(
     private eggSalesService: EggSalesService,
     private router: Router,
+    private authService:AuthService
   ) {}
   ngOnInit(): void {
-    this.farmId =Number( localStorage.getItem('farmId'))
+    this.farmId = Number(localStorage.getItem('farmId'));
     this.intializeListCoulmns();
     this.getPage();
+    this.form = new FormGroup({
+      unitPrice: new FormControl(null, Validators.required),
+    });
+    this.role=this.authService.getDecodedRole()
   }
   intializeListCoulmns() {
     this.columns = [
@@ -91,11 +101,9 @@ export class EggSalesComponent {
     ];
   }
   getPage() {
-    this.eggSalesService
-      .getEggSales()
-      .subscribe((response: any) => {
-        this.pageResult.items = response;
-      });
+    this.eggSalesService.getEggSales().subscribe((response: any) => {
+      this.pageResult.items = response;
+    });
   }
   onPageChanged(event: any) {
     this.pageNumber = event.first;
@@ -118,6 +126,19 @@ export class EggSalesComponent {
   }
   edit(data: any) {
     this.router.navigate(['/cycle/update/' + data.item.id]);
+  }
+  openPriceForm(data: any) {
+    this.form.reset();
+    this.showForm = true;
+    this.selectedItemId = data.id;
+  }
+  savePrice() {
+    this.eggSalesService
+      .setEggPrice(this.form.value, this.selectedItemId)
+      .subscribe((data) => {
+        this.showSuccessDialog = true;
+        this.successMesg = 'تمت ،تحديد السعر بنجاح';
+      });
   }
   close() {
     this.showForm = false;
