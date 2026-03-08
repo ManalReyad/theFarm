@@ -47,6 +47,32 @@ export class MenuService {
         routerLink: ['dialy-summary'],
       },
       {
+        label: 'المبيعات',
+        visible: true,
+        icon: PrimeIcons.CHART_LINE,
+        iconStyle: { fontSize: '1.5rem' },
+        expanded: this.shouldExpand([
+          'egg-sales',
+          'warehouse/chicken-sales',
+        ]),
+        items: [
+          {
+            label: 'مبيعات البيض',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['warehouse/egg-sales'],
+          },
+          {
+            label: 'مبيعات الفراخ',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['warehouse/chicken-sales'],
+          },
+        ],
+      },
+      {
         label: 'المخزن',
         visible: true,
         icon: PrimeIcons.WAREHOUSE,
@@ -74,19 +100,13 @@ export class MenuService {
             routerLink: ['warehouse/egg-production'],
           },
           {
-            label: 'مبيعات البيض',
+            label: 'مخزون البيض',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
-            routerLink: ['warehouse/egg-sales'],
+            routerLink: ['warehouse/egg-stock'],
           },
-          {
-            label: 'مبيعات الفراخ',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['warehouse/chicken-sales'],
-          },
+        
         ],
       },
       {

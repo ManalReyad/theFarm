@@ -76,9 +76,10 @@ export class DailyRegistrationFormComponent {
     this.lookupService.getMedicines().subscribe((response: any) => {
       this.allMedicineItemTypes = response;
     });
-    this.cycleService.getList().subscribe((response: any) => {
+    this.lookupService.getUpcomingCycles(this.farmId).subscribe((response: any) => {
       this.cycleOptions = response;
     });
+    //dropdown-needed
     this.warehouseService.getAll().subscribe((res: any) => {
       this.warehouseOptions =
         res.map((item: any) => {

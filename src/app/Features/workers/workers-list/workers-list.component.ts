@@ -99,6 +99,11 @@ export class WorkersListComponent {
         hide: false,
         header: 'التقييم',
       }),
+      new ListColumn({
+        field: 'cumulativeAdvance',
+        hide: false,
+        header: 'إجمالي السُّلف',
+      }),
     ];
   }
   createForm() {

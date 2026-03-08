@@ -24,6 +24,11 @@ export class EggSalesFormComponent {
   warehouseOptions: { id: number; name: string }[] = [];
   farmId: any;
   barnId: any;
+  eggQualityOptions = [
+    { id: 1, name: 'سليم' },
+    { id: 2, name: 'كسر' },
+    { id: 3, name: 'دبل' },
+  ];
   constructor(
     private router: Router,
     private lookupService: LookupService,
@@ -43,6 +48,7 @@ export class EggSalesFormComponent {
       traderId: new FormControl(null, Validators.required),
       quantity: new FormControl(null, Validators.required),
       warehouseId: new FormControl(null, Validators.required),
+      eggQuality: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
       unitPrice: new FormControl(null, Validators.required),
       notes: new FormControl(null),
@@ -53,6 +59,7 @@ export class EggSalesFormComponent {
     this.lookupService.getBuyers().subscribe((data:any)=>{
       this.buyersOptions=data?.map((item:any)=>{return {name:item.name,id:item.id}})
     })
+    //dropdown-needed
     this.warehouseService.getAll().subscribe((res: any) => {
       this.warehouseOptions =
         res.map((item: any) => {

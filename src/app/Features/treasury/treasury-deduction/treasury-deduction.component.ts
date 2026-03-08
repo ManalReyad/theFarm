@@ -52,6 +52,7 @@ export class TreasuryDeductionComponent {
     });
   }
   getDropdowns() {
+    //dropdown-needed
     this.farmService.getList().subscribe((response: any) => {
       if (response.success) {
         this.farmOptions = response.data;

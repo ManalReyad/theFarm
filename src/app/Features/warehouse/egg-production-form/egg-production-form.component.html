@@ -24,14 +24,6 @@
       </app-dropdown>
     </div>
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
-      <app-input
-        labelText="عدد الأطباق"
-        placeholder="أدخل عدد الأطباق"
-        formControlName="cartonsCount"
-        inputType="number"
-      ></app-input>
-    </div>
-    <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-date-input
         labelText=" التاريخ "
         formControlName="date"
@@ -58,7 +50,7 @@
           <tr>
             <th>#</th>
             <th>جودة البيض</th>
-            <th>عدد الكرتونات</th>
+            <th>عدد الأطباق</th>
             <th></th>
           </tr>
         </ng-template>
@@ -78,11 +70,11 @@
               ></app-dropdown>
             </td>
       
-            <!-- عدد الكرتونات -->
+            <!-- عدد الأطباق -->
             <td class="lg:w-[200px] w-fit">
               <app-input
                 type="number"
-                placeholder="ادخل عدد الكرتونات"
+                placeholder="ادخل عدد الأطباق"
                 formControlName="cartonsCount"
                 (keydown)="restrictNagtive($event)"
                 [showLabel]="false"

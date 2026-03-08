@@ -34,6 +34,7 @@ export class MainLayoutComponent implements OnInit {
     this.getFarmDropdowns();
   }
   getFarmDropdowns() {
+    //dropdown-needed
     this.farmService.getList().subscribe((response: any) => {
         this.farmOptions = response?.map((item: any) => {
           return { name: item.name, id: item.id };

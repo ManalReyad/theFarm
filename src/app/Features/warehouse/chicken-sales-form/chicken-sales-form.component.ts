@@ -37,6 +37,7 @@ export class ChickenSalesFormComponent {
       // this.cycleService.getList(this.farmId).subscribe((data: any) => {
       //   this.cycleOptions = data.map((item:any)=>{return{id:item.id,name:item.cycleName,barnName:item.barnName}}) || [];
       // });
+      //dropdown-needed
       this.cycleService.getList().subscribe((data: any) => {
         this.cycleOptions = data|| [];
       });

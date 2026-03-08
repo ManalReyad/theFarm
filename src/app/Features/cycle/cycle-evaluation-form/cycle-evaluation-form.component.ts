@@ -49,6 +49,7 @@ export class CycleEvaluationFormComponent {
   }
 
   getDropdowns() {
+    //dropdown-needed
     this.evaluationItemsService.getAll().subscribe((data: any) => {
       this.evaluationItemsOptions = data || [];
     });

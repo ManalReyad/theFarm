@@ -18,4 +18,7 @@ export class EggProductionService {
   getEggProudctionByFarm(farmId:number) {
     return this.http.get(this.baseUrl + `farm/${farmId}/eggs`);
   }
+  getEggStockByFarm(farmId:number) {
+    return this.http.get(this.baseUrl + `farm/${farmId}/warehouse-eggs`);
+  }
 }

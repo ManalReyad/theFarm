@@ -44,6 +44,7 @@ export class WharehouseAssetsComponent {
     }
   }
   getDrodowns() {
+    //dropdown-needed
     this.assetsItemsService.getList().subscribe((response: any) => {
       this.assetItemsOptions = response || [];
     });

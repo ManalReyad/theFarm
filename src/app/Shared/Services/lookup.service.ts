@@ -34,6 +34,9 @@ export class LookupService {
   getActiveCycles(farmId: number) {
     return this.http.get(this.baseUrl + `active-cycles/${farmId}`);
   }
+  getUpcomingCycles(farmId: number) {
+    return this.http.get(this.baseUrl + `upcoming-cycles/${farmId}`);
+  }
   getFeedTypes() {
     return this.http.get(`${environment.baseUrl}FeedTypes`);
   }

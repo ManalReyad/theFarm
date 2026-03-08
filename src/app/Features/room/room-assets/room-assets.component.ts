@@ -80,6 +80,7 @@ export class RoomAssetsComponent {
     });
   }
   getDropdowns() {
+    //dropdown-needed
     this.roomService.getList().subscribe((result: any) => {
       this.roomOptions = result.data;
       this.roomID = this.activatedRoute.snapshot.params['id'];

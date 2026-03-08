@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-4">
+    <div class="flex justify-between items-center">
+      <h1> مخزون البيض </h1>
+  
+    
+    </div>
+  
+    <app-list
+      [listColumns]="columns"
+      [pageResult]="pageResult"
+      (pageChange)="onPageChanged($event)"
+      [searchMode]="searchMode"
+      (back)="resetSearch()"
+      noDataImg="nodepartments.svg"
+      noDataMessage="لا يوجد مخزون"
+      nosearchBtnText="العودة إلى مخزون البيض"
+      [hasPagination]="true"
+      [withAction]="false"
+    ></app-list>
+  </div>

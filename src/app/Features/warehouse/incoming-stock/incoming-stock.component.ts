@@ -58,6 +58,7 @@ export class IncomingStockComponent {
         };
       });
     });
+    //dropdown-needed
     this.warehouseService.getAll().subscribe((res: any) => {
       this.warehouseOptions =
         res.map((item: any) => {

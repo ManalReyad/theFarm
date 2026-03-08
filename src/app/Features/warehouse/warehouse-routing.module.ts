@@ -9,6 +9,7 @@ import { EggSalesFormComponent } from './egg-sales-form/egg-sales-form.component
 import { WarehouseListingComponent } from './warehouse-listing/warehouse-listing.component';
 import { ChickenSalesComponent } from './chicken-sales/chicken-sales.component';
 import { ChickenSalesFormComponent } from './chicken-sales-form/chicken-sales-form.component';
+import { EggStockComponent } from './egg-stock/egg-stock.component';
 
 const routes: Routes = [
   { path: 'list', component: WarehouseListingComponent },
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'chicken-sales',
     component: ChickenSalesComponent,
+  },
+  {
+    path: 'egg-stock',
+    component: EggStockComponent,
   },
   {
     path: 'chicken-sales/add',

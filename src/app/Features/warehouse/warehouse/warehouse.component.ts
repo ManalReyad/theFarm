@@ -82,6 +82,7 @@ export class WarehouseComponent {
       });
   }
   getData() {
+    //dropdown-needed
     this.farmService.getList().subscribe((response: any) => {
         let farms = response?.map((item: any) => {
           return { name: item.name, id: item.id };

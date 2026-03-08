@@ -41,7 +41,7 @@
   [focusOnShow]="false"
 >
   <div class="title">
-   إاضافة الراتب
+   صرف الراتب
   </div>
   <form [formGroup]="form">
     <div class="grid grid-cols-12 mt-5">
@@ -50,6 +50,7 @@
           labelText="الشهر"
           placeholder="ادخل الشهر"
           formControlName="month"
+          inputType="number"
         ></app-input>
       </div>
       <div class="col-span-12">
@@ -57,6 +58,7 @@
           labelText="السنة"
           placeholder="ادخل السنة"
           formControlName="year"
+          inputType="number"
         ></app-input>
       </div>
     </div>
