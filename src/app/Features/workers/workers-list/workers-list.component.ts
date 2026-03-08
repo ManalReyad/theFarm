@@ -95,14 +95,14 @@ export class WorkersListComponent {
         header: 'رصيد الأجازات',
       }),
       new ListColumn({
-        field: 'finalScore',
-        hide: false,
-        header: 'التقييم',
-      }),
-      new ListColumn({
         field: 'cumulativeAdvance',
         hide: false,
         header: 'إجمالي السُّلف',
+      }),
+      new ListColumn({
+        field: 'finalScore',
+        hide: false,
+        header: 'التقييم',
       }),
     ];
   }
