@@ -40,8 +40,7 @@ export class FeedMixFormComponent {
     private router: Router,
     private feedMixService: FeedMixService,
     private lookupService: LookupService,
-    private activatedRoute: ActivatedRoute,
-    private itemService: ItemsService
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -69,14 +68,9 @@ export class FeedMixFormComponent {
       .subscribe((res: any) => {
         this.warehouseOptions = res || [];
       });
-     //need lookup
-    this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((res: any) => {
-      this.itemOptions =
-        res.items
-          .filter((item: any) => item.itemType == 1)
-          ?.map((item: any) => {
-            return { name: item.name, id: item.id };
-          }) || [];
+    //need lookup
+    this.lookupService.getStoreItems().subscribe((res: any) => {
+      this.itemOptions = res.filter((item: any) => item.itemType == 1);
     });
   }
   createForm() {
