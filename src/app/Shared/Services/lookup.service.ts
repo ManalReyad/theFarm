@@ -10,9 +10,6 @@ export class LookupService {
 
   constructor(public http: HttpClient) {}
 
-  GetAllDepartments() {
-    return this.http.get(this.baseUrl + `GetAllDepartments`);
-  }
   getBarnsByFarmId(farmId: number) {
     return this.http.get(this.baseUrl + `barns/${farmId}`);
   }
@@ -39,5 +36,17 @@ export class LookupService {
   }
   getFeedTypes() {
     return this.http.get(`${environment.baseUrl}FeedTypes`);
+  }
+  getWarehouseByFarmId(farmId: number) {
+    return this.http.get(this.baseUrl + `warehouse/by-farm/${farmId}`);
+  }
+  getFarms() {
+    return this.http.get(this.baseUrl + `farms`);
+  }
+  getEvaluationItems() {
+    return this.http.get(this.baseUrl + `evaluation-items`);
+  }
+  getAssetItems() {
+    return this.http.get(this.baseUrl + `asset-items`);
   }
 }

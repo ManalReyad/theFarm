@@ -9,8 +9,8 @@ export class ItemsService {
   baseUrl = environment.baseUrl + 'Items/';
 
   constructor(public http: HttpClient) {}
-  getItems() {
-    return this.http.get(this.baseUrl);
+  getItems(maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
   addItems(body: any) {
     return this.http.post(this.baseUrl, body);

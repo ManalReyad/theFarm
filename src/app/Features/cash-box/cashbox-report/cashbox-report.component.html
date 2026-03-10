@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4">
+  <h1>تقرير الخزنة</h1>
     <div class="flex justify-between items-center">
-      <h1>الملخص اليومي</h1>
-      <form [formGroup]="form" >
+      <app-bread-crumb [pages]="pages"></app-bread-crumb>      <form [formGroup]="form" >
        <div class="w-[320px]">
           <app-date-input
           [isRange]="true"

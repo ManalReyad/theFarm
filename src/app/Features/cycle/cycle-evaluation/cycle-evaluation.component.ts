@@ -20,8 +20,8 @@ export class CycleEvaluationComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   cycleId: any;
   cycleName: string = '';
@@ -66,19 +66,20 @@ export class CycleEvaluationComponent {
       .getAllByCycle(this.cycleId)
       .subscribe((response: any) => {
         if (response.length > 0) {
-          this.pageResult.items = response[response.length - 1].details;
+          this.pageResult.items = response.evaluations[response.evaluations.length - 1].details||[];
+          this.pageResult.records=response.totalCount
         }
       });
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

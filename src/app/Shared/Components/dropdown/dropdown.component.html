@@ -1,7 +1,7 @@
 <div class="">
   <label *ngIf="showLabel">{{ labelText }}</label>
   <span class="text-red-500" *ngIf="!control.value&&isRequired&&showLabel">*</span>
-  <br />
+  <br *ngIf="showLabel"/>
 
   <div class="dropdownContainer mt-2" [ngClass]="disabled?'disabled':''">
     <p-dropdown

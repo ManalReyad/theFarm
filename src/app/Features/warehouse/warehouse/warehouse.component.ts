@@ -5,6 +5,7 @@ import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { Router } from '@angular/router';
 import { FarmService } from '../../farm/farm.service';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-warehouse',
@@ -23,14 +24,14 @@ export class WarehouseComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   warehouseData:any[]=[]
   constructor(
     private warehouseService: WarehouseService,
     private router: Router,
-    private farmService:FarmService
+    private lookupService:LookupService
   ) {}
   ngOnInit(): void {
     this.intializeListCoulmns();
@@ -82,11 +83,8 @@ export class WarehouseComponent {
       });
   }
   getData() {
-    //dropdown-needed
-    this.farmService.getList().subscribe((response: any) => {
-        let farms = response?.map((item: any) => {
-          return { name: item.name, id: item.id };
-        });
+    this.lookupService.getFarms().subscribe((response: any) => {
+        let farms = response||[];
         if (farms.length > 0) {
           const farmId = Number(localStorage.getItem('farmId'));
           if (farmId) {
@@ -94,8 +92,9 @@ export class WarehouseComponent {
             let wharehouse = this.warehouseData.find((item) => item.farmName == farm.name);
             if(wharehouse)
             {
-              this.warehouseService.getWarehouseItem(wharehouse.id).subscribe((data:any)=>{
-                this.pageResult.items=data
+              this.warehouseService.getWarehouseItem(wharehouse.id,this.maxResultCount,this.skipCount).subscribe((data:any)=>{
+                this.pageResult.items=data.items
+                this.pageResult.records=data.totalCount
               })
             }
 
@@ -104,8 +103,8 @@ export class WarehouseComponent {
     });
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
 }

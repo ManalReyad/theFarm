@@ -12,8 +12,8 @@ export class EggSalesService {
   setEggSales(body: any) {
     return this.http.post(this.baseUrl, body);
   }
-  getEggSales() {
-    return this.http.get(this.baseUrl );
+  getEggSales(maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}` );
   }
 
   setEggPrice(body: any,id:any) {

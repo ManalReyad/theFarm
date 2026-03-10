@@ -21,8 +21,8 @@ export class RawMaterialComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   constructor(private itemService: ItemsService) {}
   ngOnInit(): void {
@@ -66,8 +66,9 @@ export class RawMaterialComponent {
     this.showForm = true;
   }
   getPage() {
-    this.itemService.getItems().subscribe((response: any) => {
-      this.pageResult.items = response.filter((item: any) => item.itemType == 1);
+    this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((response: any) => {
+      this.pageResult.items = response.items.filter((item: any) => item.itemType == 1);
+      this.pageResult.records=response.totalCount
       
     });
   }
@@ -95,14 +96,14 @@ export class RawMaterialComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

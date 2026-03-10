@@ -6,11 +6,9 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-import { FarmService } from '../../farm/farm.service';
 import { WarehouseService } from '../warehouse.service';
 import { Router } from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
-import { TradersService } from '../../traders/traders.service';
 
 @Component({
   selector: 'app-incoming-stock',
@@ -33,17 +31,17 @@ export class IncomingStockComponent {
   currentItemIndex: number = 0;
   currentItemRowInvalid: boolean = false;
   warehouseOptions: { id: number; name: string }[] = [];
-
+  farmId: any;
   constructor(
     private lookupService: LookupService,
     private fb: FormBuilder,
     private warehouseService: WarehouseService,
-    private router: Router,
-    private tradersService: TradersService
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getDropdowns();
     this.createForm();
+    this.farmId = Number(localStorage.getItem('farmId'));
   }
 
   getDropdowns() {
@@ -58,13 +56,11 @@ export class IncomingStockComponent {
         };
       });
     });
-    //dropdown-needed
-    this.warehouseService.getAll().subscribe((res: any) => {
-      this.warehouseOptions =
-        res.map((item: any) => {
-          return { name: item.name, id: item.id };
-        }) || [];
-    });
+    this.lookupService
+      .getWarehouseByFarmId(this.farmId)
+      .subscribe((res: any) => {
+        this.warehouseOptions = res || [];
+      });
   }
   createForm() {
     this.form = new FormGroup({

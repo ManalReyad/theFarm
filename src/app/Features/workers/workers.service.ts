@@ -8,8 +8,10 @@ import { environment } from 'src/environments/environment';
 export class WorkersService {
   baseUrl = environment.baseUrl + 'Workers';
   constructor(private http: HttpClient) {}
-  getAllWorkers() {
-    return this.http.get(this.baseUrl);
+  getAllWorkers(maxResultCount: number, skipCount: number) {
+    return this.http.get(
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+    );
   }
   createWorker(body: any) {
     return this.http.post(this.baseUrl, body);

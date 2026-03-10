@@ -12,7 +12,7 @@ export class ChickenSalesService {
   setChickenSales(body: any) {
     return this.http.post(this.baseUrl, body);
   }
-  getChickenSales() {
-    return this.http.get(this.baseUrl );
+  getChickenSales(maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}` );
   }
 }

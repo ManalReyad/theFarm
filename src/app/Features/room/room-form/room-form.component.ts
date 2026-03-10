@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../room.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FarmService } from '../../farm/farm.service';
 import { RoomType } from '../enums/room-type';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-room-form',
@@ -29,7 +29,7 @@ export class RoomFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private roomService: RoomService,
-    private farmService: FarmService
+    private lookupService: LookupService
   ) {}
   ngOnInit(): void {
     let roomId = this.activatedRoute.snapshot.params['id'];
@@ -45,10 +45,9 @@ export class RoomFormComponent implements OnInit {
     this.createForm();
   }
   getDropdowns() {
-    //dropdown-needed
-    this.farmService.getList().subscribe((response: any) => {
+    this.lookupService.getFarms().subscribe((response: any) => {
       if (response.success) {
-        this.farmOptions = response.data;
+        this.farmOptions = response;
       }
     });
   }

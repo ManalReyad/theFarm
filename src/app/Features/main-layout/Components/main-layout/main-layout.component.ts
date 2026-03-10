@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FarmService } from 'src/app/Features/farm/farm.service';
 import { BaseService } from 'src/app/Shared/Services/base.service';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -17,7 +18,7 @@ export class MainLayoutComponent implements OnInit {
   projectName: string = '';
   constructor(
     private baseService: BaseService,
-    private farmService: FarmService,
+    private lookupService: LookupService,
   ) {}
   ngOnInit() {
     if (this.visiable) {
@@ -34,11 +35,8 @@ export class MainLayoutComponent implements OnInit {
     this.getFarmDropdowns();
   }
   getFarmDropdowns() {
-    //dropdown-needed
-    this.farmService.getList().subscribe((response: any) => {
-        this.farmOptions = response?.map((item: any) => {
-          return { name: item.name, id: item.id };
-        });
+    this.lookupService.getFarms().subscribe((response: any) => {
+        this.farmOptions = response
         if (this.farmOptions.length > 0) {
           const farmId = Number(localStorage.getItem('farmId'));
           if (farmId) {

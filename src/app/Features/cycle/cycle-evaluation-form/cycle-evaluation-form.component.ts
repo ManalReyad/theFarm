@@ -6,9 +6,9 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { EvaluationItemsService } from '../../evaluation/evaluation-items.service';
+import { ActivatedRoute } from '@angular/router';
 import { CycleEvaluationService } from '../cycle-evaluation.service';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-cycle-evaluation-form',
@@ -27,10 +27,9 @@ export class CycleEvaluationFormComponent {
   cycleOptions: { id: number; name: string }[] = [];
   currentScoreIndex: number = 0;
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private cycleEvaluationService: CycleEvaluationService,
-    private evaluationItemsService: EvaluationItemsService,
+    private lookupService: LookupService,
     private fb: FormBuilder
   ) {}
   ngOnInit(): void {
@@ -49,8 +48,7 @@ export class CycleEvaluationFormComponent {
   }
 
   getDropdowns() {
-    //dropdown-needed
-    this.evaluationItemsService.getAll().subscribe((data: any) => {
+    this.lookupService.getEvaluationItems().subscribe((data: any) => {
       this.evaluationItemsOptions = data || [];
     });
   }

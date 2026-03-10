@@ -4,11 +4,12 @@ import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { DailySummaryService } from '../daily-summary.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-daily-summary',
   templateUrl: './daily-summary.component.html',
-  styleUrl: './daily-summary.component.scss'
+  styleUrl: './daily-summary.component.scss',
 })
 export class DailySummaryComponent {
   columns: ListColumn[] = [];
@@ -21,17 +22,34 @@ export class DailySummaryComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
-  form!:FormGroup
-  constructor(private dailySummaryService: DailySummaryService, private router: Router) {}
+  form!: FormGroup;
+  farmId: any;
+  cycleOptions: { id: number; name: string }[] = [];
+
+  constructor(
+    private dailySummaryService: DailySummaryService,
+    private lookupService: LookupService
+  ) {}
   ngOnInit(): void {
-    this.form=new FormGroup({
-      date:new FormControl([new Date(Date.now())]),
-    })
+    this.form = new FormGroup({
+      date: new FormControl([new Date(Date.now())]),
+      cycleId: new FormControl(''),
+    });
+    this.farmId = Number(localStorage.getItem('farmId'));
+
     this.intializeListCoulmns();
     this.getPage();
+    this.getDropdown();
+  }
+  getDropdown() {
+    this.lookupService
+      .getUpcomingCycles(this.farmId)
+      .subscribe((response: any) => {
+        this.cycleOptions = response;
+      });
   }
   intializeListCoulmns() {
     this.columns = [
@@ -44,9 +62,9 @@ export class DailySummaryComponent {
       }),
       new ListColumn({
         field: 'date',
-        hide: false, 
+        hide: false,
         header: 'التاريخ',
-        isDate:true
+        isDate: true,
       }),
       new ListColumn({
         field: 'dayName',
@@ -105,7 +123,7 @@ export class DailySummaryComponent {
 
     const toISOStringWithoutOffset = (date: Date): string => {
       return new Date(
-        date.getTime() - date.getTimezoneOffset() * 60000,
+        date.getTime() - date.getTimezoneOffset() * 60000
       ).toISOString();
     };
 
@@ -122,20 +140,21 @@ export class DailySummaryComponent {
       ? toISOStringWithoutOffset(setEndOfDay(new Date(start)))
       : '';
     this.dailySummaryService
-      .getAll(startDate,endDate)
+      .getAll(startDate, endDate,this.form.value.cycleId,this.maxResultCount,this.skipCount)
       .subscribe((response: any) => {
-        this.pageResult.items = response;
+        this.pageResult.items = response.items;
+        this.pageResult.records=response.totalCount
       });
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount = 0;
     this.getPage();
   }
   delete(item: any) {
@@ -157,4 +176,3 @@ export class DailySummaryComponent {
     this.showWarnningDialog = false;
   }
 }
-

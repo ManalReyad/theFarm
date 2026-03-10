@@ -22,8 +22,8 @@ export class VacationsComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   workerId:any
   pages: any = [
@@ -121,14 +121,14 @@ export class VacationsComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

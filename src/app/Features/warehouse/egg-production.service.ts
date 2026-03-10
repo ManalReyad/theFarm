@@ -12,13 +12,13 @@ export class EggProductionService {
   setEggProudction(body: any) {
     return this.http.post(this.baseUrl, body);
   }
-  getEggProudction() {
-    return this.http.get(this.baseUrl + `warehouse`);
+  getEggProudction(maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `warehouse?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
-  getEggProudctionByFarm(farmId:number) {
-    return this.http.get(this.baseUrl + `farm/${farmId}/eggs`);
+  getEggProudctionByFarm(farmId:number,maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `farm/${farmId}/eggs?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
-  getEggStockByFarm(farmId:number) {
-    return this.http.get(this.baseUrl + `farm/${farmId}/warehouse-eggs`);
+  getEggStockByFarm(farmId:number,maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `farm/${farmId}/warehouse-eggs&SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
 }

@@ -6,6 +6,7 @@ import { FarmService } from '../../farm/farm.service';
 import { PaidType } from '../enums/paid-type';
 import { TreasuryService } from '../treasury.service';
 import { Router } from '@angular/router';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-treasury',
@@ -26,8 +27,8 @@ export class TreasuryComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   farmOptions: { id: number; name: string }[] = [];
   paidTypeOptions: { id: number; name: string }[] = [
@@ -43,7 +44,8 @@ export class TreasuryComponent {
   constructor(
     private farmService: FarmService,
     private treasuryService: TreasuryService,
-    private router: Router
+    private router: Router,
+    private lookupService:LookupService
   ) {}
   ngOnInit(): void {
     this.createForm();
@@ -81,11 +83,8 @@ export class TreasuryComponent {
     });
   }
   getDropdowns() {
-    //dropdown-needed
-    this.farmService.getList().subscribe((response: any) => {
-      if (response.success) {
-        this.farmOptions = response.data;
-      }
+    this.lookupService.getFarms().subscribe((response: any) => {
+      this.farmOptions = response;
     });
   }
   add() {
@@ -100,7 +99,7 @@ export class TreasuryComponent {
   }
   getPage() {
     this.treasuryService
-      .getAll(this.pageNumber, this.pageSize)
+      .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
         if (response.success) {
           this.pageResult = response.data;
@@ -123,14 +122,14 @@ export class TreasuryComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

@@ -9,14 +9,9 @@ export class TradersService {
   baseUrl = environment.baseUrl + 'Traders';
   constructor(private http: HttpClient) {}
 
-  getAll(
-    pageIndex: number,
-    pageSize: number,
-    isAscending: boolean = true,
-    orderBy: string = ''
-  ) {
+    getAll(maxResultCount: number, skipCount: number) {
     return this.http.get(
-      this.baseUrl 
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
     );
   }
   create(body: any) {

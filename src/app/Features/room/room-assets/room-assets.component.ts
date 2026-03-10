@@ -6,6 +6,7 @@ import { RoomService } from '../room.service';
 import { AssetService } from '../../assets/asset.service';
 import { RoomAssetService } from './room-asset.service';
 import { ActivatedRoute } from '@angular/router';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-room-assets',
@@ -24,16 +25,17 @@ export class RoomAssetsComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   roomOptions: any[] = [];
   assetsOptions: any[] = [];
   roomID: any;
+  farmId: any;
   constructor(
     private roomAssetService: RoomAssetService,
     private roomService: RoomService,
-    private assetService: AssetService,
+    private lookupService: LookupService,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class RoomAssetsComponent {
     this.createForm();
     this.intializeListCoulmns();
     this.getPage();
+    this.farmId = Number(localStorage.getItem('farmId'));
   }
   intializeListCoulmns() {
     this.columns = [
@@ -80,9 +83,8 @@ export class RoomAssetsComponent {
     });
   }
   getDropdowns() {
-    //dropdown-needed
-    this.roomService.getList().subscribe((result: any) => {
-      this.roomOptions = result.data;
+    this.lookupService.getBarnsByFarmId(this.farmId).subscribe((result: any) => {
+      this.roomOptions = result;
       this.roomID = this.activatedRoute.snapshot.params['id'];
       this.createForm();
     });
@@ -98,7 +100,7 @@ export class RoomAssetsComponent {
   }
   getPage() {
     this.roomAssetService
-      .getAll(this.pageNumber, this.pageSize)
+      .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
         if (response.success) {
           this.pageResult = { items: response.data.items };
@@ -137,14 +139,14 @@ export class RoomAssetsComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

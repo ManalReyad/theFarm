@@ -21,8 +21,8 @@ export class DailyRegistrationListingComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   constructor(
     private dailyRegisterService: DailyRegistrationService,
@@ -92,10 +92,10 @@ export class DailyRegistrationListingComponent {
   }
   getPage() {
     this.dailyRegisterService
-      .getAll(this.pageNumber, this.pageSize)
+      .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
-  
-        this.pageResult.items = response.map((item:any) => {
+         this.pageResult.records=response.totalCount
+        this.pageResult.items = response.dailyRecords.map((item:any) => {
   
           const feedQuantityTotal = item.feedConsumptions?.reduce(
             (sum:any, el:any) => sum + (el.quantity || 0),
@@ -129,14 +129,14 @@ export class DailyRegistrationListingComponent {
       });
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

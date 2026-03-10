@@ -9,8 +9,10 @@ export class CashBoxService {
   baseUrl = environment.baseUrl + 'CashBox';
   constructor(private http: HttpClient) {}
 
-  getAll() {
-    return this.http.get(this.baseUrl);
+  getAll(maxResultCount: number, skipCount: number) {
+    return this.http.get(
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+    );
   }
   getReport(from: any, to: any) {
     return this.http.get(this.baseUrl + `/report?from=${from}&to=${to}`);

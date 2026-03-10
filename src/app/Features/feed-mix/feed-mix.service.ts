@@ -13,7 +13,9 @@ export class FeedMixService {
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
-  getAll() {
-    return this.http.get(this.baseUrl);
+  getAll(maxResultCount: number, skipCount: number) {
+    return this.http.get(
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+    );
   }
 }

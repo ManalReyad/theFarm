@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { EggSalesService } from '../egg-sales.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
-import { TradersService } from '../../traders/traders.service';
-import { WarehouseService } from '../warehouse.service';
+
 
 @Component({
   selector: 'app-egg-sales-form',
@@ -33,7 +32,6 @@ export class EggSalesFormComponent {
     private router: Router,
     private lookupService: LookupService,
     private eggSalesService: EggSalesService,
-    private warehouseService:WarehouseService
 
   ) {}
   ngOnInit(): void {
@@ -59,13 +57,11 @@ export class EggSalesFormComponent {
     this.lookupService.getBuyers().subscribe((data:any)=>{
       this.buyersOptions=data?.map((item:any)=>{return {name:item.name,id:item.id}})
     })
-    //dropdown-needed
-    this.warehouseService.getAll().subscribe((res: any) => {
-      this.warehouseOptions =
-        res.map((item: any) => {
-          return { name: item.name, id: item.id };
-        }) || [];
-    });
+    this.lookupService
+      .getWarehouseByFarmId(this.farmId)
+      .subscribe((res: any) => {
+        this.warehouseOptions = res || [];
+      });
   
   }
   save() {

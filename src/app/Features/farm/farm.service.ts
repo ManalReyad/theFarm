@@ -9,13 +9,10 @@ export class FarmService {
   baseUrl = environment.baseUrl + 'Farms';
   constructor(private http: HttpClient) {}
 
-  getAll(
-    pageIndex: number,
-    pageSize: number,
-    isAscending: boolean = true,
-    orderBy: string = '',
-  ) {
-    return this.http.get(this.baseUrl);
+  getAll(maxResultCount: number, skipCount: number) {
+    return this.http.get(
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+    );
   }
   create(body: any) {
     return this.http.post(this.baseUrl, body);

@@ -4,6 +4,7 @@ import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { WharehouseAssetsService } from '../wharehouse-assets.service';
 import { AssetService } from '../../assets/asset.service';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-wharehouse-assets',
@@ -22,8 +23,8 @@ export class WharehouseAssetsComponent {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   warehouseAsset: any = undefined;
   showAddWarehouseForm: boolean = false;
@@ -32,7 +33,7 @@ export class WharehouseAssetsComponent {
   assetItemsOptions: { id: number; name: string }[] = [];
   constructor(
     private wharehouseAssetService: WharehouseAssetsService,
-    private assetsItemsService: AssetService,
+    private lookupService: LookupService,
   ) {}
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
@@ -44,8 +45,7 @@ export class WharehouseAssetsComponent {
     }
   }
   getDrodowns() {
-    //dropdown-needed
-    this.assetsItemsService.getList().subscribe((response: any) => {
+    this.lookupService.getAssetItems().subscribe((response: any) => {
       this.assetItemsOptions = response || [];
     });
   }
@@ -140,14 +140,14 @@ export class WharehouseAssetsComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

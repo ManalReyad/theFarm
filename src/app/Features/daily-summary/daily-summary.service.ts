@@ -9,7 +9,16 @@ export class DailySummaryService {
   baseUrl = environment.baseUrl + 'DailySummary';
   constructor(private http: HttpClient) {}
 
-  getAll(startDate:any,endDate:any) {
-    return this.http.get(this.baseUrl+`?startDate=${startDate}&endDate=${endDate}`);
+  getAll(
+    startDate: any,
+    endDate: any,
+    cycleId: any,
+    maxResultCount: number,
+    skipCount: number
+  ) {
+    return this.http.get(
+      this.baseUrl +
+        `?startDate=${startDate}&endDate=${endDate}&cycleId=${cycleId}&skipCount=${skipCount}&maxResultCount=${maxResultCount}`
+    );
   }
 }

@@ -21,8 +21,8 @@ export class MedicineComponent {
    successMesg: string = '';
    showWarnningDialog: boolean = false;
    searchMode: boolean = false;
-   pageSize: number = 10;
-   pageNumber: number = 1;
+   maxResultCount: number = 7;
+   skipCount: number = 0;
    searchReset: boolean = false;
    constructor(private itemService: ItemsService) {}
    ngOnInit(): void {
@@ -66,8 +66,9 @@ export class MedicineComponent {
      this.showForm = true;
    }
    getPage() {
-     this.itemService.getItems().subscribe((response: any) => {
-       this.pageResult.items = response.filter((item: any) => item.itemType == 2);
+     this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((response: any) => {
+       this.pageResult.items = response.items.filter((item: any) => item.itemType == 2);
+       this.pageResult.records=response.totalCount
      });
    }
    edit(object: any) {
@@ -94,14 +95,14 @@ export class MedicineComponent {
      this.showWarnningDialog = true;
    }
    onPageChanged(event: any) {
-     this.pageNumber = event.first;
-     this.pageSize = event.rows;
+     this.maxResultCount= event.first;
+     this.skipCount= event.rows;
      this.getPage();
    }
    resetSearch() {
      this.searchReset = true;
      this.searchMode = false;
-     this.pageNumber = 1;
+     this.skipCount= 0;
      this.getPage();
    }
    delete(item: any) {

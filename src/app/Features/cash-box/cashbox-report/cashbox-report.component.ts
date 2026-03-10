@@ -21,11 +21,15 @@ export class CashboxReportComponent implements OnInit {
   successMesg: string = '';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
-  pageSize: number = 10;
-  pageNumber: number = 1;
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   searchReset: boolean = false;
   form!:FormGroup
   report:any
+  pages: any = [
+    { name: 'الخزنة', route: '/cash-box' },
+    { name: 'التقرير' },
+  ];
   constructor(private cashBoxService: CashBoxService, private router: Router) {}
   ngOnInit(): void {
     this.form=new FormGroup({
@@ -115,14 +119,14 @@ export class CashboxReportComponent implements OnInit {
       });
   }
   onPageChanged(event: any) {
-    this.pageNumber = event.first;
-    this.pageSize = event.rows;
+    this.maxResultCount= event.rows;
+    this.skipCount= event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.pageNumber = 1;
+    this.skipCount= 0;
     this.getPage();
   }
   delete(item: any) {

@@ -42,11 +42,9 @@ export class DailyRegistrationFormComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private cycleService: CycleService,
     private dailyRegisterService: DailyRegistrationService,
     private fb: FormBuilder,
     private lookupService: LookupService,
-    private warehouseService:WarehouseService
   ) {}
   ngOnInit(): void {
     let id = this.activatedRoute.snapshot.params['id'];
@@ -58,7 +56,7 @@ export class DailyRegistrationFormComponent {
         { name: 'تعديل تسجيل يومي' },
       ];
     }
-    // this.farmId = Number(localStorage.getItem('farmId'));
+     this.farmId = Number(localStorage.getItem('farmId'));
     // if (this.farmId) {
     //   this.lookupService
     //     .getBarnsByFarmId(this.farmId)
@@ -76,23 +74,23 @@ export class DailyRegistrationFormComponent {
     this.lookupService.getMedicines().subscribe((response: any) => {
       this.allMedicineItemTypes = response;
     });
-    this.lookupService.getUpcomingCycles(this.farmId).subscribe((response: any) => {
-      this.cycleOptions = response;
-    });
-    //dropdown-needed
-    this.warehouseService.getAll().subscribe((res: any) => {
-      this.warehouseOptions =
-        res.map((item: any) => {
-          return { name: item.name, id: item.id };
-        }) || [];
-    });
+    this.lookupService
+      .getUpcomingCycles(this.farmId)
+      .subscribe((response: any) => {
+        this.cycleOptions = response;
+      });
+    this.lookupService
+      .getWarehouseByFarmId(this.farmId)
+      .subscribe((res: any) => {
+        this.warehouseOptions = res || [];
+      });
   }
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(),
       deadCount: new FormControl(null, Validators.required),
       cycleId: new FormControl(null, Validators.required),
-      warehouseId:new FormControl(null, Validators.required),
+      warehouseId: new FormControl(null, Validators.required),
       feedConsumptions: this.fb.array([
         this.fb.group({
           itemId: [],
@@ -207,15 +205,17 @@ export class DailyRegistrationFormComponent {
       feedConsumptions: this.form.value.feedConsumptions.map((item: any) => ({
         ...item,
         quantity: Number(item.quantity),
-        itemId: Number(item.itemId)
+        itemId: Number(item.itemId),
       })),
-      medicineConsumptions: this.form.value.medicineConsumptions.map((item: any) => ({
-        ...item,
-        quantity: Number(item.quantity),
-        itemId: Number(item.itemId)
-      }))
+      medicineConsumptions: this.form.value.medicineConsumptions.map(
+        (item: any) => ({
+          ...item,
+          quantity: Number(item.quantity),
+          itemId: Number(item.itemId),
+        })
+      ),
     };
-  
+
     if (this.editMode) {
       // update
     } else {
@@ -225,7 +225,7 @@ export class DailyRegistrationFormComponent {
       });
     }
   }
-  
+
   restrictNagtive(event: KeyboardEvent) {
     if (
       event.key === '-' ||

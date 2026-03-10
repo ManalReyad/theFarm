@@ -8,13 +8,10 @@ import { environment } from 'src/environments/environment';
 export class AssetService {
   baseUrl = environment.baseUrl + 'AssetItems';
   constructor(private http: HttpClient) {}
-  getAll(
-    pageIndex: number,
-    pageSize: number,
-    isAscending: boolean = true,
-    orderBy: string = ''
-  ) {
-    return this.http.get(this.baseUrl);
+  getAll(maxResultCount: number, skipCount: number) {
+    return this.http.get(
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+    );
   }
   getList() {
     return this.http.get(this.baseUrl);

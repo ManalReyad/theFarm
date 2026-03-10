@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 export class TransactionsService {
   baseUrl = environment.baseUrl + 'AssetWarehouse';
   constructor(private http: HttpClient) {}
-  getTransactionsByFarm(farmId: number) {
-    return this.http.get(this.baseUrl + `/transactions/${farmId}`);
+  getTransactionsByFarm(farmId: number,maxResultCount: number, skipCount: number) {
+    return this.http.get(this.baseUrl + `/transactions/${farmId}?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
   withdraw(body: any) {
     return this.http.post(this.baseUrl + `/withdraw`, body);

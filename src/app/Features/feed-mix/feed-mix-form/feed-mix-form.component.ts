@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
 import { FeedMixService } from '../feed-mix.service';
-import { WarehouseService } from '../../warehouse/warehouse.service';
 import { ItemsService } from 'src/app/Shared/Services/items.service';
 
 @Component({
@@ -24,22 +29,23 @@ export class FeedMixFormComponent {
   warehouseOptions: { id: number; name: string }[] = [];
   itemOptions: { id: number; name: string }[] = [];
   selectedItems: any[] = [];
-
+  farmId: any;
   successMesg = '';
   showSuccessDialog = false;
   currentItemIndex = 0;
-
+  maxResultCount: number = 7;
+  skipCount: number = 0;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private feedMixService: FeedMixService,
     private lookupService: LookupService,
     private activatedRoute: ActivatedRoute,
-    private warehouseService: WarehouseService,
     private itemService: ItemsService
   ) {}
 
   ngOnInit(): void {
+    this.farmId = Number(localStorage.getItem('farmId'));
     const id = this.activatedRoute.snapshot.params['id'];
     if (id) {
       this.getById(id);
@@ -58,17 +64,15 @@ export class FeedMixFormComponent {
     this.lookupService.getFeedTypes().subscribe((res: any) => {
       this.feedTypeOptions = res || [];
     });
-//dropdown-needed
-    this.warehouseService.getAll().subscribe((res: any) => {
-      this.warehouseOptions =
-        res.map((item: any) => {
-          return { name: item.name, id: item.id };
-        }) || [];
-    });
-
-    this.itemService.getItems().subscribe((res: any) => {
+    this.lookupService
+      .getWarehouseByFarmId(this.farmId)
+      .subscribe((res: any) => {
+        this.warehouseOptions = res || [];
+      });
+     //need lookup
+    this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((res: any) => {
       this.itemOptions =
-        res
+        res.items
           .filter((item: any) => item.itemType == 1)
           ?.map((item: any) => {
             return { name: item.name, id: item.id };
@@ -118,7 +122,7 @@ export class FeedMixFormComponent {
   }
 
   onSelectionChange(id: any, index: number) {
-    this.selectedItems[index] =id;
+    this.selectedItems[index] = id;
   }
 
   addRow() {
@@ -129,7 +133,7 @@ export class FeedMixFormComponent {
   deleteRow(index: number) {
     this.items.removeAt(index);
     this.selectedItems.splice(index, 1);
-    this.currentItemIndex = this.items.length - 1; 
+    this.currentItemIndex = this.items.length - 1;
   }
 
   isCurrentRowInvalid(): boolean {
@@ -144,7 +148,7 @@ export class FeedMixFormComponent {
     const formValue = this.form.value;
     formValue.items = formValue.items.map((item: any) => ({
       ...item,
-      quantity: item.quantity !== null ? +item.quantity : null, 
+      quantity: item.quantity !== null ? +item.quantity : null,
     }));
     if (this.editMode) {
       // this.feedMixService.update(this.form.value).subscribe(() => {

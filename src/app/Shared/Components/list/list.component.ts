@@ -45,9 +45,9 @@ export class ListComponent implements OnInit {
 
   first: number = 0;
   last!: number;
-  rows: number = 10;
+  rows: number = 7;
   options: Dropdown[] = [
-    { id: 5, name: 5 },
+    { id: 7, name: 7 },
     { id: 10, name: 10 },
     { id: 20, name: 20 },
   ];
