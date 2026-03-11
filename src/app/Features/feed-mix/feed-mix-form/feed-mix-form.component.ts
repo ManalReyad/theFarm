@@ -69,15 +69,15 @@ export class FeedMixFormComponent {
       .subscribe((res: any) => {
         this.warehouseOptions = res || [];
       });
-     //need lookup
-    this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((res: any) => {
-      this.itemOptions =
-        res.items
-          .filter((item: any) => item.itemType == 1)
-          ?.map((item: any) => {
+    //need lookup
+    this.itemService
+      .getItems(this.maxResultCount, this.skipCount, 1)
+      .subscribe((res: any) => {
+        this.itemOptions =
+          res.items.map((item: any) => {
             return { name: item.name, id: item.id };
           }) || [];
-    });
+      });
   }
   createForm() {
     this.form = new FormGroup({

@@ -66,7 +66,7 @@ export class MedicineComponent {
      this.showForm = true;
    }
    getPage() {
-     this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((response: any) => {
+     this.itemService.getItems(this.maxResultCount,this.skipCount,2).subscribe((response: any) => {
        this.pageResult.items = response.items.filter((item: any) => item.itemType == 2);
        this.pageResult.records=response.totalCount
      });

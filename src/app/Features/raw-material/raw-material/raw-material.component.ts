@@ -66,8 +66,8 @@ export class RawMaterialComponent {
     this.showForm = true;
   }
   getPage() {
-    this.itemService.getItems(this.maxResultCount,this.skipCount).subscribe((response: any) => {
-      this.pageResult.items = response.items.filter((item: any) => item.itemType == 1);
+    this.itemService.getItems(this.maxResultCount,this.skipCount,1).subscribe((response: any) => {
+      this.pageResult.items = response.items;
       this.pageResult.records=response.totalCount
       
     });

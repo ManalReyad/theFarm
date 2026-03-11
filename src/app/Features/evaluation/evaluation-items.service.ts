@@ -11,7 +11,7 @@ export class EvaluationItemsService {
 
   getAll(maxResultCount: number, skipCount: number) {
     return this.http.get(
-      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+      this.baseUrl + `?skip=${skipCount}&take=${maxResultCount}`
     );
   }
   create(body: any) {
