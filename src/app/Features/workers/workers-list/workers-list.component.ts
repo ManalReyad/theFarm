@@ -116,7 +116,7 @@ export class WorkersListComponent {
   }
   getPage() {
     this.workersService.getAllWorkers(this.maxResultCount,this.skipCount).subscribe((response: any) => {
-      if (response.length > 0) {
+      if (response.workers.length > 0) {
         response.workers.forEach((element: any) => {
           element.role =
             element.role == 'FarmManager'

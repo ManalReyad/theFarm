@@ -1,7 +1,7 @@
 <div>
 <label *ngIf="showLabel">{{ labelText }}</label>
 <span class="text-red-500" *ngIf="(whiteSpaceError || !control.value)&&isRequired&&showLabel">*</span>
-<br />
+<br *ngIf="showLabel"/>
 <div class="inputContainer mt-2">
   <input
     [formControl]="control"

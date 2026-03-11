@@ -39,9 +39,9 @@ export class IncomingStockComponent {
     private router: Router
   ) {}
   ngOnInit(): void {
+    this.farmId = Number(localStorage.getItem('farmId'));
     this.getDropdowns();
     this.createForm();
-    this.farmId = Number(localStorage.getItem('farmId'));
   }
 
   getDropdowns() {

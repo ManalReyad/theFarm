@@ -29,8 +29,6 @@ export class TransactionsComponent {
   farmId!: number;
   warehouseAssetItemsOptions: { id: number; name: string }[] = [];
   barnsOptions: { id: number; name: string }[] = [];
-
-  warehouseAsset: any;
   constructor(
     private transactionsService: TransactionsService,
     private wharehouseAssetService: WharehouseAssetsService,
@@ -44,14 +42,9 @@ export class TransactionsComponent {
     this.getDrodowns();
   }
   getDrodowns() {
-    this.wharehouseAssetService
-      .getAssetWarehouseByFarm(this.farmId)
-      .subscribe((data: any) => {
-        this.warehouseAsset = data;
-        this.warehouseAssetItemsOptions = data.items.map((item: any) => {
-          return { name: item.assetItemName, id: item.assetItemId };
-        });
-      });
+    this.lookupService.getAssetItems().subscribe((data: any) => {
+      this.warehouseAssetItemsOptions = data;
+    });
     this.lookupService.getBarnsByFarmId(this.farmId).subscribe((data: any) => {
       this.barnsOptions = data || [];
     });
@@ -140,15 +133,16 @@ export class TransactionsComponent {
 
   getPage() {
     this.transactionsService
-      .getTransactionsByFarm(this.farmId,this.maxResultCount,this.skipCount)
+      .getTransactionsByFarm(this.farmId, this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
-        response.forEach((element: any) => {
+        response.transactions.forEach((element: any) => {
           element.transactionType =
             element.transactionType == 'Withdraw'
               ? 'صرف من المخزن للعنبر'
               : 'إضافة من العنبر إلى المخزن';
         });
-        this.pageResult.items = response;
+        this.pageResult.items = response.transactions;
+        this.pageResult.records=response.totalCount
       });
   }
 
@@ -156,14 +150,14 @@ export class TransactionsComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
+    this.skipCount = 0;
     this.getPage();
   }
   delete(item: any) {

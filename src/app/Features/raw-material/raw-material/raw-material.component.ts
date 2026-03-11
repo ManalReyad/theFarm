@@ -55,7 +55,7 @@ export class RawMaterialComponent {
     this.form = new FormGroup({
       id: new FormControl(0),
       name: new FormControl(null, Validators.required),
-      pricePerTon: new FormControl(),
+      pricePerTon: new FormControl(null, Validators.required),
       itemType: new FormControl(),
     });
   }

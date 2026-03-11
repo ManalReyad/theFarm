@@ -11,8 +11,8 @@ export class WharehouseAssetsService {
   createWarehouseAsset(body: any) {
     return this.http.post(this.baseUrl + '/create', body);
   }
-  getAssetWarehouseByFarm(farmId: number) {
-    return this.http.get(this.baseUrl + `/${farmId}`);
+  getAssetWarehouseByFarm(farmId: number,maxResultCount:number,skipCount:number) {
+    return this.http.get(this.baseUrl + `/${farmId}?skip=${skipCount}&take=${maxResultCount}`);
   }
   createAsset(body: any) {
     return this.http.post(this.baseUrl + '/add', body,{ responseType: 'text' });

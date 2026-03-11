@@ -104,10 +104,11 @@ export class WharehouseAssetsComponent {
   }
   getPage() {
        this.wharehouseAssetService
-        .getAssetWarehouseByFarm(this.farmId)
+        .getAssetWarehouseByFarm(this.farmId,this.maxResultCount,this.skipCount)
         .subscribe((data:any) => {
           this.warehouseAsset = data;
           this.pageResult.items=data.items
+          this.pageResult.records=data.totalCount
         });
     
   }

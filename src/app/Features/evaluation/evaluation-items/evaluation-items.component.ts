@@ -55,7 +55,7 @@ export class EvaluationItemsComponent {
     this.form = new FormGroup({
       id: new FormControl(0),
       name: new FormControl(null, Validators.required),
-      maxScore: new FormControl(''),
+      maxScore: new FormControl(null, Validators.required),
     });
   }
   addNew() {
