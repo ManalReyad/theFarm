@@ -60,7 +60,7 @@ export class EggSalesFormComponent {
     this.lookupService
       .getWarehouseByFarmId(this.farmId)
       .subscribe((res: any) => {
-        this.warehouseOptions = res || [];
+       this.warehouseOptions =res? [{...res}]:[];
       });
   
   }

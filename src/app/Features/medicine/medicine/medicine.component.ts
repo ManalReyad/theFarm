@@ -95,8 +95,8 @@ export class MedicineComponent {
      this.showWarnningDialog = true;
    }
    onPageChanged(event: any) {
-     this.maxResultCount= event.first;
-     this.skipCount= event.rows;
+     this.maxResultCount= event.rows;
+     this.skipCount= event.first;
      this.getPage();
    }
    resetSearch() {

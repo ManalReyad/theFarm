@@ -2,22 +2,26 @@ label {
   @apply xl:text-[18px] lg:text-[16px] text-[14px];
   color: var(--primary);
 }
+
 .dropdownContainer {
   border: 1px solid var(--gray);
   border-radius: 4px;
   background-color: var(--main-white);
   width: 100%;
   position: relative;
+
   img {
     position: absolute;
     top: 15px;
     left: 8px;
   }
 }
-.disabled{
+
+.disabled {
   opacity: .8;
   cursor: not-allowed;
 }
+
 :host ::ng-deep .p-inputwrapper {
   background-color: transparent;
   border: none;
@@ -29,17 +33,29 @@ label {
 ::ng-deep .p-dropdown-header {
   .p-dropdown-filter-container {
     position: relative;
+
     input {
       padding-right: 5px;
       border: 1px solid var(--gray);
+
       &:focus {
         box-shadow: none;
       }
     }
   }
 }
-:host ::ng-deep .p-icon-wrapper {
+
+:host ::ng-deep .p-dropdown-trigger-icon {
   display: none;
+}
+
+:host ::ng-deep .p-icon-wrapper {
+  position: relative;
+}
+
+:host ::ng-deep .p-dropdown-clear-icon {
+  position: absolute;
+  right: 0;
 }
 
 :host ::ng-deep .p-dropdown-label,

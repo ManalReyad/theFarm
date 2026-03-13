@@ -36,7 +36,7 @@ export class IncomingStockComponent {
     private lookupService: LookupService,
     private fb: FormBuilder,
     private warehouseService: WarehouseService,
-    private router: Router
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
@@ -59,7 +59,7 @@ export class IncomingStockComponent {
     this.lookupService
       .getWarehouseByFarmId(this.farmId)
       .subscribe((res: any) => {
-        this.warehouseOptions = res || [];
+        this.warehouseOptions = res ? [{ ...res }] : [];
       });
   }
   createForm() {
@@ -67,6 +67,7 @@ export class IncomingStockComponent {
       id: new FormControl(),
       warehouseId: new FormControl(null, Validators.required),
       traderId: new FormControl(null, Validators.required),
+      paidAmount: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
       Items: this.fb.array([
         this.fb.group({
@@ -83,10 +84,10 @@ export class IncomingStockComponent {
   }
   getAvailableItems(index: number): any[] {
     const selectedBeforeCurrent = this.selectedItems.filter(
-      (_, i) => i !== index
+      (_, i) => i !== index,
     );
     return this.itemTypes.filter(
-      (itemType) => !selectedBeforeCurrent.includes(itemType.id)
+      (itemType) => !selectedBeforeCurrent.includes(itemType.id),
     );
   }
   onSelectionChange(id: any, index: number): void {
@@ -100,7 +101,7 @@ export class IncomingStockComponent {
         itemId: [],
         quantity: [],
         pricePerTon: [],
-      })
+      }),
     );
     this.currentItemIndex++;
   }

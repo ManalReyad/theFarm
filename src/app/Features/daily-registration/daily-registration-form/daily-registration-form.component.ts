@@ -75,14 +75,15 @@ export class DailyRegistrationFormComponent {
       this.allMedicineItemTypes = response;
     });
     this.lookupService
-      .getUpcomingCycles(this.farmId)
+      .getActiveCycles(this.farmId)
       .subscribe((response: any) => {
-        this.cycleOptions = response;
+        this.cycleOptions =response.length>0? response.map((item:any)=>{return{id:item.id,name:item.cycleName}}):[];
       });
     this.lookupService
       .getWarehouseByFarmId(this.farmId)
       .subscribe((res: any) => {
-        this.warehouseOptions = res || [];
+              this.warehouseOptions =res? [{...res}]:[];
+
       });
   }
   createForm() {

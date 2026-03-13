@@ -62,16 +62,17 @@ export class FeedMixFormComponent {
 
   loadDropdowns() {
     this.lookupService.getFeedTypes().subscribe((res: any) => {
-      this.feedTypeOptions = res || [];
+      this.feedTypeOptions = res.feedTypes || [];
     });
     this.lookupService
       .getWarehouseByFarmId(this.farmId)
       .subscribe((res: any) => {
-        this.warehouseOptions = res || [];
+              this.warehouseOptions =res? [{...res}]:[];
+
       });
     //need lookup
     this.itemService
-      .getItems(this.maxResultCount, this.skipCount, 1)
+      .getItems(100, this.skipCount, 1)
       .subscribe((res: any) => {
         this.itemOptions =
           res.items.map((item: any) => {

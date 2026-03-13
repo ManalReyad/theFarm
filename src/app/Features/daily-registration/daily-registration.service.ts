@@ -9,9 +9,9 @@ export class DailyRegistrationService {
   baseUrl = environment.baseUrl + 'DailyRecords';
   constructor(private http: HttpClient) {}
 
-  getAll(maxResultCount: number, skipCount: number) {
+  getAll(maxResultCount: number, skipCount: number,cycleId='') {
     return this.http.get(
-      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}&cycleId=${cycleId?cycleId:''}`
     );
   }
   create(body: any) {

@@ -34,6 +34,7 @@ export class DropdownComponent {
   @Input() isRequired: boolean = true;
   @Input() showLabel: boolean = true;
   @Input() disabled: boolean = false;
+    @Input() showClear: boolean = false;
   @Input() formControl!: FormControl;
   @Input() formControlName!: string;
 

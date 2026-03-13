@@ -18,7 +18,7 @@ export class DailySummaryService {
   ) {
     return this.http.get(
       this.baseUrl +
-        `?startDate=${startDate}&endDate=${endDate}&cycleId=${cycleId}&skipCount=${skipCount}&maxResultCount=${maxResultCount}`
+        `?startDate=${startDate}&endDate=${endDate}&cycleId=${cycleId?cycleId:''}&skipCount=${skipCount}&maxResultCount=${maxResultCount}`
     );
   }
 }

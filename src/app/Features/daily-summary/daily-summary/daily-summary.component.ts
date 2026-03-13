@@ -36,7 +36,7 @@ export class DailySummaryComponent {
   ngOnInit(): void {
     this.form = new FormGroup({
       date: new FormControl([new Date(Date.now())]),
-      cycleId: new FormControl(''),
+      cycleId: new FormControl(null),
     });
     this.farmId = Number(localStorage.getItem('farmId'));
 
@@ -44,11 +44,11 @@ export class DailySummaryComponent {
     this.getPage();
     this.getDropdown();
   }
-  getDropdown() {
+   getDropdown() {
     this.lookupService
-      .getUpcomingCycles(this.farmId)
+      .getActiveCycles(this.farmId)
       .subscribe((response: any) => {
-        this.cycleOptions = response;
+        this.cycleOptions =response?.length>0? response.map((item:any)=>{return{id:item.id,name:item.cycleName}}):[];
       });
   }
   intializeListCoulmns() {
@@ -155,6 +155,8 @@ export class DailySummaryComponent {
     this.searchReset = true;
     this.searchMode = false;
     this.skipCount = 0;
+    this.form.get('cycleId')?.setValue(null)
+        this.form.get('date')?.setValue([new Date(Date.now())])
     this.getPage();
   }
   delete(item: any) {
