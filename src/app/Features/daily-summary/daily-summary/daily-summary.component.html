@@ -17,12 +17,13 @@
           <app-date-input
             [isRange]="true"
             [isRequired]="false"
-            [clear]="true"
+            [showClear]="true"
             formControlName="date"
             [hideLabel]="true"
             placeholder="اختر التاريخ من-إلى"
             (change)="getPage()"
             [showClear]="true"
+            (clear)="getPage()"
           ></app-date-input>
         </div>
       </div>

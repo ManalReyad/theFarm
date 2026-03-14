@@ -62,7 +62,6 @@ export class EggProductionFormComponent {
       farmId: new FormControl(this.farmId),
       barnId: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
-      cartonsCount: new FormControl(null, Validators.required),
       notes: new FormControl(null),
       details: this.fb.array([
         this.fb.group({

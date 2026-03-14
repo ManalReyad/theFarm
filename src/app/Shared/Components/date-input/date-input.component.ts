@@ -1,5 +1,17 @@
-import { Component, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
-import { FormControl, FormControlDirective, ControlContainer, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormControl,
+  FormControlDirective,
+  ControlContainer,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { Calendar } from 'primeng/calendar';
 
 @Component({
@@ -20,20 +32,20 @@ export class DateInputComponent {
   @Input() errMsg: string = '';
   @Input() isRequired: boolean = true;
   @Input() hideLabel: boolean = false;
-  @Input() clear: boolean = false;
   @Input() disabled: boolean = false;
   @Input() formControl!: FormControl;
   @Input() formControlName!: string;
   @Input() value: any;
-  @Input() id: string='date';
+  @Input() id: string = 'date';
   @Input() isRange: boolean = false;
   @Input() showClear: boolean = false;
   @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output() clear: EventEmitter<any> = new EventEmitter();
   @ViewChild('calendar') calendar!: Calendar;
   @ViewChild(FormControlDirective, { static: true })
   formControlDirective!: FormControlDirective;
 
-  onTouched: any = () => {}
+  onTouched: any = () => {};
   constructor(private controlContainer: ControlContainer) {}
   ngOnInit(): void {}
 
@@ -60,9 +72,12 @@ export class DateInputComponent {
   openCalendar(): void {
     this.calendar?.inputfieldViewChild?.nativeElement.focus();
   }
+  onClear() {
+    this.clear.emit();
+  }
   onChange(selectedDate: any) {
     console.log(selectedDate);
-    
+
     if (this.isRange) {
       this.change.emit(selectedDate);
     } else {

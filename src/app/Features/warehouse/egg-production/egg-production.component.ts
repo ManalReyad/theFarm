@@ -48,7 +48,12 @@ export class EggProductionComponent {
         header: 'العنبر',
       }),
       new ListColumn({
-        field: 'quantity',
+        field: 'eggQuality',
+        hide: false,
+        header: 'النوع',
+      }),
+        new ListColumn({
+        field: 'cartonsCount',
         hide: false,
         header: 'العدد',
       }),
