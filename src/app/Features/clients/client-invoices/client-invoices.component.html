@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-4">
+  <h1>حساب العميل</h1>
+  <app-bread-crumb [pages]="pages"></app-bread-crumb>
+  <!-- بيانات المورد -->
+  <div
+    class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm"
+    *ngIf="data"
+  >
+    <div class="flex flex-col">
+      <span class="text-gray-500 text-sm">اسم العميل</span>
+      <span class="text-lg font-semibold">
+        {{ data.traderName }}
+      </span>
+    </div>
+
+    <div class="flex flex-col items-end">
+      <span class="text-gray-500 text-sm">التراكمي المتبقي</span>
+      <span class="text-lg font-semibold">
+        {{ data.currentBalance }}
+      </span>
+    </div>
+  </div>
+
+  <!-- جدول الفواتير -->
+  <app-list
+    [listColumns]="columns"
+    [pageResult]="pageResult"
+    (pageChange)="onPageChanged($event)"
+    [searchMode]="searchMode"
+    (back)="resetSearch()"
+    noDataImg="nodepartments.svg"
+    noDataMessage="لا توجد فواتير لهذا العميل بعد"
+    nosearchBtnText="العودة إلى العملاء"
+    [withAction]="false"
+  ></app-list>
+
+</div>

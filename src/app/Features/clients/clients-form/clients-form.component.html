@@ -1,4 +1,4 @@
-<h1>تسجيل بيانات المورد</h1>
+<h1>تسجيل بيانات العميل</h1>
 <app-bread-crumb [pages]="pages"></app-bread-crumb>
 
 <form [formGroup]="form" class="card">
@@ -6,8 +6,8 @@
 
     <div class="2xl:col-span-6 xl:col-span-6 lg:col-span-6 col-span-12">
       <app-input
-        labelText="اسم المورد"
-        placeholder="أدخل اسم المورد"
+        labelText="اسم العميل"
+        placeholder="أدخل اسم العميل"
         formControlName="name"
       ></app-input>
     </div>
@@ -42,5 +42,5 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض الموردين"
+  btnText="عرض العملاء"
 ></app-success-dialog>

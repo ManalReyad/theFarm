@@ -32,7 +32,7 @@ export class LookupService {
     return this.http.get(this.baseUrl + `active-cycles/${farmId}`);
   }
   getUpcomingCycles(farmId: number) {
-    return this.http.get(this.baseUrl + `upcoming-cycles/${farmId}`);
+    return this.http.get(this.baseUrl + `upcoming-cycles`);
   }
   getFeedTypes() {
     return this.http.get(`${environment.baseUrl}FeedTypes`);

@@ -2,18 +2,17 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { TradersService } from '../traders.service';
+import { TradersService } from '../../traders/traders.service';
 
 @Component({
-  selector: 'app-traders-list',
-  templateUrl: './traders-list.component.html',
-  styleUrl: './traders-list.component.scss'
+  selector: 'app-clients-list',
+  templateUrl: './clients-list.component.html',
+  styleUrl: './clients-list.component.scss'
 })
-export class TradersListComponent {
-  columns: ListColumn[] = [];
+export class ClientsListComponent {
+ columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedTrader: any;
-
   showConfirmDeleteDialog: boolean = false;
   showSuccessDialog: boolean = false;
   showForm: boolean = false;
@@ -40,7 +39,7 @@ export class TradersListComponent {
       command: (item: any) => this.delete(item),
     },
     {
-      label: 'حساب المورد',
+      label: 'حساب العميل',
       icon: 'pi pi-list text-[#7c3aed]',
       command: (item: any) => this.goToInvioces(item),
     },
@@ -67,13 +66,14 @@ export class TradersListComponent {
       new ListColumn({
         field: 'name',
         hide: false,
-        header: 'اسم المورد',
+        header: 'اسم العميل',
       }),
       new ListColumn({
         field: 'mobile',
         hide: false,
         header: 'رقم الموبايل',
       }),
+
       new ListColumn({
         field: 'balance',
         hide: false,
@@ -84,7 +84,7 @@ export class TradersListComponent {
 
   getPage() {
     this.tradersService
-      .getAll(this.maxResultCount, this.skipCount,1)
+      .getAll(this.maxResultCount, this.skipCount,2)
       .subscribe((response: any) => {
         this.pageResult.items = response.traders;
         this.pageResult.records=response.totalCount
@@ -113,21 +113,21 @@ export class TradersListComponent {
     this.tradersService
       .delete(this.selectedTrader.id)
       .subscribe(() => {
-        this.successMesg = 'تم حذف المورد بنجاح، يمكنك المتابعة';
+        this.successMesg = 'تم حذف العميل بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
         this.showConfirmDeleteDialog = false;
       });
   }
 
   addNew() {
-    this.router.navigate(['/traders/create']);
+    this.router.navigate(['/clients/create']);
   }
 
-  edit(item: any) {
-    this.router.navigate(['/traders/update/' + item.id]);
+  edit(data: any) {
+    this.router.navigate(['/clients/update/' + data.id]);
   }
   goToInvioces(item: any) {
-    this.router.navigate(['/traders/invioces/' + item.id]);
+    this.router.navigate(['/clients/invioces/' + item.id]);
   }
   close() {
     this.showForm = false;

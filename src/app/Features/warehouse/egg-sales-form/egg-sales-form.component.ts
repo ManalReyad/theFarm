@@ -48,7 +48,7 @@ export class EggSalesFormComponent {
       warehouseId: new FormControl(null, Validators.required),
       eggQuality: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
-      unitPrice: new FormControl(null, Validators.required),
+      paidAmount: new FormControl(null, Validators.required),
       notes: new FormControl(null),
     });
   }

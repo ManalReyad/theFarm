@@ -68,6 +68,13 @@ const routes: Routes = [
             (m) => m.TradersModule,
           ),
       },
+       {
+        path: 'clients',
+        loadChildren: () =>
+          import('../clients/clients.module').then(
+            (m) => m.ClientsModule,
+          ),
+      },
       {
         path: 'feed-mix',
         loadChildren: () =>

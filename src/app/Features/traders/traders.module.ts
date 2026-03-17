@@ -6,10 +6,11 @@ import { TradersFormComponent } from './traders-form/traders-form.component';
 import { TradersListComponent } from './traders-list/traders-list.component';
 import { SharedModule } from "src/app/Shared/shared.module";
 import { ReactiveFormsModule } from '@angular/forms';
+import { LedgerComponent } from './ledger/ledger.component';
 
 
 @NgModule({
-  declarations: [TradersListComponent,TradersFormComponent],
+  declarations: [TradersListComponent,TradersFormComponent, LedgerComponent],
   imports: [
     CommonModule,
     TradersRoutingModule,

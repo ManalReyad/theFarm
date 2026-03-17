@@ -3,22 +3,23 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TradersService {
   baseUrl = environment.baseUrl + 'Traders';
   constructor(private http: HttpClient) {}
 
-    getAll(maxResultCount: number, skipCount: number) {
+  getAll(maxResultCount: number, skipCount: number, type: number) {
     return this.http.get(
-      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+      this.baseUrl +
+        `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}&type=${type}`,
     );
   }
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
   update(body: any) {
-    return this.http.put(this.baseUrl+'/'+body.id, body);
+    return this.http.put(this.baseUrl + '/' + body.id, body);
   }
   getById(id: number) {
     return this.http.get(this.baseUrl + `/${id}`);
@@ -26,7 +27,20 @@ export class TradersService {
   delete(id: number) {
     return this.http.delete(this.baseUrl + `/${id}`);
   }
-  getList() {
-    return this.http.get(this.baseUrl );
+  getLedger(traderId: number, maxResultCount: number, skipCount: number) {
+    return this.http.get(
+      this.baseUrl +
+        `/trader/${traderId}/ledger?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`,
+    );
+  }
+  getClientInvioces(
+    traderId: number,
+    maxResultCount: number,
+    skipCount: number,
+  ) {
+    return this.http.get(
+      this.baseUrl +
+        `/customer/${traderId}/invoices?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`,
+    );
   }
 }

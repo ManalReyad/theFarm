@@ -6,7 +6,6 @@
         <button class="submitBtn" (click)="addNew()">إضافة</button>
       </div>
     </div>
-  
     <app-list
       [listColumns]="columns"
       [pageResult]="pageResult"
@@ -21,8 +20,8 @@
       addButtonText="إضافة"
       nosearchBtnText="العودة إلى القائمة"
       [withAction]="false"
-      [specificAction]="role===1"
-      specificActionLabel="تحديد السعر"
+      [specificAction]="role==2"
+      specificActionLabel="سعر الطبق"
       (specificEvent)="openPriceForm($event)"
     ></app-list>
   </div>
@@ -37,7 +36,7 @@
   [breakpoints]="{ '960px': '80vw' }"
 >
   <div class="title">
-    تحديد السعر
+    تحديد سعر الطبق
   </div>
   <form [formGroup]="form">
     <div class="grid grid-cols-12 mt-5">

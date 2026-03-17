@@ -189,11 +189,18 @@ export class MenuService {
             routerLink: ['assets'],
           },
           {
-            label: 'التجار',
+            label: 'الموردين',
             visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             iconStyle: { fontSize: '1rem' },
             routerLink: ['traders'],
+          },
+           {
+            label: 'العملاء',
+            visible: true,
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            iconStyle: { fontSize: '1rem' },
+            routerLink: ['clients'],
           },
           {
             label: 'الموظفين',
