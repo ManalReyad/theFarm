@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
+import { BreedsComponent } from '../breeds/breeds.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,8 @@ const routes: Routes = [
         loadChildren: () =>
           import('../room/room.module').then((m) => m.RoomModule),
       },
+      {
+        path: 'breeds',component:BreedsComponent},
       {
         path: 'assets',
         loadChildren: () =>
@@ -114,6 +117,16 @@ const routes: Routes = [
         path: 'cash-box',
         loadChildren: () =>
           import('../cash-box/cash-box.module').then((m) => m.CashBoxModule),
+      },
+      {
+        path: 'targets',
+        loadChildren: () =>
+          import('../targets/targets.module').then((m) => m.TargetsModule),
+      },
+      {
+        path: 'reports',
+        loadChildren: () =>
+          import('../reports/reports.module').then((m) => m.ReportsModule),
       },
     ],
   },

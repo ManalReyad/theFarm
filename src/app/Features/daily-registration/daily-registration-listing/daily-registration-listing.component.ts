@@ -26,21 +26,22 @@ export class DailyRegistrationListingComponent {
   maxResultCount: number = 7;
   skipCount: number = 0;
   searchReset: boolean = false;
-    form!: FormGroup;
-    farmId: any;
-    cycleOptions: { id: number; name: string }[] = [];
+  form!: FormGroup;
+  farmId: any;
+  cycleOptions: { id: number; name: string }[] = [];
   constructor(
     private dailyRegisterService: DailyRegistrationService,
     private router: Router,
-    private lookupService:LookupService
+    private lookupService: LookupService
   ) {}
-  ngOnInit(): void {    this.form = new FormGroup({
+  ngOnInit(): void {
+    this.form = new FormGroup({
       cycleId: new FormControl(null),
     });
     this.farmId = Number(localStorage.getItem('farmId'));
     this.intializeListCoulmns();
     this.getPage();
-    this.getDropdown()
+    this.getDropdown();
   }
   intializeListCoulmns() {
     this.columns = [
@@ -55,7 +56,7 @@ export class DailyRegistrationListingComponent {
         field: 'date',
         hide: false,
         header: 'التاريخ',
-        isDate:true
+        isDate: true,
       }),
       new ListColumn({
         field: 'dayName',
@@ -80,83 +81,95 @@ export class DailyRegistrationListingComponent {
       new ListColumn({
         field: 'remainingChicks',
         hide: false,
-        header: 'صافي العدد بعد النافق',
+        header: 'العدد المتبقي',
+      }),
+      new ListColumn({
+        field: 'mortalityRate',
+        hide: false,
+        header: 'نسبة النافق %',
+      }),
+      new ListColumn({
+        field: 'targetMortalityRate ',
+        hide: false,
+        header: 'نسبة النافق المتوقعة %',
       }),
       new ListColumn({
         field: 'feedQuantityTotal',
-        header: 'استهلاك وزن العلف'
+        header: 'استهلاك وزن العلف',
       }),
       new ListColumn({
         field: 'feedCostTotal',
-        header: 'سعر استهلاك العلف'
+        header: 'سعر استهلاك العلف',
       }),
       new ListColumn({
         field: 'medicineQuantityTotal',
-        header: 'استهلاك الأدوية'
+        header: 'استهلاك الأدوية',
       }),
       new ListColumn({
         field: 'medicineCostTotal',
-        header: 'سعر استهلاك الأدوية'
+        header: 'سعر استهلاك الأدوية',
       }),
     ];
   }
-    getDropdown() {
+  getDropdown() {
     this.lookupService
       .getActiveCycles(this.farmId)
       .subscribe((response: any) => {
-        this.cycleOptions =response?.length>0? response.map((item:any)=>{return{id:item.id,name:item.cycleName}}):[];
+        this.cycleOptions =
+          response?.length > 0
+            ? response.map((item: any) => {
+                return { id: item.id, name: item.cycleName };
+              })
+            : [];
       });
   }
   getPage() {
     this.dailyRegisterService
-      .getAll(this.maxResultCount, this.skipCount,this.form.value.cycleId)
+      .getAll(this.maxResultCount, this.skipCount, this.form.value.cycleId)
       .subscribe((response: any) => {
-         this.pageResult.records=response.totalCount
-        this.pageResult.items = response.dailyRecords.map((item:any) => {
-  
+        this.pageResult.records = response.totalCount;
+        this.pageResult.items = response.dailyRecords.map((item: any) => {
           const feedQuantityTotal = item.feedConsumptions?.reduce(
-            (sum:any, el:any) => sum + (el.quantity || 0),
+            (sum: any, el: any) => sum + (el.quantity || 0),
             0
           );
-  
+
           const feedCostTotal = item.feedConsumptions?.reduce(
-            (sum:any, el:any) => sum + (el.cost || 0),
+            (sum: any, el: any) => sum + (el.cost || 0),
             0
           );
-  
+
           const medicineQuantityTotal = item.medicineConsumptions?.reduce(
-            (sum:any, el:any) => sum + (el.quantity || 0),
+            (sum: any, el: any) => sum + (el.quantity || 0),
             0
           );
-  
+
           const medicineCostTotal = item.medicineConsumptions?.reduce(
-            (sum:any, el:any) => sum + (el.cost || 0),
+            (sum: any, el: any) => sum + (el.cost || 0),
             0
           );
-  
+
           return {
             ...item,
             feedQuantityTotal,
             feedCostTotal,
             medicineQuantityTotal,
-            medicineCostTotal
+            medicineCostTotal,
           };
         });
-  
       });
   }
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
-    this.form.get('cycleId')?.setValue(null)
+    this.skipCount = 0;
+    this.form.get('cycleId')?.setValue(null);
     this.getPage();
-    
   }
   delete(item: any) {
     this.selectedItem = item;

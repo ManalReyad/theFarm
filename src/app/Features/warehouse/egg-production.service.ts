@@ -19,6 +19,6 @@ export class EggProductionService {
     return this.http.get(this.baseUrl + `farm/${farmId}/eggs?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
   getEggStockByFarm(farmId:number,maxResultCount: number, skipCount: number) {
-    return this.http.get(this.baseUrl + `farm/${farmId}/warehouse-eggs&SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
+    return this.http.get(this.baseUrl + `farm/${farmId}/warehouse-eggs?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
 }

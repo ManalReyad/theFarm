@@ -11,13 +11,6 @@ import { EggProductionService } from '../egg-production.service';
 export class EggStockComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
-  selectedItem: any;
-  showConfirmDeleteDialog: boolean = false;
-  showSuccessDialog: boolean = false;
-  showForm: boolean = false;
-  editMode: boolean = false;
-  successMesg: string = '';
-  showWarnningDialog: boolean = false;
   searchMode: boolean = false;
   maxResultCount: number = 7;
   skipCount: number = 0;
@@ -103,17 +96,5 @@ export class EggStockComponent {
     this.skipCount= 0;
     this.getPage();
   }
-  close() {
-    this.showForm = false;
-    this.showConfirmDeleteDialog = false;
-    this.showWarnningDialog = false;
-  }
-  backToList() {
-    this.showForm = false;
-    this.showSuccessDialog = false;
-    this.getPage();
-  }
-  back() {
-    this.showWarnningDialog = false;
-  }
+
 }

@@ -25,6 +25,7 @@ export class CycleFormComponent {
   farmId: any;
   barnWorkerOptions: { id: number; name: string }[] = [];
   barnManagerOptions: { id: number; name: string }[] = [];
+  breedsOptions: { id: number; name: string }[] = [];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -61,6 +62,11 @@ export class CycleFormComponent {
     this.workersService.getBarnWorkers().subscribe((data: any) => {
       this.barnWorkerOptions = data || [];
     });
+    this.lookupService
+    .getBreeds()
+    .subscribe((response: any) => {
+      this.breedsOptions =response||[];
+    });
   }
   createForm() {
     this.form = new FormGroup({
@@ -68,6 +74,7 @@ export class CycleFormComponent {
       name: new FormControl(null, Validators.required),
       farmId: new FormControl(),
       barnId: new FormControl(null, Validators.required),
+      breedId: new FormControl(null, Validators.required),
       barnManagerId: new FormControl(null, Validators.required),
       barnWorkerId: new FormControl(null, Validators.required),
       startDate: new FormControl(null, Validators.required),

@@ -12,108 +12,120 @@ export class MenuService {
   initializeMenus() {
     this.menus = [
       {
-        label: 'الدورات',
-        visible: true,
-        icon: PrimeIcons.SYNC,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['cycle'],
-      },
-      {
-        label: 'التسجيل اليومي',
-        visible: true,
-        icon: PrimeIcons.FILE_EDIT,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['daily-registration'],
-      },
-      {
-        label: 'الخلطات',
-        visible: true,
-        icon: PrimeIcons.SITEMAP,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['feed-mix'],
-      },
-      {
-        label: 'الخزنة',
-        visible: true,
-        icon: PrimeIcons.MONEY_BILL,
-        iconStyle: { fontSize: '1.5rem' },
-        routerLink: ['cash-box'],
-      },
-      {
         label: 'الملخص اليومي',
-        visible: true,
         icon: PrimeIcons.CALENDAR,
-        iconStyle: { fontSize: '1.5rem' },
         routerLink: ['dialy-summary'],
       },
+  
+      {
+        label: 'التسجيل اليومي',
+        icon: PrimeIcons.FILE_EDIT,
+        routerLink: ['daily-registration'],
+      },
+  
+      {
+        label: 'إنتاج البيض',
+        icon: PrimeIcons.INBOX,
+        routerLink: ['warehouse/egg-production'],
+      },
+  
+      {
+        label: 'المستهدف',
+        icon: PrimeIcons.CHART_BAR,
+        expanded: this.shouldExpand(['reports/feed-consumption']),
+        items: [
+          {
+            label: 'تقرير استهلاك العلف',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            routerLink: ['reports/feed-consumption'],
+          },
+        ],
+      },
+  
+      {
+        label: 'الخلطات',
+        icon: PrimeIcons.SITEMAP,
+        routerLink: ['feed-mix'],
+      },
+  
+      {
+        label: 'الخزنة',
+        icon: PrimeIcons.MONEY_BILL,
+        routerLink: ['cash-box'],
+      },
+  
       {
         label: 'المبيعات',
-        visible: true,
         icon: PrimeIcons.CHART_LINE,
-        iconStyle: { fontSize: '1.5rem' },
         expanded: this.shouldExpand([
-          'egg-sales',
+          'warehouse/egg-sales',
           'warehouse/chicken-sales',
         ]),
         items: [
           {
             label: 'مبيعات البيض',
-            visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/egg-sales'],
           },
           {
             label: 'مبيعات الفراخ',
-            visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/chicken-sales'],
           },
         ],
       },
+  
       {
         label: 'المخزن',
-        visible: true,
         icon: PrimeIcons.WAREHOUSE,
-        iconStyle: { fontSize: '1.5rem' },
         expanded: this.shouldExpand([
-          'warehouse/incoming',
           'warehouse/items-medicine',
-          'warehouse/egg-production',
-          'egg-sales',
-          'warehouse/chicken-sales',
+          'warehouse/egg-stock',
         ]),
         items: [
           {
             label: 'مخزن المواد',
-            visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/items-medicine'],
           },
           {
-            label: 'إنتاج البيض',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['warehouse/egg-production'],
-          },
-          {
             label: 'مخزون البيض',
-            visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse/egg-stock'],
           },
-        
         ],
       },
+  
+      {
+        label: 'إعدادات المستهدف',
+        icon: 'fa-solid fa-bullseye',
+        expanded: this.shouldExpand([
+          'targets/mortality',
+          'targets/feed',
+          'targets/egg-production',
+        ]),
+        items: [
+          {
+            label: 'مستهدف النافق',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            routerLink: ['targets/mortality'],
+          },
+          {
+            label: 'مستهدف استهلاك العلف',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            routerLink: ['targets/feed'],
+          },
+          {
+            label: 'مستهدف إنتاج البيض',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            routerLink: ['targets/egg-production'],
+          },
+        ],
+      },
+  
       {
         label: 'مخزن الأصول',
-        visible: true,
         icon: PrimeIcons.SERVER,
-        iconStyle: { fontSize: '1.5rem' },
         expanded: this.shouldExpand([
           'warehouse-assets',
           'warehouse-assets-transactions',
@@ -121,110 +133,144 @@ export class MenuService {
         items: [
           {
             label: 'أصول المزرعة',
-            visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse-assets'],
           },
           {
             label: 'عمليات مخزن الأصول',
-            visible: true,
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
             routerLink: ['warehouse-assets-transactions'],
           },
         ],
       },
       {
-        label: 'الإعدادات',
-        visible: true,
-        icon: PrimeIcons.COG,
-        iconStyle: { fontSize: '1.5rem' },
+        label: 'المستخدمين',
+        icon: PrimeIcons.USERS,
         expanded: this.shouldExpand([
-          'medicine',
-          'raw-material',
-          'assets',
           'traders',
-          'warehouse/list',
-          '/room',
-          'farm',
+          'clients',
           'workers',
-          'evaluation-items',
         ]),
         items: [
           {
-            label: 'المزارع',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['farm'],
-          },
-
-          {
-            label: 'العنابر',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1.5rem' },
-            routerLink: ['/room'],
-          },
-          {
-            label: 'الأدوية',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['medicine'],
-          },
-          {
-            label: 'المواد الخام',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['raw-material'],
-          },
-          {
-            label: 'الأصول',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['assets'],
-          },
-          {
             label: 'الموردين',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
+            icon: PrimeIcons.CIRCLE_FILL,
+            iconStyle: { fontSize: '.8rem' },
             routerLink: ['traders'],
           },
-           {
+          {
             label: 'العملاء',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
+            icon: PrimeIcons.CIRCLE_FILL,
+            iconStyle: { fontSize: '.8rem' },
             routerLink: ['clients'],
           },
           {
             label: 'الموظفين',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
+            icon: PrimeIcons.CIRCLE_FILL,
+            iconStyle: { fontSize: '.8rem' },
             routerLink: ['workers'],
-          },
-          {
-            label: 'المخازن',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['warehouse/list'],
-          },
-          {
-            label: 'بنود التقييم',
-            visible: true,
-            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            iconStyle: { fontSize: '1rem' },
-            routerLink: ['evaluation-items'],
           },
         ],
       },
+      {
+        label: 'الإعدادات',
+        icon: PrimeIcons.COG,
+        expanded: this.shouldExpand([
+          'farm',
+          'room',
+          'breeds',
+          'medicine',
+          'raw-material',
+          'traders',
+          'clients',
+          'workers',
+          'warehouse/list',
+          'evaluation-items',
+          'assets'
+        ]),
+        items: [
+          {
+            label: 'بيانات المزرعة',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            expanded: this.shouldExpand(['farm', 'room', 'breeds']),
+            items: [
+              {
+                label: 'المزارع',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['farm'],
+              },
+              {
+                label: 'العنابر',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['/room'],
+              },
+              {
+                label: 'السلالات',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['/breeds'],
+              },
+            ],
+          },
+      
+          {
+            label: 'المخزون والمواد',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            expanded: this.shouldExpand([
+              'medicine',
+              'raw-material',
+              'warehouse/list',
+            ]),
+            items: [
+              {
+                label: 'الأدوية',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['medicine'],
+              },
+              {
+                label: 'المواد الخام',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['raw-material'],
+              },
+              {
+                label: 'المخازن',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['warehouse/list'],
+              },
+            ],
+          },
+      
+         
+      
+          {
+            label: 'الأصول والتقييم',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            expanded: this.shouldExpand([
+              'assets',
+              'evaluation-items',
+            ]),
+            items: [
+              {
+                label: 'الأصول',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['assets'],
+              },
+              {
+                label: 'بنود التقييم',
+                icon: PrimeIcons.CIRCLE_FILL,
+                iconStyle: { fontSize: '.8rem' },
+                routerLink: ['evaluation-items'],
+              },
+            ],
+          },
+        ],
+      }
     ];
   }
 

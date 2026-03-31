@@ -49,4 +49,7 @@ export class LookupService {
   getAssetItems() {
     return this.http.get(this.baseUrl + `asset-items`);
   }
+  getBreeds() {
+    return this.http.get(this.baseUrl + `Breeds`);
+  }
 }

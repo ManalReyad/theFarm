@@ -1,0 +1,124 @@
+<h1>تسجيل مستهدف إستهلاك العلف</h1>
+
+<app-bread-crumb [pages]="pages"></app-bread-crumb>
+
+<form [formGroup]="form" class="card">
+
+  <!-- Breed -->
+  <div class="grid grid-cols-12 gap-3">
+    <div class="md:col-span-4 col-span-12">
+      <app-dropdown
+        labelText="السلالة"
+        formControlName="breedId"
+        [options]="breadsOptions"
+        placeholder="اختر السلالة"
+      ></app-dropdown>
+    </div>
+  </div>
+
+  <!-- Weeks Table -->
+  <div class="grid grid-cols-12 gap-3 card mt-4">
+    <div class="col-span-7" formArrayName="weeks">
+
+      <p-table [value]="[{}]">
+
+        <!-- HEADER -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th>#</th>
+            <th>من أسبوع</th>
+            <th>إلى أسبوع</th>
+            <th>نسبة إستهلاك العلف (%)</th>
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <!-- BODY -->
+        <ng-template pTemplate="body">
+          <tr
+            *ngFor="let week of weeks.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <td>{{ i + 1 }}</td>
+
+            <td>
+              <app-input
+                inputType="number"
+                formControlName="weekStart"
+                placeholder="من"
+                [showLabel]="false"
+                [isRequired]="false"
+              ></app-input>
+            </td>
+
+            <td>
+              <app-input
+                inputType="number"
+                formControlName="weekEnd"
+                placeholder="إلى"
+                [showLabel]="false"
+                [isRequired]="false"
+              ></app-input>
+            </td>
+
+            <td>
+              <app-input
+                inputType="number"
+                formControlName="expectedMortalityRate"
+                placeholder="النسبة"
+                [showLabel]="false"
+                [isRequired]="false"
+              ></app-input>
+            </td>
+
+            <td class="flex gap-2">
+              <button type="button" (click)="deleteRow(i)" class="add">
+                <i class="pi pi-minus"></i>
+              </button>
+
+              <button
+                type="button"
+                (click)="addRow()"
+                class="add"
+                [disabled]=""
+              >
+                <i class="pi pi-plus"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="flex justify-end gap-4 mt-5">
+    <button
+      class="submitBtn"
+      type="button"
+      (click)="save()"
+      [disabled]="form.invalid"
+    >
+      {{ editMode ? 'حفظ' : 'إضافة' }}
+    </button>
+
+    <button
+      class="exitBtn"
+      type="button"
+      (click)="backToList()"
+    >
+      إلغاء
+    </button>
+  </div>
+
+</form>
+
+<!-- Success Dialog -->
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض مستهدف إستهلاك العلف"
+></app-success-dialog>

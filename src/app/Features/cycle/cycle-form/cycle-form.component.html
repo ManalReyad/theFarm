@@ -41,22 +41,12 @@
       </app-dropdown>
     </div>
     <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
-      <app-date-input
-        labelText=" تاريخ بداية الدورة"
-        formControlName="startDate"
-        placeholder="حدد  تاريخ بداية الدورة "
-        id="startDate"
-      >
-      </app-date-input>
-    </div>
-    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
-      <app-date-input
-        labelText=" تاريخ نهاية الدورة"
-        formControlName="endDate"
-        placeholder="حدد تاريخ نهاية الدورة "
-        id="endDate"
-      >
-      </app-date-input>
+      <app-dropdown
+        formControlName="breedId"
+        placeholder="اختر السلالة"
+        [options]="breedsOptions"
+        labelText="السلالة"
+      ></app-dropdown>
     </div>
     <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
       <app-input
@@ -76,6 +66,24 @@
         unit="يوم"
         [disabled]="editMode"
       ></app-input>
+    </div>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
+      <app-date-input
+        labelText=" تاريخ بداية الدورة"
+        formControlName="startDate"
+        placeholder="حدد  تاريخ بداية الدورة "
+        id="startDate"
+      >
+      </app-date-input>
+    </div>
+    <div class="2xl:col-span-4 xl:col-span-4 lg:col-span-6 col-span-12">
+      <app-date-input
+        labelText=" تاريخ نهاية الدورة"
+        formControlName="endDate"
+        placeholder="حدد تاريخ نهاية الدورة "
+        id="endDate"
+      >
+      </app-date-input>
     </div>
   </div>
 
