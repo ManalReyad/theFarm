@@ -19,7 +19,7 @@ export class FeedConsumptionFormComponent {
   editMode = false;
   successMesg = '';
   showSuccessDialog = false;
-
+  currentWeekIndex = 0;
   breadsOptions: { id: number; name: string }[] = [];
 
   constructor(
@@ -58,7 +58,7 @@ export class FeedConsumptionFormComponent {
     return this.fb.group({
       weekStart: [null, Validators.required],
       weekEnd: [null, Validators.required],
-      expectedMortalityRate: [null, Validators.required],
+      targetPerBirdGram: [null, Validators.required],
     });
   }
 
@@ -83,20 +83,38 @@ export class FeedConsumptionFormComponent {
     //       this.fb.group({
     //         weekStart: w.weekStart,
     //         weekEnd: w.weekEnd,
-    //         expectedMortalityRate: w.expectedMortalityRate,
+    //         targetPerBirdGram: w.targetPerBirdGram,
     //       })
     //     );
     //   });
     // });
   }
 
+  isCurrentRowInvalid(): boolean {
+    const row = this.weeks.at(this.currentWeekIndex);
+    if (!row) return false;
+  
+    const weekStart = row.get('weekStart')?.value;
+    const weekEnd = row.get('weekEnd')?.value;
+    const targetPerBirdGram = row.get('targetPerBirdGram')?.value;
+  
+    return (
+      weekStart === null ||
+      weekStart === undefined ||
+      weekEnd === null ||
+      weekEnd === undefined ||
+      targetPerBirdGram === null ||
+      targetPerBirdGram === undefined
+    );
+  }
   addRow() {
     this.weeks.push(this.createWeekGroup());
+    this.currentWeekIndex = this.weeks.length - 1;
   }
-
   deleteRow(index: number) {
     if (this.weeks.length > 1) {
       this.weeks.removeAt(index);
+      this.currentWeekIndex = this.weeks.length - 1;
     }
   }
   save() {

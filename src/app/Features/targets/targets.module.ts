@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from "primeng/table";
 import { FeedConsumptionComponent } from './feed-consumption/feed-consumption.component';
 import { FeedConsumptionFormComponent } from './feed-consumption/feed-consumption-form/feed-consumption-form.component';
+import { EggProductionComponent } from './egg-production/egg-production.component';
+import { EggProductionFormComponent } from './egg-production/egg-production-form/egg-production-form.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { FeedConsumptionFormComponent } from './feed-consumption/feed-consumptio
     MortalityTargetComponent,
     MortalityTargetFormComponent,
     FeedConsumptionComponent,
-    FeedConsumptionFormComponent
+    FeedConsumptionFormComponent,
+    EggProductionComponent,
+    EggProductionFormComponent
   ],
   imports: [
     CommonModule,

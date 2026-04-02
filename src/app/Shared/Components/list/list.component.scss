@@ -38,6 +38,7 @@
 :host ::ng-deep th {
   @apply py-3 px-3 text-center;
   font-weight: 600;
+  font-size: 15px;
   background-color: unset;
   color: var(--main-gray);
 }

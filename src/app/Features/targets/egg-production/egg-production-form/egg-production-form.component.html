@@ -1,4 +1,4 @@
-<h1>تسجيل مستهدف النافق</h1>
+<h1>تسجيل مستهدف إستهلاك البيض</h1>
 
 <app-bread-crumb [pages]="pages"></app-bread-crumb>
 
@@ -28,7 +28,7 @@
             <th>#</th>
             <th>من أسبوع</th>
             <th>إلى أسبوع</th>
-            <th>نسبة النافق (%)</th>
+            <th>نسبة إستهلاك العلف (%)</th>
             <th></th>
           </tr>
         </ng-template>
@@ -64,7 +64,7 @@
             <td>
               <app-input
                 inputType="number"
-                formControlName="expectedMortalityRate"
+                formControlName="targetEggPerBird"
                 placeholder="النسبة"
                 [showLabel]="false"
                 [isRequired]="false"
@@ -120,5 +120,5 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض مستهدف النافق"
+  btnText="عرض مستهدف إستهلاك البيض"
 ></app-success-dialog>

@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-4">
+    <div class="flex justify-between items-center">
+        <h1>تقرير إنتاج البيض</h1>
+        <form [formGroup]="form">
+        <div class="lg:flex gap-2 items-center grid-cols-2">
+          <div class="lg:w-[320px] w-[220px]">
+            <app-dropdown
+              [showLabel]="false"
+              formControlName="cycleId"
+              placeholder="اختر الدورة"
+              [options]="cycleOptions"
+              [isRequired]="false"
+              (change)="getPage();searchMode = true"
+              [showClear]="true"
+            ></app-dropdown>
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  
+    <app-list
+      [listColumns]="columns"
+      [pageResult]="pageResult"
+      (pageChange)="onPageChanged($event)"
+      [searchMode]="searchMode"
+      (back)="resetSearch()"
+      noDataImg="no-data.svg"
+      noDataMessage="لا يوجد بيانات"
+      [withAction]="false"
+    ></app-list>
+  </div>

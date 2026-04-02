@@ -16,44 +16,55 @@ export class MenuService {
         icon: PrimeIcons.CALENDAR,
         routerLink: ['dialy-summary'],
       },
-  
+
       {
         label: 'التسجيل اليومي',
         icon: PrimeIcons.FILE_EDIT,
         routerLink: ['daily-registration'],
       },
-  
+
       {
         label: 'إنتاج البيض',
         icon: PrimeIcons.INBOX,
         routerLink: ['warehouse/egg-production'],
       },
-  
+
       {
         label: 'المستهدف',
         icon: PrimeIcons.CHART_BAR,
-        expanded: this.shouldExpand(['reports/feed-consumption']),
+        expanded: this.shouldExpand(['reports/feed-consumption','reports/egg-production']),
         items: [
           {
             label: 'تقرير استهلاك العلف',
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             routerLink: ['reports/feed-consumption'],
           },
+          {
+            label: 'تقرير إنتاج البيض',
+            icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
+            routerLink: ['reports/egg-production'],
+          },
         ],
       },
-  
+
       {
         label: 'الخلطات',
         icon: PrimeIcons.SITEMAP,
         routerLink: ['feed-mix'],
       },
-  
+      {
+        label: 'الدورات',
+        visible: true,
+        icon: PrimeIcons.SYNC,
+        iconStyle: { fontSize: '1.5rem' },
+        routerLink: ['cycle'],
+      },
       {
         label: 'الخزنة',
         icon: PrimeIcons.MONEY_BILL,
         routerLink: ['cash-box'],
       },
-  
+
       {
         label: 'المبيعات',
         icon: PrimeIcons.CHART_LINE,
@@ -74,7 +85,7 @@ export class MenuService {
           },
         ],
       },
-  
+
       {
         label: 'المخزن',
         icon: PrimeIcons.WAREHOUSE,
@@ -95,7 +106,7 @@ export class MenuService {
           },
         ],
       },
-  
+
       {
         label: 'إعدادات المستهدف',
         icon: 'fa-solid fa-bullseye',
@@ -106,23 +117,23 @@ export class MenuService {
         ]),
         items: [
           {
-            label: 'مستهدف النافق',
+            label: ' النافق',
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             routerLink: ['targets/mortality'],
           },
           {
-            label: 'مستهدف استهلاك العلف',
+            label: ' استهلاك العلف',
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
             routerLink: ['targets/feed'],
           },
           {
-            label: 'مستهدف إنتاج البيض',
+            label: ' إنتاج البيض',
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            routerLink: ['targets/egg-production'],
+            routerLink: ['targets/egg'],
           },
         ],
       },
-  
+
       {
         label: 'مخزن الأصول',
         icon: PrimeIcons.SERVER,
@@ -146,11 +157,7 @@ export class MenuService {
       {
         label: 'المستخدمين',
         icon: PrimeIcons.USERS,
-        expanded: this.shouldExpand([
-          'traders',
-          'clients',
-          'workers',
-        ]),
+        expanded: this.shouldExpand(['traders', 'clients', 'workers']),
         items: [
           {
             label: 'الموردين',
@@ -186,7 +193,7 @@ export class MenuService {
           'workers',
           'warehouse/list',
           'evaluation-items',
-          'assets'
+          'assets',
         ]),
         items: [
           {
@@ -214,7 +221,7 @@ export class MenuService {
               },
             ],
           },
-      
+
           {
             label: 'المخزون والمواد',
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
@@ -244,16 +251,11 @@ export class MenuService {
               },
             ],
           },
-      
-         
-      
+
           {
             label: 'الأصول والتقييم',
             icon: PrimeIcons.ANGLE_DOUBLE_LEFT,
-            expanded: this.shouldExpand([
-              'assets',
-              'evaluation-items',
-            ]),
+            expanded: this.shouldExpand(['assets', 'evaluation-items']),
             items: [
               {
                 label: 'الأصول',
@@ -270,7 +272,7 @@ export class MenuService {
             ],
           },
         ],
-      }
+      },
     ];
   }
 
@@ -300,7 +302,7 @@ export class MenuService {
     }
     return undefined;
   }
-   // initializeMenus() {
+  // initializeMenus() {
   //   this.menus = [
   //     {
   //       label: 'الدورات',

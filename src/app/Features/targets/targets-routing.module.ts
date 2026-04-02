@@ -4,6 +4,8 @@ import { MortalityTargetComponent } from './mortality-target/mortality-target.co
 import { MortalityTargetFormComponent } from './mortality-target/mortality-target-form/mortality-target-form.component';
 import { FeedConsumptionComponent } from './feed-consumption/feed-consumption.component';
 import { FeedConsumptionFormComponent } from './feed-consumption/feed-consumption-form/feed-consumption-form.component';
+import { EggProductionComponent } from './egg-production/egg-production.component';
+import { EggProductionFormComponent } from './egg-production/egg-production-form/egg-production-form.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,12 @@ const routes: Routes = [
   },
   {
     path:'feed/create',component:FeedConsumptionFormComponent
+  },
+  {
+    path:'egg',component:EggProductionComponent
+  },
+  {
+    path:'egg/create',component:EggProductionFormComponent
   }
 ];
 

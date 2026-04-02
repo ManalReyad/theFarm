@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
-import { MortalityTargetService } from '../../mortality-target.service';
+import { EggProductionService } from '../../egg-production.service';
 
 @Component({
-  selector: 'app-mortality-target-form',
-  templateUrl: './mortality-target-form.component.html',
-  styleUrl: './mortality-target-form.component.scss'
+  selector: 'app-egg-production-form',
+  templateUrl: './egg-production-form.component.html',
+  styleUrl: './egg-production-form.component.scss'
 })
-export class MortalityTargetFormComponent implements OnInit {
+export class EggProductionFormComponent {
   pages = [
-    { name: 'مستهدف النافق', route: '/targets/mortality' },
-    { name: 'تسجيل مستهدف النافق' },
+    { name: 'مستهدف إستهلاك البيض', route: '/targets/mortality' },
+    { name: 'تسجيل مستهدف إستهلاك البيض' },
   ];
 
   form!: FormGroup;
@@ -25,7 +25,7 @@ export class MortalityTargetFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private mortalityTargetService: MortalityTargetService,
+    private eggProductionService: EggProductionService,
     private lookupService: LookupService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -36,8 +36,8 @@ export class MortalityTargetFormComponent implements OnInit {
     if (id) {
       this.editMode = true;
       this.pages = [
-        { name: 'مستهدف النافق', route: '/targets/mortality' },
-        { name: 'تعديل مستهدف النافق' },
+        { name: 'مستهدف إستهلاك البيض', route: '/targets/egg' },
+        { name: 'تعديل مستهدف إستهلاك البيض' },
       ];
       this.getById(id);
     }
@@ -58,7 +58,7 @@ export class MortalityTargetFormComponent implements OnInit {
     return this.fb.group({
       weekStart: [null, Validators.required],
       weekEnd: [null, Validators.required],
-      expectedMortalityRate: [null, Validators.required],
+      targetEggPerBird: [null, Validators.required],
     });
   }
 
@@ -73,7 +73,7 @@ export class MortalityTargetFormComponent implements OnInit {
   }
 
   getById(id: any) {
-    // this.mortalityTargetService.getById(id).subscribe((res: any) => {
+    // this.eggProductionService.getById(id).subscribe((res: any) => {
     //   this.form.patchValue({
     //     breedId: res.breedId,
     //   });
@@ -83,13 +83,30 @@ export class MortalityTargetFormComponent implements OnInit {
     //       this.fb.group({
     //         weekStart: w.weekStart,
     //         weekEnd: w.weekEnd,
-    //         expectedMortalityRate: w.expectedMortalityRate,
+    //         targetEggPerBird: w.targetEggPerBird,
     //       })
     //     );
     //   });
     // });
   }
 
+  isCurrentRowInvalid(): boolean {
+    const row = this.weeks.at(this.currentWeekIndex);
+    if (!row) return false;
+  
+    const weekStart = row.get('weekStart')?.value;
+    const weekEnd = row.get('weekEnd')?.value;
+    const targetEggPerBird = row.get('targetEggPerBird')?.value;
+  
+    return (
+      weekStart === null ||
+      weekStart === undefined ||
+      weekEnd === null ||
+      weekEnd === undefined ||
+      targetEggPerBird === null ||
+      targetEggPerBird === undefined
+    );
+  }
   addRow() {
     this.weeks.push(this.createWeekGroup());
     this.currentWeekIndex = this.weeks.length - 1;
@@ -100,24 +117,6 @@ export class MortalityTargetFormComponent implements OnInit {
       this.currentWeekIndex = this.weeks.length - 1;
     }
   }
-
-isCurrentRowInvalid(): boolean {
-  const row = this.weeks.at(this.currentWeekIndex);
-  if (!row) return false;
-
-  const weekStart = row.get('weekStart')?.value;
-  const weekEnd = row.get('weekEnd')?.value;
-  const expectedMortalityRate = row.get('expectedMortalityRate')?.value;
-
-  return (
-    weekStart === null ||
-    weekStart === undefined ||
-    weekEnd === null ||
-    weekEnd === undefined ||
-    expectedMortalityRate === null ||
-    expectedMortalityRate === undefined
-  );
-}
   save() {
     if (this.form.invalid) return;
 
@@ -126,14 +125,14 @@ isCurrentRowInvalid(): boolean {
     if (this.editMode) {
       // update
     } else {
-      this.mortalityTargetService.create(payload).subscribe(() => {
-        this.successMesg = 'تم إضافة مستهدف النافق بنجاح';
+      this.eggProductionService.create(payload).subscribe(() => {
+        this.successMesg = 'تم إضافة مستهدف إستهلاك البيض بنجاح';
         this.showSuccessDialog = true;
       });
     }
   }
 
   backToList() {
-    this.router.navigate(['/targets/mortality']);
+    this.router.navigate(['/targets/egg']);
   }
 }

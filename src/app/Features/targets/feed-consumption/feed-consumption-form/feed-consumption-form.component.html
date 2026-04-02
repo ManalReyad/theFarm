@@ -64,7 +64,7 @@
             <td>
               <app-input
                 inputType="number"
-                formControlName="expectedMortalityRate"
+                formControlName="targetPerBirdGram"
                 placeholder="النسبة"
                 [showLabel]="false"
                 [isRequired]="false"
@@ -80,7 +80,7 @@
                 type="button"
                 (click)="addRow()"
                 class="add"
-                [disabled]=""
+                [disabled]="isCurrentRowInvalid()"
               >
                 <i class="pi pi-plus"></i>
               </button>
