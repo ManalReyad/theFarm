@@ -56,7 +56,7 @@
           <td>
             <app-dropdown
               [options]="getAvailablefeedConsumptions(i)"
-              placeholder="اختر نوع المكون"
+              placeholder="اختر العلف"
               formControlName="itemId"
               (change)="onSelectionChange($event, i, 'feed')"
               [showLabel]="false"
@@ -66,7 +66,7 @@
           <td>
             <app-input
               type="number"
-              placeholder="ادخل الكمية"
+              placeholder="ادخل الكمية (طن) "
               formControlName="quantity"
               (keydown)="restrictNagtive($event)"
               [showLabel]="false"
@@ -74,7 +74,7 @@
             />
           </td>
           <td>
-            <button (click)="deleteRow(i, 'feed')" class="add">
+            <button (click)="deleteRow(i, 'feed')" class="add" [disabled]="feedConsumptions.controls.length<2">
               <i class="pi pi-minus"></i>
             </button>
             <button
@@ -116,7 +116,7 @@
           <td>
             <app-dropdown
               [options]="getAvailablemedicineConsumptions(i)"
-              placeholder="اختر نوع المكون"
+              placeholder="اختر الأدوية"
               formControlName="itemId"
               (change)="onSelectionChange($event, i, 'medicine')"
               [showLabel]="false"
@@ -134,7 +134,7 @@
             />
           </td>
           <td>
-            <button (click)="deleteRow(i, 'medicine')" class="add">
+            <button (click)="deleteRow(i, 'medicine')" class="add" [disabled]="medicineConsumptions.controls.length<2">
               <i class="pi pi-minus"></i>
             </button>
             <button
@@ -142,7 +142,7 @@
               class="add flex items-center"
               [disabled]="
                 isCurrentMedicineItemRowInvalid() ||
-                allMedicineItemTypes.length == feedConsumptions.controls.length
+                allMedicineItemTypes.length == medicineConsumptions.controls.length
               "
             >
               <i class="pi pi-plus"></i>
@@ -165,5 +165,5 @@
   [visible]="showSuccessDialog"
   (onSubmitEvent)="backToList()"
   [message]="successMesg"
-  btnText="عرض الدورات"
+  btnText="عرض التسجيل اليومي"
 ></app-success-dialog>

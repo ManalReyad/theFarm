@@ -15,7 +15,7 @@ export class EggProductionService {
   }
   getAll(maxResultCount: number, skipCount: number,breedId:number) {
     return this.http.get(
-      this.baseUrl + `/by-breed/${breedId}`
+      this.baseUrl + `/by-breed/${breedId}?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}`
     );
   }
 }

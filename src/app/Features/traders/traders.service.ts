@@ -33,6 +33,9 @@ export class TradersService {
         `/trader/${traderId}/ledger?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`,
     );
   }
+  addClientInvioces(body: any) {
+    return this.http.post(this.baseUrl + `/pay-trader`, body);
+  }
   getClientInvioces(
     traderId: number,
     maxResultCount: number,

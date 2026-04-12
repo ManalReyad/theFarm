@@ -28,7 +28,7 @@
           <tr>
             <th>#</th>
             <th>الصنف</th>
-            <th>الكمية (كجم)</th>
+            <th>الكمية (طن)</th>
             <th></th>
           </tr>
         </ng-template>
@@ -54,10 +54,11 @@
                 (keydown)="restrictNegative($event)"
                 [showLabel]="false"
                 [isRequired]="false"
+
               ></app-input>
             </td>
             <td>
-              <button (click)="deleteRow(i)" class="add">
+              <button (click)="deleteRow(i)" class="add" [disabled]="items?.controls?.length!<2">
                 <i class="pi pi-minus"></i>
               </button>
               <button

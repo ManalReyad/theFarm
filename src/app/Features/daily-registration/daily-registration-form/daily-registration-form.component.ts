@@ -7,10 +7,8 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CycleService } from '../../cycle/cycle.service';
 import { DailyRegistrationService } from '../daily-registration.service';
 import { LookupService } from 'src/app/Shared/Services/lookup.service';
-import { WarehouseService } from '../../warehouse/warehouse.service';
 
 @Component({
   selector: 'app-daily-registration-form',

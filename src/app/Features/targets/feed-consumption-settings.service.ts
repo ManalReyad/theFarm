@@ -19,6 +19,6 @@ export class FeedConsumptionSettingsService {
     return this.http.post(this.baseUrl, body);
   }
   getFeedConsumptionSettingsByBreed(maxResultCount: number, skipCount: number, breedId: number) {
-    return this.http.get(this.baseUrl + `/by-breed/${breedId}`);
+    return this.http.get(this.baseUrl + `/by-breed/${breedId}?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}`);
   }
 }

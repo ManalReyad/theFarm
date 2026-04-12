@@ -11,8 +11,8 @@ import { EggProductionService } from '../../egg-production.service';
 })
 export class EggProductionFormComponent {
   pages = [
-    { name: 'مستهدف إستهلاك البيض', route: '/targets/mortality' },
-    { name: 'تسجيل مستهدف إستهلاك البيض' },
+    { name: 'مستهدف إنتاج البيض', route: '/targets/mortality' },
+    { name: 'تسجيل مستهدف إنتاج البيض' },
   ];
 
   form!: FormGroup;
@@ -36,8 +36,8 @@ export class EggProductionFormComponent {
     if (id) {
       this.editMode = true;
       this.pages = [
-        { name: 'مستهدف إستهلاك البيض', route: '/targets/egg' },
-        { name: 'تعديل مستهدف إستهلاك البيض' },
+        { name: 'مستهدف إنتاج البيض', route: '/targets/egg' },
+        { name: 'تعديل مستهدف إنتاج البيض' },
       ];
       this.getById(id);
     }
@@ -126,7 +126,7 @@ export class EggProductionFormComponent {
       // update
     } else {
       this.eggProductionService.create(payload).subscribe(() => {
-        this.successMesg = 'تم إضافة مستهدف إستهلاك البيض بنجاح';
+        this.successMesg = 'تم إضافة مستهدف إنتاج البيض بنجاح';
         this.showSuccessDialog = true;
       });
     }

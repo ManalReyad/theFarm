@@ -55,7 +55,7 @@ export class EggProductionComponent {
         header: 'إلى الأسبوع',
       }),
       new ListColumn({
-        field: 'targetEggPerBird',
+        field: 'targetProductionPercent',
         header: 'نسبة إنتاج البيض %',
       }),
     ];
@@ -80,10 +80,10 @@ export class EggProductionComponent {
       .subscribe((response: any) => {
         if(response.length>0)
         response.forEach((element:any) => {
-          element.targetEggPerBird = element.targetEggPerBird+' %'
+          element.targetProductionPercent = element.targetProductionPercent+' %'
         });
         this.pageResult.items = response;
-       // this.pageResult.records = response.totalCount;
+        this.pageResult.records = response.totalCount;
       });
   }
 

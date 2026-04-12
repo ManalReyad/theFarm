@@ -5,12 +5,13 @@ import { PageResult } from 'src/app/Shared/Models/page-result';
 import { BreedsService } from './breeds.service';
 import { SharedModule } from "src/app/Shared/shared.module";
 import { DialogModule } from "primeng/dialog";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-breeds',
   templateUrl: './breeds.component.html',
   styleUrl: './breeds.component.scss',
-  imports: [SharedModule, ReactiveFormsModule, DialogModule],
+  imports: [SharedModule, ReactiveFormsModule, DialogModule,CommonModule],
   standalone:true
 })
 export class BreedsComponent {
@@ -65,8 +66,11 @@ export class BreedsComponent {
     this.breedsService
       .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
-        this.pageResult.items = response.breeds;
-        this.pageResult.records=response.totalCount
+      this.pageResult = {
+  ...this.pageResult,
+  items: response.breeds || [],
+  records: response.totalCount
+};
       });
   }
   edit(object: any) {

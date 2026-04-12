@@ -56,7 +56,7 @@ export class FeedConsumptionComponent {
       }),
       new ListColumn({
         field: 'targetPerBirdGram',
-        header: 'نسبة إستهلاك العلف %',
+        header: 'استهلاك العلف المستهدف / طائر (جرام)',
       }),
     ];
   }
@@ -80,10 +80,10 @@ export class FeedConsumptionComponent {
       .subscribe((response: any) => {
         if(response.length>0)
         response.forEach((element:any) => {
-          element.targetPerBirdGram = element.targetPerBirdGram+' %'
+          element.targetPerBirdGram = element.targetPerBirdGram+' جرام'
         });
         this.pageResult.items = response;
-       // this.pageResult.records = response.totalCount;
+        this.pageResult.records = response.totalCount;
       });
   }
 

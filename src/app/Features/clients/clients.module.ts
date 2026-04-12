@@ -7,6 +7,7 @@ import { ClientsFormComponent } from './clients-form/clients-form.component';
 import { ClientInvoicesComponent } from './client-invoices/client-invoices.component';
 import { SharedModule } from "src/app/Shared/shared.module";
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from "primeng/dialog";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ClientsRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
 ]
 })
 export class ClientsModule { }

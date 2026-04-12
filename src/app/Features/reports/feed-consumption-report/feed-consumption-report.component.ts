@@ -36,7 +36,7 @@ export class FeedConsumptionReportComponent {
   intializeListCoulmns() {
     this.columns = [
       new ListColumn({
-        field: 'dayNumber',
+        field: 'chickAge',
         header: 'اليوم',
       }),
       new ListColumn({

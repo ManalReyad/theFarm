@@ -89,17 +89,17 @@ export class DailyRegistrationListingComponent {
         header: 'نسبة النافق %',
       }),
       new ListColumn({
-        field: 'targetMortalityRate ',
+        field: 'targetMortalityRate',
         hide: false,
         header: 'نسبة النافق المتوقعة %',
       }),
       new ListColumn({
         field: 'feedQuantityTotal',
-        header: 'استهلاك وزن العلف',
+        header: 'استهلاك وزن العلف (طن)',
       }),
       new ListColumn({
         field: 'feedCostTotal',
-        header: 'سعر استهلاك العلف',
+        header: 'سعر استهلاك العلف (جنيه)',
       }),
       new ListColumn({
         field: 'medicineQuantityTotal',
@@ -107,7 +107,7 @@ export class DailyRegistrationListingComponent {
       }),
       new ListColumn({
         field: 'medicineCostTotal',
-        header: 'سعر استهلاك الأدوية',
+        header: 'سعر استهلاك الأدوية (جنيه)',
       }),
     ];
   }

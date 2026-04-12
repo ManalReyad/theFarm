@@ -28,7 +28,7 @@
             <th>#</th>
             <th>من أسبوع</th>
             <th>إلى أسبوع</th>
-            <th>نسبة إستهلاك العلف (%)</th>
+            <th>استهلاك العلف المستهدف / طائر (جرام)</th>
             <th></th>
           </tr>
         </ng-template>
@@ -65,14 +65,14 @@
               <app-input
                 inputType="number"
                 formControlName="targetPerBirdGram"
-                placeholder="النسبة"
+                placeholder="جرام"
                 [showLabel]="false"
                 [isRequired]="false"
               ></app-input>
             </td>
 
             <td class="flex gap-2">
-              <button type="button" (click)="deleteRow(i)" class="add">
+              <button type="button" (click)="deleteRow(i)" class="add" [disabled]="weeks.controls?.length!<2">
                 <i class="pi pi-minus"></i>
               </button>
 
