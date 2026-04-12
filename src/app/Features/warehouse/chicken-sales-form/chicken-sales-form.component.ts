@@ -30,8 +30,13 @@ export class ChickenSalesFormComponent {
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
     if (this.farmId) {
-      this.lookupService.getActiveCycles(this.farmId).subscribe((data: any) => {
-        this.cycleOptions = data|| [];
+      this.lookupService.getActiveCycles(this.farmId).subscribe((response: any) => {
+           this.cycleOptions =
+          response?.length > 0
+            ? response.map((item: any) => {
+                return { id: item.id, name: item.cycleName };
+              })
+            : [];
       });
     }
     this.createForm();

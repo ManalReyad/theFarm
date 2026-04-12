@@ -6,7 +6,7 @@ import { BreedsComponent } from '../breeds/breeds.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'cycle',
+    redirectTo: 'dialy-summary',
     pathMatch: 'full',
   },
 
