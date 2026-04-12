@@ -69,7 +69,7 @@ export class EggProductionReportComponent {
       }),
       new ListColumn({
         field: 'achievementPercent',
-        header: 'التحقيق %',
+        header: 'المحقق %',
       }),
       new ListColumn({
         field: 'targetPerBird',
@@ -81,7 +81,7 @@ export class EggProductionReportComponent {
       }),
       new ListColumn({
         field: 'achievementPerBird',
-        header: 'التحقيق %',
+        header: 'المحقق %',
       }),
       new ListColumn({
         field: 'cumulativeActual',
@@ -93,7 +93,7 @@ export class EggProductionReportComponent {
       }),
       new ListColumn({
         field: 'cumulativeAchievement',
-        header: 'التحقيق % تراكمي',
+        header: 'المحقق % تراكمي',
       }),
     ];
   }

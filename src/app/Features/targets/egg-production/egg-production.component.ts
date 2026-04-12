@@ -68,7 +68,6 @@ export class EggProductionComponent {
         if(this.breedsOptions.length>0)
         {
           this.form.get('breedId')?.setValue(this.breedsOptions?.[0]?.id)
-          this.searchMode = true
           this.getPage()
         }
         
@@ -78,11 +77,11 @@ export class EggProductionComponent {
     this.eggProductionService
       .getAll(this.maxResultCount, this.skipCount,this.form.value.breedId,)
       .subscribe((response: any) => {
-        if(response.length>0)
-        response.forEach((element:any) => {
+        if(response.data.length>0)
+        response.data.forEach((element:any) => {
           element.targetProductionPercent = element.targetProductionPercent+' %'
         });
-        this.pageResult.items = response;
+        this.pageResult.items = response.data;
         this.pageResult.records = response.totalCount;
       });
   }

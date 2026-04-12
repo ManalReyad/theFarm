@@ -27,6 +27,7 @@ export class EggSalesFormComponent {
     { id: 1, name: 'سليم' },
     { id: 2, name: 'كسر' },
     { id: 3, name: 'دبل' },
+    { id: 4, name: 'فرزة' },
   ];
   constructor(
     private router: Router,

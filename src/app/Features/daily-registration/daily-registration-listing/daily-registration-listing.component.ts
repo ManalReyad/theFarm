@@ -32,7 +32,7 @@ export class DailyRegistrationListingComponent {
   constructor(
     private dailyRegisterService: DailyRegistrationService,
     private router: Router,
-    private lookupService: LookupService
+    private lookupService: LookupService,
   ) {}
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -40,7 +40,7 @@ export class DailyRegistrationListingComponent {
     });
     this.farmId = Number(localStorage.getItem('farmId'));
     this.intializeListCoulmns();
-    this.getPage();
+    // this.getPage();
     this.getDropdown();
   }
   intializeListCoulmns() {
@@ -121,6 +121,12 @@ export class DailyRegistrationListingComponent {
                 return { id: item.id, name: item.cycleName };
               })
             : [];
+        if (this.cycleOptions.length > 0) {
+          this.form
+            .get('cycleId')
+            ?.setValue(this.cycleOptions[this.cycleOptions.length - 1].id);
+        }
+        this.getPage();
       });
   }
   getPage() {
@@ -131,22 +137,22 @@ export class DailyRegistrationListingComponent {
         this.pageResult.items = response.dailyRecords.map((item: any) => {
           const feedQuantityTotal = item.feedConsumptions?.reduce(
             (sum: any, el: any) => sum + (el.quantity || 0),
-            0
+            0,
           );
 
           const feedCostTotal = item.feedConsumptions?.reduce(
             (sum: any, el: any) => sum + (el.cost || 0),
-            0
+            0,
           );
 
           const medicineQuantityTotal = item.medicineConsumptions?.reduce(
             (sum: any, el: any) => sum + (el.quantity || 0),
-            0
+            0,
           );
 
           const medicineCostTotal = item.medicineConsumptions?.reduce(
             (sum: any, el: any) => sum + (el.cost || 0),
-            0
+            0,
           );
 
           return {

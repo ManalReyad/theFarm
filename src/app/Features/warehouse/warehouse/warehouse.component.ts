@@ -54,7 +54,7 @@ export class WarehouseComponent {
       new ListColumn({
         field: 'quantity',
         hide: false,
-        header: 'الكمية',
+        header: 'الكمية (طن)',
       }),
        new ListColumn({
         field: 'pricePerUnit',

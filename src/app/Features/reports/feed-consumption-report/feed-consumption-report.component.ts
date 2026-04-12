@@ -61,7 +61,7 @@ export class FeedConsumptionReportComponent {
       }),
       new ListColumn({
         field: 'cumulativeAchievementPerBirdPercent',
-        header: 'نسبة التحقيق التراكمي لاستهلاك العلف لكل طائر (%)',
+        header: 'نسبة المحقق التراكمي لاستهلاك العلف لكل طائر (%)',
       }),
       new ListColumn({
         field: 'targetFeedPerHouseTon',
@@ -85,7 +85,7 @@ export class FeedConsumptionReportComponent {
       }),
       new ListColumn({
         field: 'cumulativeAchievementHousePercent',
-        header: 'نسبة التحقيق التراكمي لاستهلاك العلف للعنبر (%)',
+        header: 'نسبة المحقق التراكمي لاستهلاك العلف للعنبر (%)',
       }),
     ];
   }

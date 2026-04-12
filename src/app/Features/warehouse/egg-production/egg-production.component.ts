@@ -55,7 +55,7 @@ export class EggProductionComponent {
         new ListColumn({
         field: 'cartonsCount',
         hide: false,
-        header: 'العدد',
+        header: 'العدد(طبق)',
       }),
       new ListColumn({
         field: 'day',

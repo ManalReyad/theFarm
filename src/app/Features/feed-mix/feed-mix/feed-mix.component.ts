@@ -47,7 +47,7 @@ export class FeedMixComponent {
       }),
       new ListColumn({
         field: 'totalWeight',
-        header: 'إجمالي الوزن',
+        header: 'إجمالي الوزن (طن)',
       }),
       new ListColumn({
         field: 'totalPrice',
