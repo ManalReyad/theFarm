@@ -79,7 +79,7 @@ export class FeedConsumptionComponent {
       .subscribe((response: any) => {
         if(response.data.length>0)
         response.data.forEach((element:any) => {
-          element.data.targetPerBirdGram = element.targetPerBirdGram+' جرام'
+          element.targetPerBirdGram = element.targetPerBirdGram+' جرام'
         });
         this.pageResult.items = response.data;
         this.pageResult.records = response.totalCount;
