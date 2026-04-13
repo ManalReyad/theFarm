@@ -4,6 +4,7 @@ import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { TradersService } from '../../traders/traders.service';
 import { AuthService } from '../../auth/auth.service';
+import { UserTypeEnum } from 'src/app/Shared/Enums/usert-type.enum';
 
 @Component({
   selector: 'app-clients-list',
@@ -24,7 +25,7 @@ export class ClientsListComponent {
   skipCount: number = 0;
   searchReset: boolean = false;
   role: any;
-
+ userType=UserTypeEnum
   customActionMenu: {
     label: string;
     icon?: string;
@@ -56,7 +57,7 @@ export class ClientsListComponent {
       {
         label: 'حساب العميل',
         icon: 'pi pi-list text-[#7c3aed]',
-        visible: this.role == 2,
+        visible: this.role == this.userType.Owner,
         command: (item: any) => this.goToInvioces(item),
       },
     ];

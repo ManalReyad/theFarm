@@ -20,7 +20,7 @@
       addButtonText="إضافة"
       nosearchBtnText="العودة إلى القائمة"
       [withAction]="false"
-      [specificAction]="role==2"
+      [specificAction]="role==userType.Owner"
       specificActionLabel="سعر الطبق"
       (specificEvent)="openPriceForm($event)"
     ></app-list>

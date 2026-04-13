@@ -5,6 +5,7 @@ import { PageResult } from 'src/app/Shared/Models/page-result';
 import { EggSalesService } from '../egg-sales.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
+import { UserTypeEnum } from 'src/app/Shared/Enums/usert-type.enum';
 
 @Component({
   selector: 'app-egg-sales',
@@ -29,6 +30,7 @@ export class EggSalesComponent {
   form!: FormGroup;
   selectedItemId: any;
   role:any
+  userType=UserTypeEnum
   constructor(
     private eggSalesService: EggSalesService,
     private router: Router,
