@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         (response: any) => {
             this.saveClicked = false;
           
-            this.router.navigate(['/cycle']);
+            this.router.navigate(['/dialy-summary']);
             // تشفير role قبل التخزين
             if (response.userType) {
               const encryptedRole = CryptoJS.AES.encrypt(

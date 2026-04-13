@@ -4,6 +4,7 @@ import { WorkersListComponent } from './workers-list/workers-list.component';
 import { WorkersFormComponent } from './workers-form/workers-form.component';
 import { VacationsComponent } from './vacations/vacations.component';
 import { AdvancesComponent } from './advances/advances.component';
+import { BonusComponent } from './bonus/bonus.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'advances/:id',
     component: AdvancesComponent,
+  },
+  {
+    path: 'bonus',
+    component: BonusComponent,
   },
 ];
 

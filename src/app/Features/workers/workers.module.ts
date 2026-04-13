@@ -9,10 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AdvancesComponent } from './advances/advances.component';
 import { VacationsComponent } from './vacations/vacations.component';
 import { DialogModule } from "primeng/dialog";
+import { BonusComponent } from './bonus/bonus.component';
 
 
 @NgModule({
-  declarations: [WorkersFormComponent,WorkersListComponent, AdvancesComponent, VacationsComponent],
+  declarations: [WorkersFormComponent,WorkersListComponent, AdvancesComponent, VacationsComponent, BonusComponent],
   imports: [
     CommonModule,
     WorkersRoutingModule,

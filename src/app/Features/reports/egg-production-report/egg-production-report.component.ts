@@ -52,6 +52,10 @@ export class EggProductionReportComponent {
         header: 'الانتاج الفعلي سليم (طبق)',
       }),
       new ListColumn({
+        field: 'farzaCartons',
+        header: 'الانتاج الفعلي فرزه (طبق)',
+      }),
+      new ListColumn({
         field: 'totalActualCartons',
         header: 'اجمالي الانتاج الفعلي (طبق)',
       }),
