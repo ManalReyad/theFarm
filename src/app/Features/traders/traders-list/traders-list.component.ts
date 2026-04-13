@@ -27,22 +27,26 @@ export class TradersListComponent {
     label: string;
     icon?: string;
     img?: string;
+    visible:boolean;
     command: (entity: any) => void;
   }[] = [
     {
       label: 'تعديل',
       img: 'assets/images/edit.svg',
       command: (item: any) => this.edit(item),
+      visible:true
     },
     {
       label: 'حذف',
       img: 'assets/images/delete.svg',
       command: (item: any) => this.delete(item),
+      visible:true
     },
     {
       label: 'حساب المورد',
       icon: 'pi pi-list text-[#7c3aed]',
       command: (item: any) => this.goToInvioces(item),
+      visible:true
     },
   ];
   constructor(

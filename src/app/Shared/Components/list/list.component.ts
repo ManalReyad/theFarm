@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
   @Input() displayEmptyList: boolean = false;
   @Input() specificAction: boolean = false;
   @Input() customActionMenu:{
-    label:string,icon?:string, img?:string , command: (entity: any) => void;
+    label:string,icon?:string, img?:string ,visible:boolean; command: (entity: any) => void;
   }[]=[]
   @Output() onChangeStatus = new EventEmitter();
   @Output() pageChange = new EventEmitter();

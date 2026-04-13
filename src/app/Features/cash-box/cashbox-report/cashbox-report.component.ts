@@ -26,6 +26,7 @@ export class CashboxReportComponent implements OnInit {
   searchReset: boolean = false;
   form!:FormGroup
   report:any
+  cycleOptions: { id: number; name: string }[] = [];
   pages: any = [
     { name: 'الخزنة', route: '/cash-box' },
     { name: 'التقرير' },
@@ -34,6 +35,7 @@ export class CashboxReportComponent implements OnInit {
   ngOnInit(): void {
     this.form=new FormGroup({
       date:new FormControl(null),
+      categoryId:new FormControl(null)
     })
     this.intializeListCoulmns();
     this.getPage();

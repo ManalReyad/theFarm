@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { BonusService } from '../bonus.service';
+import { BonusService } from './bonus.service';
+import { SharedModule } from "src/app/Shared/shared.module";
 
 @Component({
   selector: 'app-bonus',
   templateUrl: './bonus.component.html',
-  styleUrl: './bonus.component.scss'
+  styleUrl: './bonus.component.scss',
+  standalone:true,
+  imports: [SharedModule]
 })
 export class BonusComponent {
   columns: ListColumn[] = [];
@@ -23,6 +26,7 @@ export class BonusComponent {
   skipCount: number = 0;
   searchReset: boolean = false;
   farmId: any;
+
   constructor(
     private bonusService: BonusService,
   ) {}

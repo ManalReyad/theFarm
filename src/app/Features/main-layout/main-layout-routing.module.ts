@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
 import { BreedsComponent } from '../breeds/breeds.component';
+import { BonusComponent } from '../bonus/bonus.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,13 @@ const routes: Routes = [
           import('../room/room.module').then((m) => m.RoomModule),
       },
       {
-        path: 'breeds',component:BreedsComponent},
+        path: 'breeds',
+        component: BreedsComponent,
+      },
+      {
+        path: 'bonus',
+        component: BonusComponent,
+      },
       {
         path: 'assets',
         loadChildren: () =>
@@ -40,43 +47,39 @@ const routes: Routes = [
         path: 'daily-registration',
         loadChildren: () =>
           import('../daily-registration/daily-registration.module').then(
-            (m) => m.DailyRegistrationModule,
+            (m) => m.DailyRegistrationModule
           ),
       },
       {
         path: 'warehouse',
         loadChildren: () =>
           import('../warehouse/warehouse.module').then(
-            (m) => m.WarehouseModule,
+            (m) => m.WarehouseModule
           ),
       },
       {
         path: 'warehouse-assets',
         loadChildren: () =>
           import('../wharehouse-assets/wharehouse-assets.module').then(
-            (m) => m.WharehouseAssetsModule,
+            (m) => m.WharehouseAssetsModule
           ),
       },
-       {
+      {
         path: 'warehouse-assets-transactions',
         loadChildren: () =>
           import('../transactions/transactions.module').then(
-            (m) => m.TransactionsModule,
+            (m) => m.TransactionsModule
           ),
       },
       {
         path: 'traders',
         loadChildren: () =>
-          import('../traders/traders.module').then(
-            (m) => m.TradersModule,
-          ),
+          import('../traders/traders.module').then((m) => m.TradersModule),
       },
-       {
+      {
         path: 'clients',
         loadChildren: () =>
-          import('../clients/clients.module').then(
-            (m) => m.ClientsModule,
-          ),
+          import('../clients/clients.module').then((m) => m.ClientsModule),
       },
       {
         path: 'feed-mix',
@@ -96,12 +99,16 @@ const routes: Routes = [
       {
         path: 'raw-material',
         loadChildren: () =>
-          import('../raw-material/raw-material.module').then((m) => m.RawMaterialModule),
+          import('../raw-material/raw-material.module').then(
+            (m) => m.RawMaterialModule
+          ),
       },
       {
         path: 'evaluation-items',
         loadChildren: () =>
-          import('../evaluation/evaluation.module').then((m) => m.EvaluationModule),
+          import('../evaluation/evaluation.module').then(
+            (m) => m.EvaluationModule
+          ),
       },
       {
         path: 'workers',
@@ -111,7 +118,9 @@ const routes: Routes = [
       {
         path: 'dialy-summary',
         loadChildren: () =>
-          import('../daily-summary/daily-summary.module').then((m) => m.DailySummaryModule),
+          import('../daily-summary/daily-summary.module').then(
+            (m) => m.DailySummaryModule
+          ),
       },
       {
         path: 'cash-box',

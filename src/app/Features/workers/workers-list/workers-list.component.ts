@@ -29,27 +29,32 @@ export class WorkersListComponent {
     label: string;
     icon?: string;
     img?: string;
+    visible:boolean,
     command: (entity: any) => void;
   }[] = [
     {
       label: 'تعديل',
       img: 'assets/images/edit.svg',
       command: (item: any) => this.edit(item),
+      visible:true
     },
     {
       label: 'الأجازات',
       icon: 'pi pi-calendar-times text-[#8B5CF6]',
       command: (item: any) => this.vacations(item),
+      visible:true
     },
     {
       label: 'السُّلف',
       icon: 'pi pi-money-bill text-[#3B82F6]',
       command: (item: any) => this.advances(item),
+      visible:true
     },
     {
       label: 'الراتب',
       icon: 'pi pi-credit-card text-teal-600',
       command: (item: any) => this.setSalary(item),
+      visible:true
     },
   ];
   constructor(private workersService: WorkersService, private router: Router) {}

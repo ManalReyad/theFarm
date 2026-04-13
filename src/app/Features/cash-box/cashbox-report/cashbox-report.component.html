@@ -2,6 +2,17 @@
   <h1>تقرير الخزنة</h1>
     <div class="flex justify-between items-center">
       <app-bread-crumb [pages]="pages"></app-bread-crumb>      <form [formGroup]="form" >
+       <div class="flex gap-3 items-center">
+        <div class="lg:w-[320px] w-[220px]">
+          <app-dropdown
+            [showLabel]="false"
+            formControlName="categoryId"
+            placeholder="اختر الفئة"
+            [options]="cycleOptions"
+            [isRequired]="false"
+            (change)="getPage();searchMode=true"
+          ></app-dropdown>
+        </div>
        <div class="w-[320px]">
           <app-date-input
           [isRange]="true"
@@ -11,8 +22,9 @@
           [hideLabel]="true"
           placeholder="اختر التاريخ من-إلى"
           [showClear]="true"
-          (change)="getPage()"
+          (change)="getPage();searchMode=true"
         ></app-date-input>
+       </div>
        </div>
       </form>
     </div>

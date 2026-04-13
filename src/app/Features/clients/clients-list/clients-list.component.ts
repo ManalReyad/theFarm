@@ -3,14 +3,15 @@ import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { TradersService } from '../../traders/traders.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
-  styleUrl: './clients-list.component.scss'
+  styleUrl: './clients-list.component.scss',
 })
 export class ClientsListComponent {
- columns: ListColumn[] = [];
+  columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
   selectedTrader: any;
   showConfirmDeleteDialog: boolean = false;
@@ -22,34 +23,43 @@ export class ClientsListComponent {
   maxResultCount: number = 7;
   skipCount: number = 0;
   searchReset: boolean = false;
+  role: any;
+
   customActionMenu: {
     label: string;
     icon?: string;
     img?: string;
+    visible: boolean;
     command: (entity: any) => void;
-  }[] = [
-    {
-      label: 'تعديل',
-      img: 'assets/images/edit.svg',
-      command: (item: any) => this.edit(item),
-    },
-    {
-      label: 'حذف',
-      img: 'assets/images/delete.svg',
-      command: (item: any) => this.delete(item),
-    },
-    {
-      label: 'حساب العميل',
-      icon: 'pi pi-list text-[#7c3aed]',
-      command: (item: any) => this.goToInvioces(item),
-    },
-  ];
+  }[] = [];
   constructor(
     private tradersService: TradersService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.role = this.authService.getDecodedRole();
+    this.customActionMenu = [
+      {
+        label: 'تعديل',
+        img: 'assets/images/edit.svg',
+        command: (item: any) => this.edit(item),
+        visible: true,
+      },
+      {
+        label: 'حذف',
+        visible: true,
+        img: 'assets/images/delete.svg',
+        command: (item: any) => this.delete(item),
+      },
+      {
+        label: 'حساب العميل',
+        icon: 'pi pi-list text-[#7c3aed]',
+        visible: this.role == 2,
+        command: (item: any) => this.goToInvioces(item),
+      },
+    ];
     this.intializeListCoulmns();
     this.getPage();
   }
@@ -84,23 +94,23 @@ export class ClientsListComponent {
 
   getPage() {
     this.tradersService
-      .getAll(this.maxResultCount, this.skipCount,2)
+      .getAll(this.maxResultCount, this.skipCount, 2)
       .subscribe((response: any) => {
         this.pageResult.items = response.traders;
-        this.pageResult.records=response.totalCount
+        this.pageResult.records = response.totalCount;
       });
   }
 
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
 
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
+    this.skipCount = 0;
     this.getPage();
   }
 
@@ -110,13 +120,11 @@ export class ClientsListComponent {
   }
 
   submitDelete() {
-    this.tradersService
-      .delete(this.selectedTrader.id)
-      .subscribe(() => {
-        this.successMesg = 'تم حذف العميل بنجاح، يمكنك المتابعة';
-        this.showSuccessDialog = true;
-        this.showConfirmDeleteDialog = false;
-      });
+    this.tradersService.delete(this.selectedTrader.id).subscribe(() => {
+      this.successMesg = 'تم حذف العميل بنجاح، يمكنك المتابعة';
+      this.showSuccessDialog = true;
+      this.showConfirmDeleteDialog = false;
+    });
   }
 
   addNew() {

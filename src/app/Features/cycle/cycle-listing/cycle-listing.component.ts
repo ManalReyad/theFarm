@@ -27,27 +27,32 @@ export class CycleListingComponent {
     label: string;
     icon?: string;
     img?: string;
+    visible:boolean;
     command: (entity: any) => void;
   }[] = [
     {
       label: 'تعديل',
       img: 'assets/images/edit.svg',
       command: (item: any) => this.edit(item),
+      visible:true
     },
     {
       label: 'حذف',
       img: 'assets/images/delete.svg',
       command: (item: any) => this.delete(item),
+      visible:true
     },
     {
       label: 'إنشاء تقييم',
       icon: 'pi pi-star text-[#f59e0b]',
       command: (item: any) => this.addEvaluation(item),
+      visible:true
     },
     {
       label: 'التقييمات',
       icon: 'pi pi-list text-[#7c3aed]',
       command: (item: any) => this.goToEvaluations(item),
+      visible:true
     },
   ];
   constructor(private cycleService: CycleService, private router: Router) {}

@@ -157,7 +157,7 @@ export class MenuService {
       {
         label: 'المستخدمين',
         icon: PrimeIcons.USERS,
-        expanded: this.shouldExpand(['traders', 'clients', 'workers','workers/bonus']),
+        expanded: this.shouldExpand(['traders', 'clients', 'workers','bonus']),
         items: [
           {
             label: 'الموردين',
@@ -181,7 +181,7 @@ export class MenuService {
             label: 'المكآفات',
             icon: PrimeIcons.CIRCLE_FILL,
             iconStyle: { fontSize: '.8rem' },
-            routerLink: ['workers/bonus'],
+            routerLink: ['bonus'],
           },
         ],
       },
