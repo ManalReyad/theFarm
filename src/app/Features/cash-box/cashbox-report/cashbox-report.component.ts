@@ -40,9 +40,9 @@ export class CashboxReportComponent implements OnInit {
       category: new FormControl(),
       type: new FormControl(),
     });
-    this.getDropdowns();
     this.intializeListCoulmns();
-    this.getPage();
+        this.getDropdowns();
+
   }
   intializeListCoulmns() {
     this.columns = [
@@ -106,6 +106,8 @@ export class CashboxReportComponent implements OnInit {
         this.categoryOptions = response.map((item: any) => {
           return { id: item.id, name: item.displayName };
         });
+        this.form.get('category')?.setValue(this.categoryOptions[0].id);
+           
       }
     });
     this.lookupService.getTypes().subscribe((response: any) => {
@@ -113,6 +115,8 @@ export class CashboxReportComponent implements OnInit {
         this.typesOptions = response.map((item: any) => {
           return { id: item.id, name: item.displayName };
         });
+        this.form.get('type')?.setValue(this.typesOptions[0].id);
+         this.getPage();
       }
     });
   }
