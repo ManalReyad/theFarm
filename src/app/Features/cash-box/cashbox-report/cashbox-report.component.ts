@@ -37,8 +37,8 @@ export class CashboxReportComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       date: new FormControl(null),
-      category: new FormControl(''),
-      type: new FormControl(''),
+      category: new FormControl(null),
+      type: new FormControl(null),
     });
     this.getDropdowns();
     this.intializeListCoulmns();
