@@ -38,7 +38,7 @@ export class EggProductionComponent {
       new ListColumn({
         field: 'chickAge',
         hide: false,
-        header: 'عمر الفراخ (اليوم)',
+        header: 'عمر الفراخ',
       }),
       new ListColumn({
         field: 'barnName',
