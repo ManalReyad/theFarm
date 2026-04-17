@@ -34,11 +34,12 @@ export class DropdownComponent {
   @Input() isRequired: boolean = true;
   @Input() showLabel: boolean = true;
   @Input() disabled: boolean = false;
-    @Input() showClear: boolean = false;
+  @Input() showClear: boolean = false;
   @Input() formControl!: FormControl;
   @Input() formControlName!: string;
 
   @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output() clear: EventEmitter<any> = new EventEmitter();
   @Output() search: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('dropdown') dropdown!: Dropdown;
@@ -74,11 +75,14 @@ export class DropdownComponent {
   onChange(e: any) {
     this.change.emit(e.value);
   }
+  onClear() {
+    this.clear.emit();
+  }
   onSearch(e: any) {
     this.search.emit(e.filter);
   }
   open() {
-    if (this.dropdown&&!this.disabled) {
+    if (this.dropdown && !this.disabled) {
       this.dropdown.show();
     }
   }

@@ -15,7 +15,7 @@ export class CashBoxService {
     );
   }
   getReport(from: any, to: any,category:number,type:number,maxResultCount: number, skipCount: number) {
-    return this.http.get(this.baseUrl + `/report?from=${from}&to=${to}&category=${category?category:''}&type=${type?type:''}&SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
+    return this.http.get(this.baseUrl + `/report?from=${from}&to=${to}&category=${category||category==0?category:''}&type=${type||type==0?type:''}&SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
   }
   createOutcomeCash(body: any) {
     return this.http.post(this.baseUrl + `/expense/other`, body);
