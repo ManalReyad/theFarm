@@ -37,12 +37,12 @@ export class CashboxReportComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       date: new FormControl(null),
-      category: new FormControl(),
-      type: new FormControl(),
+      category: new FormControl(''),
+      type: new FormControl(''),
     });
+    this.getDropdowns();
     this.intializeListCoulmns();
-        this.getDropdowns();
-
+    this.getPage();
   }
   intializeListCoulmns() {
     this.columns = [
@@ -106,8 +106,6 @@ export class CashboxReportComponent implements OnInit {
         this.categoryOptions = response.map((item: any) => {
           return { id: item.id, name: item.displayName };
         });
-        this.form.get('category')?.setValue(this.categoryOptions[0].id);
-           
       }
     });
     this.lookupService.getTypes().subscribe((response: any) => {
@@ -115,8 +113,6 @@ export class CashboxReportComponent implements OnInit {
         this.typesOptions = response.map((item: any) => {
           return { id: item.id, name: item.displayName };
         });
-        this.form.get('type')?.setValue(this.typesOptions[0].id);
-         this.getPage();
       }
     });
   }

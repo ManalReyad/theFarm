@@ -127,16 +127,6 @@ export class EggSalesComponent {
           header: 'العدد',
         }),
         new ListColumn({
-          field: 'paidAmount',
-          hide: false,
-          header: 'القيمة المدفوعة',
-        }),
-        new ListColumn({
-          field: 'cumulativeBalance',
-          hide: false,
-          header: 'الرصيد التراكمي',
-        }),
-        new ListColumn({
           field: 'date',
           hide: false,
           header: 'التاريخ',
