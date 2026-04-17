@@ -3,12 +3,22 @@
     <div class="flex justify-between items-center">
       <app-bread-crumb [pages]="pages"></app-bread-crumb>      <form [formGroup]="form" >
        <div class="flex gap-3 items-center">
-        <div class="lg:w-[320px] w-[220px]">
+         <div class="lg:w-[280px] w-[220px]">
           <app-dropdown
             [showLabel]="false"
-            formControlName="categoryId"
+            formControlName="type"
+            placeholder="اختر النوع"
+            [options]="typesOptions"
+            [isRequired]="false"
+            (change)="getPage();searchMode=true"
+          ></app-dropdown>
+        </div>
+        <div class="lg:w-[280px] w-[220px]">
+          <app-dropdown
+            [showLabel]="false"
+            formControlName="category"
             placeholder="اختر الفئة"
-            [options]="cycleOptions"
+            [options]="categoryOptions"
             [isRequired]="false"
             (change)="getPage();searchMode=true"
           ></app-dropdown>
@@ -105,7 +115,6 @@
     noDataImg="nodepartments.svg"
     noDataMessage="لا توجد بيانات"
     nosearchBtnText="العودة إلى الملخص اليومي"
-    [hasPagination]="false"
     [withAction]="false"
   ></app-list>
 </div>

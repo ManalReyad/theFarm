@@ -47,14 +47,18 @@ export class CashBoxListComponent {
         isDate: true,
       }),
       new ListColumn({
-        field: 'type',
+        field: 'displayName',
+        objectName:'type',
         hide: false,
         header: 'النوع',
+         isObject:true
       }),
       new ListColumn({
-        field: 'category',
+        field: 'displayName',
         hide: false,
+        objectName:'category',
         header: 'الفئة',
+         isObject:true
       }),
       new ListColumn({
         field: 'amount',

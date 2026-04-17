@@ -52,4 +52,10 @@ export class LookupService {
   getBreeds() {
     return this.http.get(this.baseUrl + `Breeds`);
   }
+    getCategories() {
+    return this.http.get(this.baseUrl + `categories-lookup`);
+  }
+    getTypes() {
+    return this.http.get(this.baseUrl + `types-lookup`);
+  }
 }

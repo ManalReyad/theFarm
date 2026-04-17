@@ -29,94 +29,148 @@ export class EggSalesComponent {
   farmId: any;
   form!: FormGroup;
   selectedItemId: any;
-  role:any
-  userType=UserTypeEnum
+  role: any;
+  userType = UserTypeEnum;
   constructor(
     private eggSalesService: EggSalesService,
     private router: Router,
-    private authService:AuthService
+    private authService: AuthService,
   ) {}
   ngOnInit(): void {
     this.farmId = Number(localStorage.getItem('farmId'));
-    this.intializeListCoulmns();
     this.getPage();
     this.form = new FormGroup({
       unitPrice: new FormControl(null, Validators.required),
     });
-    this.role=this.authService.getDecodedRole()
+    this.role = this.authService.getDecodedRole();
+    this.intializeListCoulmns();
   }
   intializeListCoulmns() {
-    this.columns = [
-      new ListColumn({
-        field: '',
-        hide: false,
-        header: '#',
-        width: 5,
-        isIndex: true,
-      }),
-      new ListColumn({
-        field: 'traderName',
-        hide: false,
-        header: 'المشتري',
-      }),
-      new ListColumn({
-        field: 'warehouseName',
-        hide: false,
-        header: 'المخزن',
-      }),
-      new ListColumn({
-        field: 'quantity',
-        hide: false,
-        header: 'العدد',
-      }),
-      new ListColumn({
-        field: 'unitPrice',
-        hide: false,
-        header: 'سعر الطبق',
-      }),
-      new ListColumn({
-        field: 'totalPrice',
-        hide: false,
-        header: 'السعر الكلي',
-      }),
-      new ListColumn({
-        field: 'paidAmount',
-        hide: false,
-        header: 'القيمة المدفوعة',
-      }),
-      new ListColumn({
-        field: 'remainingAmount',
-        hide: false,
-        header: 'القيمة المتبقية',
-      }),
-      new ListColumn({
-        field: 'cumulativeBalance',
-        hide: false,
-        header: 'الرصيد التراكمي',
-      }),
-      new ListColumn({
-        field: 'date',
-        hide: false,
-        header: 'التاريخ',
-        isDate: true,
-      }),
-    ];
+    if (this.role === this.userType.Owner) {
+      this.columns = [
+        new ListColumn({
+          field: '',
+          hide: false,
+          header: '#',
+          width: 5,
+          isIndex: true,
+        }),
+        new ListColumn({
+          field: 'traderName',
+          hide: false,
+          header: 'المشتري',
+        }),
+        new ListColumn({
+          field: 'eggQuality',
+          hide: false,
+          header: 'نوع البيض',
+        }),
+        new ListColumn({
+          field: 'quantity',
+          hide: false,
+          header: 'العدد',
+        }),
+        new ListColumn({
+          field: 'unitPrice',
+          hide: false,
+          header: 'سعر الطبق',
+        }),
+        new ListColumn({
+          field: 'totalPrice',
+          hide: false,
+          header: 'السعر الكلي',
+        }),
+        new ListColumn({
+          field: 'paidAmount',
+          hide: false,
+          header: 'القيمة المدفوعة',
+        }),
+        new ListColumn({
+          field: 'remainingAmount',
+          hide: false,
+          header: 'القيمة المتبقية',
+        }),
+        new ListColumn({
+          field: 'cumulativeBalance',
+          hide: false,
+          header: 'الرصيد التراكمي',
+        }),
+        new ListColumn({
+          field: 'date',
+          hide: false,
+          header: 'التاريخ',
+          isDate: true,
+        }),
+      ];
+    } else {
+      this.columns = [
+        new ListColumn({
+          field: '',
+          hide: false,
+          header: '#',
+          width: 5,
+          isIndex: true,
+        }),
+        new ListColumn({
+          field: 'traderName',
+          hide: false,
+          header: 'المشتري',
+        }),
+        new ListColumn({
+          field: 'eggQuality',
+          hide: false,
+          header: 'نوع البيض',
+        }),
+        new ListColumn({
+          field: 'quantity',
+          hide: false,
+          header: 'العدد',
+        }),
+        new ListColumn({
+          field: 'paidAmount',
+          hide: false,
+          header: 'القيمة المدفوعة',
+        }),
+        new ListColumn({
+          field: 'cumulativeBalance',
+          hide: false,
+          header: 'الرصيد التراكمي',
+        }),
+        new ListColumn({
+          field: 'date',
+          hide: false,
+          header: 'التاريخ',
+          isDate: true,
+        }),
+      ];
+    }
   }
   getPage() {
-    this.eggSalesService.getEggSales(this.maxResultCount,this.skipCount).subscribe((response: any) => {
-      this.pageResult.items = response.sales;
-      this.pageResult.records=response.totalCount
-    });
+    if (this.role === this.userType.Owner) {
+      this.eggSalesService
+        .getEggSales(this.maxResultCount, this.skipCount)
+        .subscribe((response: any) => {
+          this.pageResult.items = response.sales;
+          this.pageResult.records = response.totalCount;
+        });
+    } else {
+      this.eggSalesService
+        .getEggSalesForManager(this.maxResultCount, this.skipCount)
+        .subscribe((response: any) => {
+          this.pageResult.items = response.sales;
+          this.pageResult.records = response.totalCount;
+        });
+    }
   }
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
+    this.skipCount = 0;
     this.getPage();
   }
   delete(item: any) {
