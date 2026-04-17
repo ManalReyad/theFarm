@@ -11,6 +11,7 @@
             [options]="typesOptions"
             [isRequired]="false"
             (change)="getPage();searchMode=true"
+            [showClear]="true"
           ></app-dropdown>
         </div>
         <div class="lg:w-[280px] w-[220px]">
@@ -21,6 +22,7 @@
             [options]="categoryOptions"
             [isRequired]="false"
             (change)="getPage();searchMode=true"
+            [showClear]="true"
           ></app-dropdown>
         </div>
        <div class="w-[320px]">

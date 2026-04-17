@@ -36,11 +36,9 @@ export class EggProductionComponent {
   intializeListCoulmns() {
     this.columns = [
       new ListColumn({
-        field: '',
+        field: 'chickAge',
         hide: false,
-        header: '#',
-        width: 5,
-        isIndex: true,
+        header: 'عمر الفراخ (اليوم)',
       }),
       new ListColumn({
         field: 'barnName',
