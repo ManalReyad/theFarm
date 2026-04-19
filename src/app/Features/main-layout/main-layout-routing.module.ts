@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
 import { BreedsComponent } from '../breeds/breeds.component';
 import { BonusComponent } from '../bonus/bonus.component';
+import { CycleProductionSummaryComponent } from '../cycle-production-summary/cycle-production-summary.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'bonus',
         component: BonusComponent,
+      },
+      {
+        path: 'summary-by-cycle',
+        component: CycleProductionSummaryComponent,
       },
       {
         path: 'assets',

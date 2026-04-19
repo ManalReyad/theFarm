@@ -28,6 +28,11 @@ export class MenuService {
         icon: PrimeIcons.INBOX,
         routerLink: ['warehouse/egg-production'],
       },
+      {
+        label: 'إنتاج كل دورة',
+        icon: PrimeIcons.BOX,
+        routerLink: ['summary-by-cycle'],
+      },
 
       {
         label: 'المستهدف',

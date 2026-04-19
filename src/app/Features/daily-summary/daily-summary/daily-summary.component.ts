@@ -97,6 +97,11 @@ export class DailySummaryComponent {
         header: 'إنتاج بيض دبل',
       }),
       new ListColumn({
+        field: 'eggsFarza',
+        hide: false,
+        header: 'إنتاج بيض فرزه',
+      }),
+      new ListColumn({
         field: 'eggsTotal',
         hide: false,
         header: 'إنتاج بيض كلي',
@@ -109,12 +114,12 @@ export class DailySummaryComponent {
       new ListColumn({
         field: 'feedConsumed',
         hide: false,
-        header: 'المستهلك ',
+        header: 'المستهلك (طن)',
       }),
       new ListColumn({
         field: 'eggsSold',
         hide: false,
-        header: 'مبيعات بيض كام كرتونة ',
+        header: 'مبيعات بيض (طبق)',
       }),
     ];
   }

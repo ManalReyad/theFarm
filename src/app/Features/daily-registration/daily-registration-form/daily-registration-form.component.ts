@@ -206,7 +206,7 @@ export class DailyRegistrationFormComponent {
         quantity: Number(item.quantity),
         itemId: Number(item.itemId),
       })),
-      medicineConsumptions: this.form.value.medicineConsumptions.map(
+      medicineConsumptions:this.isCurrentMedicineItemRowInvalid()&&this.form.value.medicineConsumptions.length==1?[]: this.form.value.medicineConsumptions.map(
         (item: any) => ({
           ...item,
           quantity: Number(item.quantity),

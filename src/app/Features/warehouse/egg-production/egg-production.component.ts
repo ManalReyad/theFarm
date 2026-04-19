@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { EggProductionService } from '../egg-production.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { LookupService } from 'src/app/Shared/Services/lookup.service';
 
 @Component({
   selector: 'app-egg-production',
@@ -23,15 +25,22 @@ export class EggProductionComponent {
   maxResultCount: number = 7;
   skipCount: number = 0;
   searchReset: boolean = false;
+  form!: FormGroup;
   farmId: any;
+  cycleOptions: { id: number; name: string }[] = [];
   constructor(
     private eggProductionService: EggProductionService,
     private router: Router,
+    private lookupService: LookupService
   ) {}
   ngOnInit(): void {
+    this.form = new FormGroup({
+      cycleId: new FormControl(null),
+    });
     this.farmId =Number( localStorage.getItem('farmId'))
     this.intializeListCoulmns();
-    this.getPage();
+  //  this.getPage();
+    this.getDropdown()
   }
   intializeListCoulmns() {
     this.columns = [
@@ -41,9 +50,9 @@ export class EggProductionComponent {
         header: 'عمر الفراخ',
       }),
       new ListColumn({
-        field: 'barnName',
+        field: 'cycleName',
         hide: false,
-        header: 'العنبر',
+        header: 'الدورة',
       }),
       new ListColumn({
         field: 'eggQuality',
@@ -68,9 +77,27 @@ export class EggProductionComponent {
       }),
     ];
   }
+  getDropdown() {
+    this.lookupService
+      .getActiveCycles(this.farmId)
+      .subscribe((response: any) => {
+        this.cycleOptions =
+          response?.length > 0
+            ? response.map((item: any) => {
+                return { id: item.id, name: item.cycleName };
+              })
+            : [];
+        if (this.cycleOptions.length > 0) {
+          this.form
+            .get('cycleId')
+            ?.setValue(this.cycleOptions[this.cycleOptions.length - 1].id);
+        }
+        this.getPage();
+      });
+  }
   getPage() {
     this.eggProductionService
-      .getEggProudctionByFarm(this.farmId,this.maxResultCount,this.skipCount)
+      .getEggProudctionByFarm(this.farmId,this.maxResultCount,this.skipCount,this.form.value.cycleId)
       .subscribe((response: any) => {
         this.pageResult.items = response.eggRecords;
         this.pageResult.records=response.totalCount

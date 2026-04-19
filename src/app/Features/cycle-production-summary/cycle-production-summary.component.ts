@@ -1,16 +1,26 @@
 import { Component } from '@angular/core';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
-import { EggProductionService } from '../egg-production.service';
+import { EggProductionService } from '../warehouse/egg-production.service';
+import { SharedModule } from "src/app/Shared/shared.module";
 
 @Component({
-  selector: 'app-egg-stock',
-  templateUrl: './egg-stock.component.html',
-  styleUrl: './egg-stock.component.scss',
+  selector: 'app-cycle-production-summary',
+  standalone: true,
+  imports: [SharedModule],
+  templateUrl: './cycle-production-summary.component.html',
+  styleUrl: './cycle-production-summary.component.scss'
 })
-export class EggStockComponent {
+export class CycleProductionSummaryComponent {
   columns: ListColumn[] = [];
   pageResult: PageResult = { items: [] };
+  selectedItem: any;
+  showConfirmDeleteDialog: boolean = false;
+  showSuccessDialog: boolean = false;
+  showForm: boolean = false;
+  editMode: boolean = false;
+  successMesg: string = '';
+  showWarnningDialog: boolean = false;
   searchMode: boolean = false;
   maxResultCount: number = 7;
   skipCount: number = 0;
@@ -22,60 +32,49 @@ export class EggStockComponent {
   ngOnInit(): void {
     this.farmId =Number( localStorage.getItem('farmId'))
     this.intializeListCoulmns();
-    this.getPage();
+   this.getPage();
   }
   intializeListCoulmns() {
     this.columns = [
       new ListColumn({
-        field: '',
+        field: 'cycleName',
         hide: false,
-        header: '#',
-        width: 5,
-        isIndex: true,
+        header: 'اسم الدورة',
       }),
-  
       new ListColumn({
-        field: 'warehouseName',
+        field: 'totalCartons',
         hide: false,
-        header: 'المخزن',
+        header: 'اجمالي الأطباق',
       }),
-  
-      new ListColumn({
-        field: 'itemName',
+        new ListColumn({
+        field: 'normalEggs',
         hide: false,
-        header: 'النوع',
+        header: 'بيض سليم',
       }),
-  
       new ListColumn({
-        field: 'eggQuality',
+        field: 'brokenEggs',
         hide: false,
-        header: 'جودة البيض',
+        header: 'بيض كسر',
       }),
-  
       new ListColumn({
-        field: 'quantity',
+        field: 'doubleEggs',
         hide: false,
-        header: 'الكمية',
+        header: 'بيض دبل',
+        isDate: true,
       }),
-  
       new ListColumn({
-        field: 'withdrawn',
+        field: 'farzaEggs',
         hide: false,
-        header: 'المسحوب',
-      }),
-  
-      new ListColumn({
-        field: 'remainingQuantity',
-        hide: false,
-        header: 'المتبقي',
+        header: 'بيض فرزة',
+        isDate: true,
       }),
     ];
   }
   getPage() {
     this.eggProductionService
-      .getEggStockByFarm(this.farmId,this.maxResultCount,this.skipCount)
+      .getSummaryEggProductionByCycle(this.farmId,this.maxResultCount,this.skipCount)
       .subscribe((response: any) => {
-        this.pageResult.items = response.warehouseEggs;
+        this.pageResult.items = response.data;
         this.pageResult.records=response.totalCount
       });
   }

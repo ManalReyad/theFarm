@@ -135,7 +135,7 @@ export class ClientInvoicesComponent {
   createForm() {
     this.form = new FormGroup({
       id: new FormControl(0),
-      traderId: new FormControl(null, Validators.required),
+      traderId: new FormControl(null),
       warehouseId: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
