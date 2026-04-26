@@ -139,7 +139,7 @@ export class ClientInvoicesComponent {
       warehouseId: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
-      notes: new FormControl(null, Validators.required),
+      notes: new FormControl(null),
     });
   }
   addNew() {

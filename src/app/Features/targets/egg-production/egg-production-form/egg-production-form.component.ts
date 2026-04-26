@@ -58,7 +58,7 @@ export class EggProductionFormComponent {
     return this.fb.group({
       weekStart: [null, Validators.required],
       weekEnd: [null, Validators.required],
-      targetEggPerBird: [null, Validators.required],
+      targetProductionPercent: [null, Validators.required],
     });
   }
 
@@ -83,7 +83,7 @@ export class EggProductionFormComponent {
     //       this.fb.group({
     //         weekStart: w.weekStart,
     //         weekEnd: w.weekEnd,
-    //         targetEggPerBird: w.targetEggPerBird,
+    //         targetProductionPercent: w.targetProductionPercent,
     //       })
     //     );
     //   });
@@ -96,15 +96,15 @@ export class EggProductionFormComponent {
   
     const weekStart = row.get('weekStart')?.value;
     const weekEnd = row.get('weekEnd')?.value;
-    const targetEggPerBird = row.get('targetEggPerBird')?.value;
+    const targetProductionPercent = row.get('targetProductionPercent')?.value;
   
     return (
       weekStart === null ||
       weekStart === undefined ||
       weekEnd === null ||
       weekEnd === undefined ||
-      targetEggPerBird === null ||
-      targetEggPerBird === undefined
+      targetProductionPercent === null ||
+      targetProductionPercent === undefined
     );
   }
   addRow() {

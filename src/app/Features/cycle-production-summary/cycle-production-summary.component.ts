@@ -60,13 +60,11 @@ export class CycleProductionSummaryComponent {
         field: 'doubleEggs',
         hide: false,
         header: 'بيض دبل',
-        isDate: true,
       }),
       new ListColumn({
         field: 'farzaEggs',
         hide: false,
         header: 'بيض فرزة',
-        isDate: true,
       }),
     ];
   }
