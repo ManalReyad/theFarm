@@ -30,7 +30,7 @@ export class ClientsFormComponent {
       this.getById(clientId);
       this.editMode = true;
       this.pages = [
-        { name: 'العملاء', route: '/traders' },
+        { name: 'العملاء', route: '/clients' },
         { name: 'تعديل بيانات العميل' },
       ];
     }

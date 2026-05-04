@@ -131,7 +131,7 @@ export class TradersListComponent {
     this.router.navigate(['/traders/update/' + item.id]);
   }
   goToInvioces(item: any) {
-    this.router.navigate(['/traders/invioces/' + item.id]);
+    this.router.navigate(['/traders/invioces/' + item.id],{queryParams:{name:item.name}});
   }
   close() {
     this.showForm = false;

@@ -136,6 +136,13 @@
               alt="delete icon"
             />
           </span>
+          <span *ngIf="hasOneEdit&&!hasEdit&&i==0" (click)="onEdit(entity, i)">
+            <img
+              class="cursor-pointer"
+              src="assets/images/edit.svg"
+              alt="edit icon"
+            />
+          </span>
         </td>
         <td
           *ngIf="withCustomAction"

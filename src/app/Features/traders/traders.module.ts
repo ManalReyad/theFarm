@@ -7,6 +7,7 @@ import { TradersListComponent } from './traders-list/traders-list.component';
 import { SharedModule } from "src/app/Shared/shared.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { LedgerComponent } from './ledger/ledger.component';
+import { DialogModule } from "primeng/dialog";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { LedgerComponent } from './ledger/ledger.component';
     CommonModule,
     TradersRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
 ]
 })
 export class TradersModule { }

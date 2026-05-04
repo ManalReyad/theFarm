@@ -1,6 +1,12 @@
 <div class="flex flex-col gap-4">
   <h1>حساب المورد</h1>
-  <app-bread-crumb [pages]="pages"></app-bread-crumb>
+  <div class="flex justify-between items-center">
+    <app-bread-crumb  [pages]="pages"></app-bread-crumb>
+
+   <div class="flex gap-3">
+     <button class="submitBtn" (click)="addNew()">دفع لحساب مورد</button>
+   </div>
+ </div>
 
   <app-list
     [listColumns]="columns"
@@ -12,3 +18,67 @@
     [withAction]="false"
   ></app-list>
 </div>
+
+<p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="showForm"
+  [closable]="false"
+  [style]="{ width: '25vw' }"
+  [breakpoints]="{ '960px': '80vw' }"
+>
+  <div class="title">
+    {{ editMode ? "تعديل حساب" : "إضافة حساب" }}
+  </div>
+  <form [formGroup]="form">
+    <div class="grid grid-cols-12 mt-5">
+      <div class="col-span-12">
+        <app-dropdown
+          labelText="المخزن"
+          placeholder="أدخل المخزن"
+          formControlName="warehouseId"
+          [options]="warehouseOptions"
+        ></app-dropdown>
+      </div>
+      <div class="col-span-12">
+        <app-input
+          labelText="المبلغ"
+          placeholder="أدخل المبلغ"
+          formControlName="amount"
+          inputType="number"
+        ></app-input>
+      </div>
+      <div class="col-span-12">
+        <app-date-input
+          labelText="التاريخ"
+          placeholder="أدخل التاريخ"
+          formControlName="date"
+        ></app-date-input>
+      </div>
+      <div class="col-span-12 flex flex-col mt-4">
+        <label>الوصف</label>
+        <textarea
+          placeholder="ادخل الوصف"
+          cols="12"
+          rows="3"
+          formControlName="notes"
+        ></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-center gap-3 mt-5">
+    <button class="submitBtn" (click)="save()" [disabled]="form.invalid">
+      {{ editMode ? "حفظ" : "إضافة" }}
+    </button>
+    <button class="exitBtn" (click)="showForm=false">إلغاء</button>
+  </div>
+</p-dialog>
+
+
+<app-success-dialog
+  [visible]="showSuccessDialog"
+  (onSubmitEvent)="backToList()"
+  [message]="successMesg"
+  btnText="عرض الحساب"
+></app-success-dialog>

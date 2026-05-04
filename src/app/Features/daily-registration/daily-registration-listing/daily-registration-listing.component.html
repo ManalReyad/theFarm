@@ -10,8 +10,7 @@
             placeholder="اختر الدورة"
             [options]="cycleOptions"
             [isRequired]="false"
-            (change)="getPage();searchMode = true"
-            [showClear]="true"
+            (change)="getPage()"
           ></app-dropdown>
         </div>
         
@@ -28,8 +27,9 @@
     [pageResult]="pageResult"
     (pageChange)="onPageChanged($event)"
     (edit)="edit($event)"
-    (delete)="delete($event)"
+    [hasDelete]="false"
     [hasEdit]="false"
+    [hasOneEdit]="true"
     (add)="addNew()"
     [searchMode]="searchMode"
     (back)="resetSearch()"

@@ -37,33 +37,31 @@ export class DailyRegistrationFormComponent {
   currentFeedItemRowInvalid: boolean = false;
   currentMedicineRowInvalid: boolean = false;
   farmId: any;
+  cycleId!: number;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dailyRegisterService: DailyRegistrationService,
     private fb: FormBuilder,
-    private lookupService: LookupService,
+    private lookupService: LookupService
   ) {}
   ngOnInit(): void {
     let id = this.activatedRoute.snapshot.params['id'];
+    this.cycleId = this.activatedRoute.snapshot.queryParams['cycleId'];
+    this.farmId = Number(localStorage.getItem('farmId'));
+    this.createForm();
+    this.getDropdowns();
     if (id) {
-      this.getById(id);
       this.editMode = true;
       this.pages = [
         { name: 'التسجيلات اليومية', route: '/daily-registration' },
         { name: 'تعديل تسجيل يومي' },
       ];
     }
-     this.farmId = Number(localStorage.getItem('farmId'));
-    // if (this.farmId) {
-    //   this.lookupService
-    //     .getBarnsByFarmId(this.farmId)
-    //     .subscribe((data: any) => {
-    //       this.barnsOptions = data || [];
-    //     });
-    // }
-    this.getDropdowns();
-    this.createForm();
+    const data = history.state.data;
+    if (data) {
+      this.patchForm(data);
+    }
   }
   getDropdowns() {
     this.lookupService.getFeedMixes().subscribe((response: any) => {
@@ -75,13 +73,25 @@ export class DailyRegistrationFormComponent {
     this.lookupService
       .getActiveCycles(this.farmId)
       .subscribe((response: any) => {
-        this.cycleOptions =response.length>0? response.map((item:any)=>{return{id:item.id,name:item.cycleName}}):[];
+        this.cycleOptions =
+          response.length > 0
+            ? response.map((item: any) => {
+                return { id: item.id, name: item.cycleName };
+              })
+            : [];        
+        this.form.get('cycleId')?.setValue(+this.cycleId);
       });
     this.lookupService
       .getWarehouseByFarmId(this.farmId)
       .subscribe((res: any) => {
-              this.warehouseOptions =res? [{...res}]:[];
-
+        this.warehouseOptions = res ? [{ ...res }] : [];
+        this.form
+          .get('warehouseId')
+          ?.setValue(
+            history.state?.data?.warehouseId
+              ? history.state.data.warehouseId
+              : this.warehouseOptions[0]?.id
+          );
       });
   }
   createForm() {
@@ -104,13 +114,41 @@ export class DailyRegistrationFormComponent {
       ]),
     });
   }
-  getById(id: any) {
-    // this.dailyRegisterService.getById(id).subscribe((response: any) => {
-    //   this.form.patchValue({
-    //     ...response,
-    //     date: new Date(response.date),
-    //   });
-    // });
+  patchForm(data: any) {
+    this.form.patchValue({
+      id: data.id,
+      deadCount: data.deadCount,
+      cycleId: data.cycleId,
+      warehouseId: data.warehouseId
+        ? data.warehouseId
+        : this.warehouseOptions[0]?.id,
+    });
+
+    const feedArray = this.form.get('feedConsumptions') as FormArray;
+    if (data.feedConsumptions.length > 0) {
+      feedArray.clear();
+      data.feedConsumptions?.forEach((item: any) => {
+        feedArray.push(
+          this.fb.group({
+            itemId: [item.itemId],
+            quantity: [item.quantity],
+          })
+        );
+      });
+    }
+
+    const medicineArray = this.form.get('medicineConsumptions') as FormArray;
+    if (data.medicineConsumptions.length > 0) {
+      medicineArray.clear();
+      data.medicineConsumptions?.forEach((item: any) => {
+        medicineArray.push(
+          this.fb.group({
+            itemId: [item.itemId],
+            quantity: [item.quantity],
+          })
+        );
+      });
+    }
   }
   get feedConsumptions() {
     return this.form.get('feedConsumptions') as FormArray;
@@ -206,20 +244,25 @@ export class DailyRegistrationFormComponent {
         quantity: Number(item.quantity),
         itemId: Number(item.itemId),
       })),
-      medicineConsumptions:this.isCurrentMedicineItemRowInvalid()&&this.form.value.medicineConsumptions.length==1?[]: this.form.value.medicineConsumptions.map(
-        (item: any) => ({
-          ...item,
-          quantity: Number(item.quantity),
-          itemId: Number(item.itemId),
-        })
-      ),
+      medicineConsumptions:
+        this.isCurrentMedicineItemRowInvalid() &&
+        this.form.value.medicineConsumptions.length == 1
+          ? []
+          : this.form.value.medicineConsumptions.map((item: any) => ({
+              ...item,
+              quantity: Number(item.quantity),
+              itemId: Number(item.itemId),
+            })),
     };
 
     if (this.editMode) {
-      // update
+      this.dailyRegisterService.update(payload).subscribe(() => {
+        this.successMesg = 'تم تعديل التسجيل اليومي بنجاح ، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+      });
     } else {
       this.dailyRegisterService.create(payload).subscribe(() => {
-        this.successMesg = 'تمت إضافة التسجيل اليومي بنجاح ، يمكنك المتابعة';
+        this.successMesg = 'تم إضافة التسجيل اليومي بنجاح ، يمكنك المتابعة';
         this.showSuccessDialog = true;
       });
     }

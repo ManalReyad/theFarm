@@ -50,7 +50,6 @@ export class EggSalesFormComponent {
       eggQuality: new FormControl(null, Validators.required),
       date: new FormControl(new Date(Date.now()), Validators.required),
       paidAmount: new FormControl(null, Validators.required),
-      notes: new FormControl(null),
     });
   }
   getDropdown()

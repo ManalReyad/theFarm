@@ -192,10 +192,12 @@ export class DailyRegistrationListingComponent {
       });
   }
   addNew() {
-    this.router.navigate(['/daily-registration/create']);
+    this.router.navigate(['/daily-registration/create'],{queryParams:{cycleId:this.form.value.cycleId}});
   }
   edit(data: any) {
-    this.router.navigate(['/daily-registration/update/' + data.item.id]);
+    this.router.navigate(['/daily-registration/update/' + data.item.id], {
+      state: { data: data.item }
+    });
   }
   close() {
     this.showForm = false;

@@ -1,10 +1,8 @@
-import { LookupService } from 'src/app/Shared/Services/lookup.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ListColumn } from 'src/app/Shared/Models/list-columns';
 import { PageResult } from 'src/app/Shared/Models/page-result';
 import { TradersService } from '../../traders/traders.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-client-invoices',
@@ -13,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ClientInvoicesComponent {
   pages: any = [
-    { name: 'العملاء', route: '/traders' },
+    { name: 'العملاء', route: '/clients' },
     { name: 'حساب العميل' },
   ];
   columns: ListColumn[] = [];
@@ -31,24 +29,17 @@ export class ClientInvoicesComponent {
   searchReset: boolean = false;
   traderId: any;
   data: any;
-  form!: FormGroup;
-  warehouseOptions: { id: number; name: string }[] = [];
-  farmId: any;
 
   constructor(
     private tradersService: TradersService,
     private activatedRoute: ActivatedRoute,
-    private lookupService: LookupService,
   ) {}
 
   ngOnInit(): void {
     this.traderId = this.activatedRoute.snapshot.params['id'];
-    this.farmId = Number(localStorage.getItem('farmId'));
-
     this.intializeListCoulmns();
     this.getPage();
-    this.createForm();
-    this.getDropdowns()
+
   }
 
   intializeListCoulmns() {
@@ -117,36 +108,7 @@ export class ClientInvoicesComponent {
         this.pageResult.records = response.totalCount;
       });
   }
-  save() {
-    this.form.get('traderId')?.setValue(this.traderId);
-    this.tradersService.addClientInvioces(this.form.value).subscribe((data) => {
-      this.showForm = false;
-      this.showSuccessDialog = true;
-      this.successMesg = 'تم إضافة الحساب بنجاح';
-    });
-  }
-  getDropdowns() {
-    this.lookupService
-      .getWarehouseByFarmId(this.farmId)
-      .subscribe((res: any) => {
-        this.warehouseOptions = res ? [{ ...res }] : [];
-      });
-  }
-  createForm() {
-    this.form = new FormGroup({
-      id: new FormControl(0),
-      traderId: new FormControl(null),
-      warehouseId: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
-      date: new FormControl(null, Validators.required),
-      notes: new FormControl(null),
-    });
-  }
-  addNew() {
-    this.editMode = false;
-    this.form.reset();
-    this.showForm = true;
-  }
+ 
   onPageChanged(event: any) {
     this.maxResultCount = event.rows;
     this.skipCount = event.first;
@@ -159,14 +121,5 @@ export class ClientInvoicesComponent {
     this.skipCount = 0;
     this.getPage();
   }
-  close() {
-    this.showForm = false;
-    this.showConfirmDeleteDialog = false;
-  }
 
-  backToList() {
-    this.showForm = false;
-    this.showSuccessDialog = false;
-    this.getPage();
-  }
 }

@@ -17,6 +17,9 @@ export class DailyRegistrationService {
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
+  update(body: any) {
+    return this.http.put(this.baseUrl+`/${body.id}`, body);
+  }
 
   delete(id: number) {
     return this.http.delete(this.baseUrl + `/${id}`);

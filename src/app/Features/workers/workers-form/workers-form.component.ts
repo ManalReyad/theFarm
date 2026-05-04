@@ -57,6 +57,13 @@ export class WorkersFormComponent {
   getById(id: any) {
     this.workersService.getWorkerById(id).subscribe((response: any) => {
       this.form.patchValue(response);
+      let role =
+        response.role == 'FarmManager'
+          ? 1
+          : response.role == 'BarnManager'
+          ? 2
+          : 3;
+      this.form.get('role')?.setValue(role);
     });
   }
 

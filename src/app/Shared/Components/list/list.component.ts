@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
   @Input() withCustomAction: boolean = false;
   @Input() hasSecondBtn: boolean = false;
   @Input() hasEdit: boolean = true;
+  @Input() hasOneEdit: boolean = false;
   @Input() hasDelete: boolean = true;
   @Input() hasView: boolean = false;
   @Input() hasPagination: boolean = true;
