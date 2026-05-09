@@ -3,6 +3,12 @@
     <h1>التسجيلات اليومية</h1>
     <form [formGroup]="form" >
       <div class="lg:flex gap-2 items-center grid-cols-2">
+            <div class="flex gap-3" *ngIf="pageResult.items?.length! > 0">
+      <button class="submitBtn reportBtn gap-2" (click)="downloadReport()" [disabled]="loading">تحميل التقرير 
+        <i *ngIf="!loading" class="pi pi-download"></i>
+        <i *ngIf="loading" class="pi pi-spin pi-spinner-dotted" style="font-size: .9rem"></i>
+      </button>
+    </div>
         <div class="lg:w-[320px] w-[220px]">
           <app-dropdown
             [showLabel]="false"

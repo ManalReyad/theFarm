@@ -35,7 +35,7 @@ export class DailySummaryComponent {
   ) {}
   ngOnInit(): void {
     this.form = new FormGroup({
-      date: new FormControl([new Date(Date.now())]),
+      date: new FormControl(new Date(Date.now())),
       cycleId: new FormControl(null),
     });
     this.farmId = Number(localStorage.getItem('farmId'));
@@ -116,15 +116,10 @@ export class DailySummaryComponent {
         hide: false,
         header: 'المستهلك (طن)',
       }),
-      new ListColumn({
-        field: 'eggsSold',
-        hide: false,
-        header: 'مبيعات بيض (طبق)',
-      }),
     ];
   }
   getPage() {
-    const [start, end] = this.form.value.date ?? [];
+    const selectedDate = this.form.value.date ?? [];
 
     const toISOStringWithoutOffset = (date: Date): string => {
       return new Date(
@@ -137,15 +132,10 @@ export class DailySummaryComponent {
       return date;
     };
 
-    const startDate = start ? toISOStringWithoutOffset(new Date(start)) : '';
+    const formattedDate = selectedDate ? toISOStringWithoutOffset(new Date(selectedDate)) : '';
 
-    const endDate = end
-      ? toISOStringWithoutOffset(setEndOfDay(new Date(end)))
-      : start
-      ? toISOStringWithoutOffset(setEndOfDay(new Date(start)))
-      : '';
     this.dailySummaryService
-      .getAll(startDate, endDate,this.form.value.cycleId,this.maxResultCount,this.skipCount)
+      .getAll(formattedDate, formattedDate,this.form.value.cycleId,this.maxResultCount,this.skipCount)
       .subscribe((response: any) => {
         this.pageResult.items = response.items;
         this.pageResult.records=response.totalCount

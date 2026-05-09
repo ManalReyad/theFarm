@@ -22,4 +22,8 @@ export class AssetService {
   update(body: any) {
     return this.http.put(`${this.baseUrl}/${body.id}`, body);
   }
+  delete(id:number,forceDelete:boolean)
+  {
+    return this.http.delete(this.baseUrl+`/${id}?forceDelete=${forceDelete}`)
+  }
 }

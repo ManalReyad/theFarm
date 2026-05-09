@@ -37,7 +37,6 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error: any) => {
-        console.log(error);
         if (error.status === 400) {
           if (error.error.errors) {
             let err: any = Object.entries(error.error.errors);
@@ -46,9 +45,9 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
               baseService.showFaildMessageDailoge();
               baseService.setFailureMessage(element[0] + ' :' + element[1][0]);
             });
-          } else {
+          } else if(!authRequest.url.includes('AssetItems')){
             baseService.showFaildMessageDailoge();
-            baseService.setFailureMessage(error.error);
+            baseService.setFailureMessage(error.error.message||error.error);
           }
         } else if (error.status === 401) {
           baseService.showFaildMessageDailoge();

@@ -20,6 +20,7 @@ export class FeedConsumptionReportComponent {
   farmId: any;
   cycleOptions: { id: number; name: string }[] = [];
   form!: FormGroup;
+  loading:boolean=false
   constructor(
     private feedConsumptionSettingsService: FeedConsumptionSettingsService,
     private lookupService: LookupService
@@ -105,6 +106,28 @@ export class FeedConsumptionReportComponent {
         }
       });
   }
+  downloadReport() {
+  this.loading=true
+  this.feedConsumptionSettingsService
+    .exportExcel(this.form.value.cycleId)
+    .subscribe((response: Blob) => {
+
+      const blob = new Blob([response], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'تقرير استهلاك العلف.xlsx';
+       
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      this.loading=false
+    });
+}
   getPage() {
     this.feedConsumptionSettingsService
       .getFeedReport(

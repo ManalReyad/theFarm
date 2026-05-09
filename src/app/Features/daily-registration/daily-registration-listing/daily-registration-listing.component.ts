@@ -29,6 +29,7 @@ export class DailyRegistrationListingComponent {
   form!: FormGroup;
   farmId: any;
   cycleOptions: { id: number; name: string }[] = [];
+  loading:boolean=false
   constructor(
     private dailyRegisterService: DailyRegistrationService,
     private router: Router,
@@ -165,6 +166,28 @@ export class DailyRegistrationListingComponent {
         });
       });
   }
+downloadReport() {
+  this.loading=true
+  this.dailyRegisterService
+    .exportExcel(this.form.value.cycleId)
+    .subscribe((response: Blob) => {
+
+      const blob = new Blob([response], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'تقرير التسجيل اليومي.xlsx';
+       
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      this.loading=false
+    });
+}
   onPageChanged(event: any) {
     this.maxResultCount = event.rows;
     this.skipCount = event.first;
@@ -192,11 +215,13 @@ export class DailyRegistrationListingComponent {
       });
   }
   addNew() {
-    this.router.navigate(['/daily-registration/create'],{queryParams:{cycleId:this.form.value.cycleId}});
+    this.router.navigate(['/daily-registration/create'], {
+      queryParams: { cycleId: this.form.value.cycleId },
+    });
   }
   edit(data: any) {
     this.router.navigate(['/daily-registration/update/' + data.item.id], {
-      state: { data: data.item }
+      state: { data: data.item },
     });
   }
   close() {

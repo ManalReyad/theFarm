@@ -78,8 +78,11 @@ export class DailyRegistrationFormComponent {
             ? response.map((item: any) => {
                 return { id: item.id, name: item.cycleName };
               })
-            : [];        
+            : [];
+            if(!this.editMode)
+              {
         this.form.get('cycleId')?.setValue(+this.cycleId);
+              }        
       });
     this.lookupService
       .getWarehouseByFarmId(this.farmId)

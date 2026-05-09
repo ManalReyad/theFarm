@@ -17,4 +17,8 @@ export class BreedsService {
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
+  delete(id:number)
+  {
+   return this.http.delete(this.baseUrl+`/${id}`)
+  }
 }

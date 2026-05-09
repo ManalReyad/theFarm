@@ -118,6 +118,8 @@ export class RawMaterialComponent {
         this.successMesg = 'تم حذف المادة الخام بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
         this.showConfirmDeleteDialog = false;
+      }, (error) => {
+        this.showConfirmDeleteDialog = false;
       });
   }
 

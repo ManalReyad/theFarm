@@ -117,7 +117,9 @@ export class EvaluationItemsComponent {
      this.successMesg = 'تم حذف بند التقييم بنجاح، يمكنك المتابعة';
           this.showSuccessDialog = true;
           this.showConfirmDeleteDialog = false;
-      });
+      }, (error) => {
+        this.showConfirmDeleteDialog = false;
+      },);
   }
 
   close() {

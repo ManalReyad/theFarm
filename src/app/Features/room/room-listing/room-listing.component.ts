@@ -73,18 +73,18 @@ export class RoomListingComponent {
       .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
         this.pageResult.items = response.barns;
-        this.pageResult.records=response.totalCount
+        this.pageResult.records = response.totalCount;
       });
   }
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
+    this.skipCount = 0;
     this.getPage();
   }
   delete(item: any) {
@@ -93,13 +93,16 @@ export class RoomListingComponent {
   }
 
   submitDelete() {
-    this.roomService
-      .delete(this.selectedItem.id)
-      .subscribe((response: any) => {
+    this.roomService.delete(this.selectedItem.id).subscribe(
+      (response: any) => {
         this.successMesg = 'تم حذف العنبر بنجاح، يمكنك المتابعة';
         this.showSuccessDialog = true;
         this.showConfirmDeleteDialog = false;
-      });
+      },
+      (error) => {
+        this.showConfirmDeleteDialog = false;
+      },
+    );
   }
   addNew() {
     this.editMode = false;

@@ -2,7 +2,7 @@
   <label class="labelText" *ngIf="!hideLabel">{{ labelText }}</label>
   <span class="text-red-500" *ngIf="!control.value && !hideLabel &&isRequired">*</span>
 
-  <div class="inputContainer mt-2" >
+  <div class="inputContainer " [ngClass]="!hideLabel?'mt-2':''" >
     <p-floatLabel>
       <p-calendar
         #calendar

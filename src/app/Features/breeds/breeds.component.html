@@ -20,7 +20,7 @@
       noDataMessage="يبدو أنك لم تقم بإضافة أي سلالة بعد، ستظهر السلالة المضافة هنا... يمكنك البدء بإضافة أول سلالة "
       addButtonText="إضافة سلالة"
       nosearchBtnText="العودة إلى السلالة"
-      [withAction]="false"
+      [hasEdit]="false"
     ></app-list>
   </div>
   
@@ -55,12 +55,12 @@
     </div>
   </p-dialog>
   
-  <!-- <app-confirmation-delete-dialog
+  <app-confirmation-delete-dialog
     message="هل أنت متأكد أنك تريد حذف السلالة؟ سيتم حذفها نهائيًا من قائمة السلالات"
     [visible]="showConfirmDeleteDialog"
     (onSubmitEvent)="submitDelete()"
     (exit)="close()"
-  ></app-confirmation-delete-dialog> -->
+  ></app-confirmation-delete-dialog>
   
   <app-success-dialog
     [visible]="showSuccessDialog"

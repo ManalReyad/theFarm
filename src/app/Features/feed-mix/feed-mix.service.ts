@@ -15,7 +15,10 @@ export class FeedMixService {
   }
   getAll(maxResultCount: number, skipCount: number) {
     return this.http.get(
-      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`
+      this.baseUrl + `?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`,
     );
+  }
+  delete(id: number) {
+    return this.http.delete(this.baseUrl + `/${id}`, { responseType: 'text' });
   }
 }

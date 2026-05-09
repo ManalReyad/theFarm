@@ -2,3 +2,11 @@ button
 {
     @apply py-[10px];
 }
+.reportBtn{
+
+    background: #fff;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+     @apply py-[10px];
+
+}

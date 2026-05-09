@@ -1,0 +1,12 @@
+.data {
+    label{
+       font-weight: 700;
+    font-size: 17px; 
+    }
+    font-weight: 700;
+    font-size: 17px;
+    @apply flex justify-center items-center gap-2 p-3;
+    background-color: #fff;
+    border-radius: 5px;
+
+}

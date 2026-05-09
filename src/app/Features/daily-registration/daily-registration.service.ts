@@ -27,4 +27,9 @@ export class DailyRegistrationService {
   getList() {
     return this.http.get(this.baseUrl);
   }
+    exportExcel(cycleId:number) {
+    return this.http.get(this.baseUrl+`/export-excel/${cycleId}`, {
+      responseType: 'blob'
+    });
+  }
 }

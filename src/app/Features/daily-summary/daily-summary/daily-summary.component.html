@@ -3,6 +3,7 @@
     <h1>الملخص اليومي</h1>
     <form [formGroup]="form">
       <div class="lg:flex gap-2 items-center grid-cols-2">
+        <div class="data" *ngIf="pageResult.items?.length!>0"> <label>مبيعات بيض (طبق) : </label> <span>{{pageResult.items?.[0]?.eggsSold}}</span></div>
         <div class="lg:w-[320px] w-[220px]">
           <app-dropdown
             [showLabel]="false"
@@ -15,7 +16,6 @@
         </div>
         <div class="lg:w-[320px] w-[220px]">
           <app-date-input
-            [isRange]="true"
             [isRequired]="false"
             [showClear]="true"
             formControlName="date"

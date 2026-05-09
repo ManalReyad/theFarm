@@ -20,6 +20,7 @@ export class EggProductionReportComponent {
   farmId: any;
   cycleOptions: { id: number; name: string }[] = [];
   form!: FormGroup;
+  loading:boolean=false
   constructor(
     private eggProductionReportsService: EggProductionReportsService,
     private lookupService: LookupService
@@ -129,6 +130,28 @@ export class EggProductionReportComponent {
         this.pageResult.records = response.totalCount;
       });
   }
+  downloadReport() {
+  this.loading=true
+  this.eggProductionReportsService
+    .exportExcel(this.form.value.cycleId)
+    .subscribe((response: Blob) => {
+
+      const blob = new Blob([response], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'تقرير إنتاج البيض.xlsx';
+       
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      this.loading=false
+    });
+}
   onPageChanged(event: any) {
     this.maxResultCount = event.rows;
     this.skipCount = event.first;

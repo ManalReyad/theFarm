@@ -12,8 +12,8 @@ export class WarehouseService {
     return this.http.get(this.baseUrl);
   }
 
-  getWarehouseItem(wharehousId: number,maxResultCount: number, skipCount: number) {
-    return this.http.get(this.baseUrl + `${wharehousId}/items?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}`);
+  getWarehouseItem(wharehousId: number,maxResultCount: number, skipCount: number,searchText='') {
+    return this.http.get(this.baseUrl + `${wharehousId}/items?SkipCount=${skipCount}&MaxResultCount=${maxResultCount}&search=${searchText}`);
   }
   createTransaction(body: any) {
     return this.http.post(this.baseUrl + `transaction`, body);

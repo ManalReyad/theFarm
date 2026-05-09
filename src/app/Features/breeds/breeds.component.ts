@@ -112,15 +112,17 @@ export class BreedsComponent {
     this.showConfirmDeleteDialog = true;
   }
 
-  // submitDelete() {
-  //   this.breedsService
-  //     .delete(this.selectedItem.id)
-  //     .subscribe((response: any) => {
-  //    this.successMesg = 'تم حذف السلالة بنجاح، يمكنك المتابعة';
-  //         this.showSuccessDialog = true;
-  //         this.showConfirmDeleteDialog = false;
-  //     });
-  // }
+  submitDelete() {
+    this.breedsService
+      .delete(this.selectedItem.id)
+      .subscribe((response: any) => {
+     this.successMesg = 'تم حذف السلالة بنجاح، يمكنك المتابعة';
+          this.showSuccessDialog = true;
+          this.showConfirmDeleteDialog = false;
+      }, (error) => {
+        this.showConfirmDeleteDialog = false;
+      },);
+  }
 
   close() {
     this.showForm = false;

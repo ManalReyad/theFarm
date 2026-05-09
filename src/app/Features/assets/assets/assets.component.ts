@@ -19,11 +19,15 @@ export class AssetsComponent {
   editMode: boolean = false;
   form!: FormGroup;
   successMesg: string = '';
+  deleteConfirmMsg =
+    'هل أنت متأكد أنك تريد حذف الأصل؟ سيتم حذفه نهائيًا من قائمة الأصول';
   showWarnningDialog: boolean = false;
   searchMode: boolean = false;
   maxResultCount: number = 7;
   skipCount: number = 0;
   searchReset: boolean = false;
+  showConfirm: boolean = false;
+  forceDelete = false;
   constructor(private assetService: AssetService) {}
   ngOnInit(): void {
     this.createForm();
@@ -62,8 +66,7 @@ export class AssetsComponent {
       .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
         this.pageResult.items = response.items;
-        this.pageResult.records=response.totalCount
-
+        this.pageResult.records = response.totalCount;
       });
   }
   edit(object: any) {
@@ -94,32 +97,39 @@ export class AssetsComponent {
     this.showWarnningDialog = true;
   }
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
+    this.skipCount = 0;
     this.getPage();
   }
   delete(item: any) {
     this.selectedItem = item;
+    this.deleteConfirmMsg =
+      'هل أنت متأكد أنك تريد حذف الأصل؟ سيتم حذفه نهائيًا من قائمة الأصول';
+
     this.showConfirmDeleteDialog = true;
   }
 
-  // submitDelete() {
-  //   this.assetService
-  //     .delete(this.selectedItem.id)
-  //     .subscribe((response: any) => {
-  //       if (response.success) {
-  //         this.successMesg = 'تم حذف الأصل بنجاح، يمكنك المتابعة';
-  //         this.showSuccessDialog = true;
-  //         this.showConfirmDeleteDialog = false;
-  //       }
-  //     });
-  // }
+  submitDelete() {
+    this.assetService.delete(this.selectedItem.id, this.forceDelete).subscribe(
+      (response: any) => {
+        this.successMesg = response.message;
+        this.showSuccessDialog = true;
+        this.showConfirmDeleteDialog = false;
+        this.showConfirm = false;
+      },
+      (error: any) => {
+        this.deleteConfirmMsg = error.error.message;
+        this.showConfirmDeleteDialog = false;
+        this.showConfirm = true;
+      },
+    );
+  }
 
   close() {
     this.showForm = false;

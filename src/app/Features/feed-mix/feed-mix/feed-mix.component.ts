@@ -7,7 +7,7 @@ import { FeedMixService } from '../feed-mix.service';
 @Component({
   selector: 'app-feed-mix',
   templateUrl: './feed-mix.component.html',
-  styleUrl: './feed-mix.component.scss'
+  styleUrl: './feed-mix.component.scss',
 })
 export class FeedMixComponent {
   columns: ListColumn[] = [];
@@ -25,7 +25,7 @@ export class FeedMixComponent {
 
   constructor(
     private feedMixService: FeedMixService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -58,24 +58,23 @@ export class FeedMixComponent {
 
   getPage() {
     this.feedMixService
-      .getAll(this.maxResultCount,this.skipCount)
+      .getAll(this.maxResultCount, this.skipCount)
       .subscribe((response: any) => {
         this.pageResult.items = response.feedMixes;
-        this.pageResult.records=response.totalCount
-
+        this.pageResult.records = response.totalCount;
       });
   }
 
   onPageChanged(event: any) {
-    this.maxResultCount= event.rows;
-    this.skipCount= event.first;
+    this.maxResultCount = event.rows;
+    this.skipCount = event.first;
     this.getPage();
   }
 
   resetSearch() {
     this.searchReset = true;
     this.searchMode = false;
-    this.skipCount= 0;
+    this.skipCount = 0;
     this.getPage();
   }
 
@@ -92,17 +91,20 @@ export class FeedMixComponent {
     this.showConfirmDeleteDialog = true;
   }
 
-  // submitDelete() {
-  //   this.feedMixService
-  //     .delete(this.selectedItem.id)
-  //     .subscribe((response: any) => {
-  //       if (response.success) {
-  //         this.successMesg = 'تم حذف خلطة العلف بنجاح، يمكنك المتابعة';
-  //         this.showSuccessDialog = true;
-  //         this.showConfirmDeleteDialog = false;
-  //       }
-  //     });
-  // }
+  submitDelete() {
+    this.feedMixService.delete(this.selectedItem.id).subscribe(
+      (response: any) => {
+        console.log('response',response);
+        
+        this.successMesg = 'تم حذف خلطة العلف بنجاح، يمكنك المتابعة';
+        this.showSuccessDialog = true;
+        this.showConfirmDeleteDialog = false;
+      },
+      (error) => {
+        this.showConfirmDeleteDialog = false;
+      },
+    );
+  }
 
   close() {
     this.showConfirmDeleteDialog = false;

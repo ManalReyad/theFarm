@@ -12,13 +12,25 @@ export class FeedConsumptionSettingsService {
   getFeedReport(maxResultCount: number, skipCount: number, cycleId = '') {
     return this.http.get(
       this.baseUrl +
-        `/feed-report?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}&cycleId=${cycleId}`
+        `/feed-report?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}&cycleId=${cycleId}`,
     );
   }
   create(body: any) {
     return this.http.post(this.baseUrl, body);
   }
-  getFeedConsumptionSettingsByBreed(maxResultCount: number, skipCount: number, breedId: number) {
-    return this.http.get(this.baseUrl + `/by-breed/${breedId}?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}`);
+  getFeedConsumptionSettingsByBreed(
+    maxResultCount: number,
+    skipCount: number,
+    breedId: number,
+  ) {
+    return this.http.get(
+      this.baseUrl +
+        `/by-breed/${breedId}?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}`,
+    );
+  }
+  exportExcel(cycleId: number) {
+    return this.http.get(this.baseUrl + `/export-excel/${cycleId}`, {
+      responseType: 'blob',
+    });
   }
 }

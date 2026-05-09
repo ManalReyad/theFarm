@@ -3,7 +3,7 @@
   <span class="text-red-500" *ngIf="!control.value&&isRequired&&showLabel">*</span>
   <br *ngIf="showLabel"/>
 
-  <div class="dropdownContainer mt-2" [ngClass]="disabled?'disabled':''">
+  <div class="dropdownContainer" [ngClass]="disabled?'disabled':''" [ngClass]="showLabel?'mt-2':''">
     <p-dropdown
       [formControl]="control"
       [options]="options"

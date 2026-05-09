@@ -28,6 +28,7 @@ export class WarehouseComponent {
   skipCount: number = 0;
   searchReset: boolean = false;
   warehouseData:any[]=[]
+  searchText=''
   constructor(
     private warehouseService: WarehouseService,
     private router: Router,
@@ -82,6 +83,13 @@ export class WarehouseComponent {
         this.getData()
       });
   }
+  search(text:string)
+  {
+    this.searchText=text
+    this.searchMode=true;
+    this.getPage()
+
+  }
   getData() {
     this.lookupService.getFarms().subscribe((response: any) => {
         let farms = response||[];
@@ -92,7 +100,7 @@ export class WarehouseComponent {
             let wharehouse = this.warehouseData.find((item) => item.farmName == farm.name);
             if(wharehouse)
             {
-              this.warehouseService.getWarehouseItem(wharehouse.id,this.maxResultCount,this.skipCount).subscribe((data:any)=>{
+              this.warehouseService.getWarehouseItem(wharehouse.id,this.maxResultCount,this.skipCount,this.searchText).subscribe((data:any)=>{
                 this.pageResult.items=data.items
                 this.pageResult.records=data.totalCount
               })

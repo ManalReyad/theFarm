@@ -65,7 +65,7 @@ export class CycleEvaluationComponent {
     this.cycleEvaluationService
       .getAllByCycle(this.cycleId)
       .subscribe((response: any) => {
-        if (response.length > 0) {
+        if (response.evaluations.length > 0) {
           this.pageResult.items = response.evaluations[response.evaluations.length - 1].details||[];
           this.pageResult.records=response.totalCount
         }
